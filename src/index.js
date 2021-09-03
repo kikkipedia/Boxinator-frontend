@@ -22,6 +22,7 @@ keycloak.init({ onLoad: 'login-required' }).success((authenticated) => {
        window.location.reload();
    } else {
        console.info("Authenticated");
+       
    }
    //store authentication tokens in sessionStorage for usage in app
    sessionStorage.setItem('authentication', keycloak.token);

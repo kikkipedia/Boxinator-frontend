@@ -5,6 +5,7 @@ import Landing from "./components/landing/Landing";
 
 function App() {
   return (
+    <BrowserRouter>
     <div className="App">
         <switch>
           <Route path="/" exact component={Landing}></Route>
@@ -13,6 +14,8 @@ function App() {
 
         </switch>
     </div>
+    </BrowserRouter>
+    
   );
 }
 
