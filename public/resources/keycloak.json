@@ -1,8 +1,8 @@
 {
-    "realm": "boxinator",
-    "auth-server-url": "https://keycloak-boxinator2.herokuapp.com/auth/",
-    "ssl-required": "external",
-    "resource": "boxinator-client",
-    "public-client": true,
-    "confidential-port": 0
-  }
+  "realm": "boxinator-app",
+  "auth-server-url": "https://keycloak-boxinator2.herokuapp.com/auth/",
+  "ssl-required": "external",
+  "resource": "boxinator-frontend",
+  "public-client": true,
+  "confidential-port": 0
+}
