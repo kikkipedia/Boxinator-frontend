@@ -1,5 +1,3 @@
-import { useHistory } from "react-router-dom"
-import Keycloak from "keycloak-js"
 
 const Home = () => {
 
@@ -9,7 +7,10 @@ const Home = () => {
     }
 
     return(
-        <button onClick={logOut}>LOG OUT</button>
+        // <button onClick={logOut}>LOG OUT</button>
+        <div>
+            Home!
+        </div>
     )
 }
 export default Home
