@@ -10,7 +10,7 @@ export const getOrdersByUserId = (userId) => {
 } 
 
 export const createNewOrder = (newOrder) => {
-    return fetch(`${BASE_API_URL}shipments`, {
+    return fetch(`${BASE_API_URL}orders`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

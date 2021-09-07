@@ -1,7 +1,8 @@
-import { useState, useMemo, useRef } from "react"
+import { useState, useMemo } from "react"
 import { Container, Modal, Button, Form } from 'react-bootstrap'
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
+import { createNewOrder } from "../../api/API"
 
 const UserMain = () => {
 
@@ -18,15 +19,22 @@ const UserMain = () => {
     const handleShow = () => setShow(true)
 
     //country list
-    const changeHandler = country => {setCountry(country)}
-    const options = useMemo(() => countryList().getData(), [])
+    // const changeHandler = country => {setCountry(country)}
+    // const options = useMemo(() => countryList().getData(), [])
 
 
     //TODO -- on component render - fetch user shipments
 
     //TODO -- calculate price
 
-
+    const submitOrder = () => {
+        const order = ({
+            receiverName: name,
+            color: colour,
+            totalPrice: price
+        })
+        createNewOrder(order)
+    }
 
     return (
         <Container>
@@ -74,7 +82,7 @@ const UserMain = () => {
                             <Form.Label>Country</Form.Label>
                             {/* <Select options={options} value={country} onChange={changeHandler}/> */}
                         </Form.Group> 
-                        <Button variant="primary" type="submit">Order</Button> 
+                        <Button variant="primary" type="submit" onClick={submitOrder}>Order</Button> 
                     </Form>
                     <br/>
                     <p>Total price: {price} kr</p>
