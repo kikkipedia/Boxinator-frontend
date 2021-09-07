@@ -27,17 +27,8 @@ const UserMain = () => {
     }
 
 
-    //on component render - fetch user shipments 
-/*     useEffect(() => {
-        try {
-            fetchUser()
-            .then(data => setUser(data))
-            console.log(user)
-        }
-        catch(error) {
-            console.log("Error msg: " + error)
-        }
-    },[user]) */
+    //TODO -- on component render - fetch user shipments 
+
 
     return (
         <Container>
