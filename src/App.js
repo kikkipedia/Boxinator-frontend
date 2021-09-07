@@ -1,5 +1,5 @@
 import './App.css'
-import { useEffect, useReducer, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Switch, BrowserRouter } from 'react-router-dom'
 import Home from './components/Home'
 import Navigation from './components/Navigation'
@@ -20,7 +20,7 @@ function App() {
     })
   },[authToken])
 
-  //parse token
+  
   const parseJwt = (token) => {
       var base64Url = token.split('.')[1];
       var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
