@@ -75,3 +75,4 @@ export const updateCountryMultiplier = (updatedCountry) => {
 		body: JSON.stringify(updatedCountry)
 	})
 } 
+
