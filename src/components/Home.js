@@ -1,8 +1,8 @@
 import {useState} from "react";
 
 const Home = () => {
-    const [authToken, setAuthToken] = useState(sessionStorage.getItem("authentication"))
-    const [userInfo, setUserInfo] = useState()
+    // const [authToken, setAuthToken] = useState(sessionStorage.getItem("authentication"))
+    // const [userInfo, setUserInfo] = useState()
 
 /*     useEffect(() => {
         setAuthToken(sessionStorage.getItem("authentication"))
