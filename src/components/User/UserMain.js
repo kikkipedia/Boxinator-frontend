@@ -1,24 +1,23 @@
-import { useState, useEffect, useMemo } from "react"
+import { useState, useMemo, useRef } from "react"
 import { Container, Modal, Button, Form } from 'react-bootstrap'
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
-import { fetchUser } from "../../api/userApi"
+import { createNewOrder, fetchUser } from "../../api/userApi"
 
 const UserMain = () => {
 
     const [user, setUser] = useState()
     const [show, setShow] = useState(false)
-    const [value, setValue] = useState('')
-    const [price, setPrice] = useState(0)
+    const [country, setCountry] = useState('')
 
-    const options = useMemo(() => countryList().getData(), [])
 
     //modal
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
     //country list
-    const changeHandler = value => {setValue(value)}
+    const changeHandler = country => {setCountry(country)}
+    const options = useMemo(() => countryList().getData(), [])
 
     //converts rgb to hex
     const rgbToHex = (r, g, b) => {
@@ -27,7 +26,11 @@ const UserMain = () => {
     }
 
 
-    //TODO -- on component render - fetch user shipments 
+
+    //TODO -- on component render - fetch user shipments
+
+    //TODO -- calculate price
+
 
 
     return (
@@ -50,7 +53,7 @@ const UserMain = () => {
                     <Form>
                         <Form.Group>
                             <Form.Label>Reciever</Form.Label>
-                            <Form.Control type="text" placeholder="Name of reciever" />
+                            <Form.Control type="text" placeholder="Name of reciever"/>
                         </Form.Group>
                         <br/>
                         <Form.Select aria-label="Select weight">
@@ -65,23 +68,24 @@ const UserMain = () => {
                         <Form.Label htmlFor="colorInput">Box colour</Form.Label>
                         <Form.Control
                             type="color"
-                            id="colorInput"
+                            id="coloInput"
                             defaultValue="#F622E3"
-                            title="Choose your color"
-                        />
+                            title="Choose your colour"
+                       />
                         </Form.Group>
                         <br/>
                         <Form.Group>
                             <Form.Label>Country</Form.Label>
-                            <Select options={options} value={value} onChange={changeHandler} />
-                        </Form.Group>  
+                            <Select options={options} value={country} onChange={changeHandler}/>
+                        </Form.Group> 
+                        <Button variant="primary" type="submit">Order</Button> 
                     </Form>
                     <br/>
-                    <p>Total price: {price} kr</p>
+                    <p>Total price: {/* {price}  */}kr</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                    <Button variant="primary" onClick={handleClose}>Order</Button>
+                    
                 </Modal.Footer>
             </Modal>
         </Container>
