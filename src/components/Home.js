@@ -1,14 +1,14 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 const Home = () => {
     const [authToken, setAuthToken] = useState(sessionStorage.getItem("authentication"))
     const [userInfo, setUserInfo] = useState()
 
-    useEffect(() => {
+/*     useEffect(() => {
         setAuthToken(sessionStorage.getItem("authentication"))
-    },[authToken])
+    },[authToken]) */
 
-    function parseJwt (token) {
+/*     function parseJwt (token) {
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
@@ -24,7 +24,7 @@ const Home = () => {
         }
         setUserInfo(tempUserInfo)
         console.log(userInfo)
-    }
+    } */
 
 
 
@@ -34,9 +34,10 @@ const Home = () => {
 
         <div>
             Guest Home
-            <p><button onClick={helloBackend}>FETCH</button></p>
-            <p>Username: {userInfo.userName}</p>
+            {/* <p><button onClick={helloBackend}>FETCH</button></p> */}
+{/*             <p>Username: {userInfo.userName}</p>
             <p>Email: {userInfo.mail}</p>
+            <p>Role: {userInfo.role}</p> */}
         </div>
 
     )
