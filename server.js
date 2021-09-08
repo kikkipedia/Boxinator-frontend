@@ -1,8 +1,9 @@
   
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
-const port = process.env.SERVER_PORT || 8080;
+const port = process.env.SERVER_PORT || 3000;
 
 // Add Access Control Allow Origin headers
 app.use((req, res, next) => {
@@ -14,7 +15,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/api", (req, res) => {
+app.get("./resources/keycloak.json", (req, res) => {
   res.json("Hello");
 });
 

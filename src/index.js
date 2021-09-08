@@ -23,11 +23,12 @@ keycloak.init({ onLoad: 'login-required' }).success((authenticated) => {
    if (!authenticated) {
       window.location.reload();
       //window.location.goBack();
-      
+      sessionStorage.setItem('authentication', "keycloak.token");
+      sessionStorage.setItem('refreshToken', "keycloak.refreshToken");
    } else {
        console.info("Authenticated");
        sessionStorage.setItem('authentication', keycloak.token);
-   sessionStorage.setItem('refreshToken', keycloak.refreshToken);
+        sessionStorage.setItem('refreshToken', keycloak.refreshToken);
    }
    //store authentication tokens in sessionStorage for usage in app
    
