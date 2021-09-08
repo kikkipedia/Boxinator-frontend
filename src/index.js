@@ -15,9 +15,9 @@ ReactDOM.render(
 );
 //Get the keycloak configuration
 let keycloak = Keycloak('./resources/keycloak.json');
+console.log(keycloak)
 
-sessionStorage.setItem('authentication', keycloak.token);
-      sessionStorage.setItem('refreshToken', "keycloak.refreshToken");
+
   
 //Initialization of the keycloak instance
 keycloak.init({ onLoad: 'login-required' }, {mode: 'cors'}).success((authenticated) => {
