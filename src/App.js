@@ -1,5 +1,5 @@
 import './App.css'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Route, Switch, BrowserRouter } from 'react-router-dom'
 import Home from './components/Home'
 import Navigation from './components/Navigation'
@@ -8,27 +8,16 @@ import AdminMain from './components/Admin/AdminMain'
 
 function App() {
 
-
-  const [authToken, setAuthToken] = useState(sessionStorage.getItem("authentication"))
-  const [userInfo, setUserInfo] = useState()
+  const [authToken, setAuthToken] = useState()
 
   //sets user info
   useEffect(() => {
-    setUserInfo({
-      userName : parseJwt(authToken).preferred_username,
-      mail: parseJwt(authToken).email
-    })
+      (async() => {
+        setAuthToken(sessionStorage.getItem("authentication"))
+      }    
+      )()
+      console.log(authToken + " IN APP.JS")
   },[authToken])
-
-  
-  const parseJwt = (token) => {
-      var base64Url = token.split('.')[1];
-      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
-      return JSON.parse(jsonPayload);
-  }
 
   return (    
     <BrowserRouter>
