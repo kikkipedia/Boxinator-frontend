@@ -18,7 +18,7 @@ ReactDOM.render(
 
 let keycloak = Keycloak('./resources/keycloak.json');
 
-  
+if(window.location.pathname !== "/start"){
 //Initialization of the keycloak instance
 keycloak.init({ onLoad: 'login-required' }, {mode: 'cors'}).success((authenticated) => {
     
@@ -55,7 +55,7 @@ setTimeout(() => {
 }).error(() => {
    console.error("Authenticated Failed");
 });
-
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
