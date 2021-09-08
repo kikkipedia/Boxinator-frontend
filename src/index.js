@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Keycloak from 'keycloak-js';
+import { getToken } from './api/API';
+
 
 
 ReactDOM.render(
@@ -13,20 +15,26 @@ ReactDOM.render(
   document.getElementById('root')
 );
 //Get the keycloak configuration
+
 let keycloak = Keycloak('./resources/keycloak.json');
+
   
 //Initialization of the keycloak instance
-keycloak.init({ onLoad: 'login-required' }).success((authenticated) => {
+keycloak.init({ onLoad: 'login-required' }, {mode: 'cors'}).success((authenticated) => {
+    
  
    if (!authenticated) {
-       window.location.reload();
+      window.location.reload();
+      //window.location.goBack();
+      
    } else {
        console.info("Authenticated");
-       
+
+       sessionStorage.setItem('authentication', keycloak.token);
+        sessionStorage.setItem('refreshToken', keycloak.refreshToken);
    }
    //store authentication tokens in sessionStorage for usage in app
-   sessionStorage.setItem('authentication', keycloak.token);
-   sessionStorage.setItem('refreshToken', keycloak.refreshToken);
+   
  
 //to regenerate token on expiry
 setTimeout(() => {
@@ -47,6 +55,7 @@ setTimeout(() => {
 }).error(() => {
    console.error("Authenticated Failed");
 });
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
