@@ -14,10 +14,10 @@ ReactDOM.render(
   document.getElementById('root')
 );
 //Get the keycloak configuration
-let keycloak = Keycloak('./resources/keycloak.json', {mode: 'cors'});
+let keycloak = Keycloak('./resources/keycloak.json');
   
 //Initialization of the keycloak instance
-keycloak.init({ onLoad: 'login-required' }).success((authenticated) => {
+keycloak.init({ onLoad: 'login-required' }, {mode: 'cors'}).success((authenticated) => {
     
  
    if (!authenticated) {
