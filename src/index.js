@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Keycloak from 'keycloak-js';
 
 
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
@@ -17,15 +18,19 @@ let keycloak = Keycloak('./resources/keycloak.json', {mode: 'cors'});
   
 //Initialization of the keycloak instance
 keycloak.init({ onLoad: 'login-required' }).success((authenticated) => {
+    
  
    if (!authenticated) {
-       window.location.reload();
+      window.location.reload();
+      //window.location.goBack();
+      
    } else {
        console.info("Authenticated");
+       sessionStorage.setItem('authentication', keycloak.token);
+   sessionStorage.setItem('refreshToken', keycloak.refreshToken);
    }
    //store authentication tokens in sessionStorage for usage in app
-   sessionStorage.setItem('authentication', keycloak.token);
-   sessionStorage.setItem('refreshToken', keycloak.refreshToken);
+   
  
 //to regenerate token on expiry
 setTimeout(() => {
