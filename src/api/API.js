@@ -1,10 +1,10 @@
 const BASE_API_URL = "http://localhost:8080/api/"
 
-var express = require('express')
-var cors = require('cors')
-var app = express()
+// var express = require('express')
+// var cors = require('cors')
+// var app = express()
  
-app.use(cors())
+// app.use(cors())
 
 export const getOrdersByUserId = (userId) => {
     return fetch(`${BASE_API_URL}orders?user_id=${userId}`, {
