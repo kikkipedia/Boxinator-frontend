@@ -3,15 +3,10 @@
 const Home = () => {
 
 
-
-
-
-
-
     return(
 
         <div>
-            Guest Home
+            Welcome to Boxinator! What do you want to do?
         </div>
 
     )

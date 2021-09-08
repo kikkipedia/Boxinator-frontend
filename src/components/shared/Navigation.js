@@ -14,7 +14,7 @@ const Navigation = () => {
                             <Nav.Link href="/admin">Admin</Nav.Link>
                         </Nav>
                         <Nav className="m-auto">
-                            <Nav.Link href="https://keycloak-boxinator.herokuapp.com/auth/realms/boxinator-app/protocol/openid-connect/logout?redirect_uri=http://localhost:3000">Logout</Nav.Link>
+                            <Nav.Link href="https://keycloak-boxinator.herokuapp.com/auth/realms/boxinator-app/protocol/openid-connect/logout?redirect_uri=http://localhost:3000/start">Logout</Nav.Link>
                         </Nav>                        
                     </Navbar.Collapse>
                 </Container>
