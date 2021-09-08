@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Keycloak from 'keycloak-js';
+import { getToken } from './api/API';
 
 
 
@@ -14,11 +15,11 @@ ReactDOM.render(
   document.getElementById('root')
 );
 //Get the keycloak configuration
-let keycloak = Keycloak('./resources/keycloak.json');
-console.log(keycloak)
 
-sessionStorage.setItem('authentication', keycloak.token);
-      sessionStorage.setItem('refreshToken', "keycloak.refreshToken");
+let keycloak = Keycloak('./resources/keycloak.json');
+console.log(getToken())
+
+
   
 //Initialization of the keycloak instance
 keycloak.init({ onLoad: 'login-required' }, {mode: 'cors'}).success((authenticated) => {
@@ -27,8 +28,7 @@ keycloak.init({ onLoad: 'login-required' }, {mode: 'cors'}).success((authenticat
    if (!authenticated) {
       window.location.reload();
       //window.location.goBack();
-      sessionStorage.setItem('authentication', "keycloak.token");
-      sessionStorage.setItem('refreshToken', "keycloak.refreshToken");
+      
    } else {
        console.info("Authenticated");
        sessionStorage.setItem('authentication', keycloak.token);
