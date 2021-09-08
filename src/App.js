@@ -1,3 +1,4 @@
+
 import './App.css'
 import { useState, useEffect } from 'react'
 import { Route, Switch, BrowserRouter } from 'react-router-dom'
@@ -28,6 +29,8 @@ function App() {
         <Route exact path="/start" component={Start}/>
         <Route path="/user" component={UserMain}/>
         <Route path="/admin" component={AdminMain}/>
+          {/* <Route path="/shipments" exact component={shipments}></Route>
+          <Route path="/adminsettings" exact component={adminsettings}></Route> */}
 
       </Switch>
     </BrowserRouter>      

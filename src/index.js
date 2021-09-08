@@ -29,6 +29,7 @@ keycloak.init({ onLoad: 'login-required' }, {mode: 'cors'}).success((authenticat
       
    } else {
        console.info("Authenticated");
+
        sessionStorage.setItem('authentication', keycloak.token);
         sessionStorage.setItem('refreshToken', keycloak.refreshToken);
    }
