@@ -1,22 +1,5 @@
 const BASE_API_URL = "http://localhost:8080/api/"
 
-// var express = require('express')
-// var cors = require('cors')
-// var app = express()
- 
-// app.use(cors())
-export const getToken = () =>{
-	return fetch('https://keycloak-boxinator.herokuapp.com/auth/realms/boxinator-app/protocol/openid-connect/token',
-	{
-		method: 'GET',
-		mode: "cors",
-		headers:{
-			'Content-Type': 'application/json',
-			//"Access-Control-Allow-Origin": "*"
-
-		}
-	})
-}
 
 export const getOrdersByUserId = (userId) => {
     return fetch(`${BASE_API_URL}orders?user_id=${userId}`, {

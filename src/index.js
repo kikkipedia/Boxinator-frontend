@@ -17,8 +17,6 @@ ReactDOM.render(
 //Get the keycloak configuration
 
 let keycloak = Keycloak('./resources/keycloak.json');
-console.log(getToken())
-
 
   
 //Initialization of the keycloak instance
