@@ -76,3 +76,7 @@ export const updateCountryMultiplier = (updatedCountry) => {
 	})
 } 
 
+export const getAllCountries = () => {
+	return fetch(`${BASE_API_URL}countries`)
+	.then(result => result.json())
+}

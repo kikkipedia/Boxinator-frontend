@@ -1,26 +1,55 @@
-import { useState, useMemo } from "react"
+import { useState, useEffect } from "react"
 import { Container, Modal, Button, Form } from 'react-bootstrap'
-import countryList from 'react-select-country-list'
-import Select from 'react-select'
-import { createNewOrder } from "../../api/API"
+import { createNewOrder, getAllCountries } from "../../api/API"
 
 const UserMain = () => {
 
+    const authToken = sessionStorage.getItem("authentication")
     const [show, setShow] = useState(false)
-    const [country, setCountry] = useState('')
+    const [countries, setCountries] = useState([])
     const [weight, setWeight] = useState(0)
     //to post
     const [name, setName] = useState("")
     const [colour, setColour] = useState("")
     const [price, setPrice] = useState(0)
+    const [userInfo, setUserInfo] = useState()
+
+    //user info from token
+    useEffect(() => {
+        setUserInfo({
+            userName : parseJwt(authToken).preferred_username,
+            mail: parseJwt(authToken).email
+        })
+        console.log("IN userMain.js")
+    },[authToken])
+
+        
+      const parseJwt = (token) => {
+    
+          var base64Url = token.split('.')[1];
+          var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          return JSON.parse(jsonPayload);
+      }
 
     //modal
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
-    //country list
-    // const changeHandler = country => {setCountry(country)}
-    // const options = useMemo(() => countryList().getData(), [])
+    //NOT WORKING
+    useEffect(() => {
+        try {
+            getAllCountries()
+            .then(data => console.log(data))
+            console.log("data fetched")
+        }
+        catch(err) {
+            console.log(err)
+        }
+        console.log("hej")
+    },[])
 
 
     //TODO -- on component render - fetch user shipments
@@ -28,12 +57,14 @@ const UserMain = () => {
     //TODO -- calculate price
 
     const submitOrder = () => {
+        //call calculate price-function
         const order = ({
             receiverName: name,
             color: colour,
             totalPrice: price
         })
         createNewOrder(order)
+              
     }
 
     return (
@@ -80,7 +111,11 @@ const UserMain = () => {
                         <br/>
                         <Form.Group>
                             <Form.Label>Country</Form.Label>
-                            {/* <Select options={options} value={country} onChange={changeHandler}/> */}
+                            <Form.Select aria-label="Select country">
+                                {countries && countries.map(opt => (
+                                    <option value={opt}>{opt}</option>
+                                ))}
+                            </Form.Select>
                         </Form.Group> 
                         <Button variant="primary" type="submit" onClick={submitOrder}>Order</Button> 
                     </Form>
