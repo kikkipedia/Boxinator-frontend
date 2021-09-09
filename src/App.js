@@ -16,7 +16,6 @@ function App() {
         setAuthToken(sessionStorage.getItem("authentication"))
       }    
       )()
-      console.log(authToken + " IN APP.JS")
   },[authToken])
 
   return (    

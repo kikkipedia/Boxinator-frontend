@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { Container, Modal, Button, Form } from 'react-bootstrap'
-import { createNewOrder, getAllCountries } from "../../api/API"
+import { createNewOrder, getAllCountries, getPackageTypes } from "../../api/API"
+
+
 
 const UserMain = () => {
 
@@ -8,10 +10,14 @@ const UserMain = () => {
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
     const [weight, setWeight] = useState(0)
+    const [countryId, setCountryId] = useState()
+    const [multiplier, setMultiplier] = useState()
     //to post
-    const [name, setName] = useState("")
-    const [colour, setColour] = useState("")
+    const [name, setName] = useState('')
+    const [colour, setColour] = useState('')
     const [price, setPrice] = useState(0)
+    const [packages, setPackages] = useState([])
+
     const [userInfo, setUserInfo] = useState()
 
     //user info from token
@@ -20,51 +26,77 @@ const UserMain = () => {
             userName : parseJwt(authToken).preferred_username,
             mail: parseJwt(authToken).email
         })
-        console.log("IN userMain.js")
     },[authToken])
 
         
-      const parseJwt = (token) => {
-    
-          var base64Url = token.split('.')[1];
-          var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-          var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-          }).join(''));
-          return JSON.parse(jsonPayload);
-      }
+    const parseJwt = (token) => {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+        }).join(''))
+        return JSON.parse(jsonPayload)
+    }
 
     //modal
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
-    //NOT WORKING
+    //fetch & sort countries from database
     useEffect(() => {
         try {
             getAllCountries()
-            .then(data => console.log(data))
-            console.log("data fetched")
+            //.then(data => data.sort(sortData))
+            .then(data => setCountries(data))
+            setMultiplier(countries[countryId - 1].multiplier)
         }
         catch(err) {
             console.log(err)
         }
-        console.log("hej")
+    },[countryId])
+
+    useEffect(() => {
+        try {
+            getPackageTypes()
+            //.then(data => data.sort(sortData))
+            .then(data => setPackages(data))
+        }
+        catch(err) {
+            console.log(err)
+        }
     },[])
 
+    const sortData = (a, b) => {
+        if(a.name < b.name){
+            return -1
+        }
+        else if (a.name > b.name) {
+            return 1
+        }
+        else {
+            return 0
+        }
+    } 
+
+    //calculate price
+    useEffect(() => {        
+        const total = (200 + (multiplier * weight))
+        setPrice(total)
+    },[weight, multiplier])
 
     //TODO -- on component render - fetch user shipments
 
-    //TODO -- calculate price
 
+    //posts order to database
     const submitOrder = () => {
-        //call calculate price-function
         const order = ({
             receiverName: name,
             color: colour,
-            totalPrice: price
-        })
-        createNewOrder(order)
-              
+            totalPrice: price,
+            //country: countryId
+        }) 
+        console.log(order)
+        createNewOrder(order)           
     }
 
     return (
@@ -86,47 +118,44 @@ const UserMain = () => {
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Form.Label>Reciever</Form.Label>
+                            <Form.Label></Form.Label>
                             <Form.Control type="text" placeholder="Name of reciever" onChange={e => setName(e.target.value)}/>
                         </Form.Group>
                         <br/>
                         <Form.Select aria-label="Select weight" onChange={e => setWeight(e.target.value)}>
-                            <option>Select weight</option>
-                            <option value="1">Basic 1kg</option>
-                            <option value="2">Humble 2kg</option>
-                            <option value="5">Deluxe 5kg</option>
-                            <option value="8">Premium 8kg</option>
+                            <option>Select package</option>
+                            {packages.map(pack => (
+                                <option key={pack.id} value={pack.weight}>{pack.name} - {pack.weight}kg</option>
+                            ))}
                         </Form.Select>
                         <br/>
                         <Form.Group>
-                        <Form.Label htmlFor="colorInput">Box colour</Form.Label>
-                        <Form.Control
-                            type="color"
-                            id="coloInput"
-                            defaultValue="#F622E3"
-                            title="Choose your colour"
-                            onChange={e => setColour(e.target.value)}
-                       />
+                            <Form.Label htmlFor="colorInput">Box colour</Form.Label>
+                            <Form.Control
+                                type="color"
+                                id="coloInput"
+                                defaultValue="#F622E3"
+                                title="Choose your colour"
+                                onChange={e => setColour(e.target.value)}
+                        />
                         </Form.Group>
                         <br/>
                         <Form.Group>
-                            <Form.Label>Country</Form.Label>
-                            <Form.Select aria-label="Select country">
-                                {countries && countries.map(opt => (
-                                    <option value={opt}>{opt}</option>
+                            <Form.Label></Form.Label>
+                            <Form.Select aria-label="Select country" onChange={e => setCountryId(e.target.value)}>
+                                {countries.map(opt => (
+                                    <option key={opt.id} value={opt.id}>{opt.name}</option>
                                 ))}
                             </Form.Select>
                         </Form.Group> 
-                        <Button variant="primary" type="submit" onClick={submitOrder}>Order</Button> 
+                        <br/>
+                        <Button variant="primary"  onClick={submitOrder}>Order</Button> 
                     </Form>
                     <br/>
                     <p>Total price: {price} kr</p>
-                    <p>Weight: {weight}</p>
-                    <p>Colour: {colour}</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                    
                 </Modal.Footer>
             </Modal>
         </Container>
