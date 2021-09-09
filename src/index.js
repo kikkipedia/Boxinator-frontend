@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -9,53 +9,18 @@ import { getToken } from './api/API';
 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
+    document.getElementById('root')
 );
-//Get the keycloak configuration
 
-let keycloak = Keycloak('./resources/keycloak.json');
 
-if(window.location.pathname !== "/start"){
-//Initialization of the keycloak instance
-keycloak.init({ onLoad: 'login-required' }, {mode: 'cors'}).success((authenticated) => {
-    
+    //Get the keycloak configuration
  
-   if (!authenticated) {
-      window.location.reload();
-      //window.location.goBack();
-      
-   } else {
-       console.info("Authenticated");
 
-       sessionStorage.setItem('authentication', keycloak.token);
-        sessionStorage.setItem('refreshToken', keycloak.refreshToken);
-   }
-   //store authentication tokens in sessionStorage for usage in app
-   
- 
-//to regenerate token on expiry
-setTimeout(() => {
-       keycloak.updateToken(70).success((refreshed) => {
-           if (refreshed) {
-               console.debug('Token refreshed' + refreshed);
-           } else {
-               console.warn('Token not refreshed, valid for '
-                   + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
-           }
-       }).error(() => {
-           console.error('Failed to refresh token');
-       });
- 
- 
-   }, 60000)
- 
-}).error(() => {
-   console.error("Authenticated Failed");
-});
-}
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
