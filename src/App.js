@@ -5,8 +5,8 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom'
 import Home from './components/home/Home'
 import Start from './components/start/Start'
 import Navigation from './components/shared/Navigation'
-import UserMain from './components/user/UserMain'
-import AdminMain from './components/admin/AdminMain'
+import UserMain from './components/User/UserMain'
+import AdminMain from './components/Admin/AdminMain'
 
 function App() {
 
