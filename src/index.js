@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Keycloak from 'keycloak-js';
-import { getToken } from './api/API';
+
 
 
 
@@ -17,7 +17,9 @@ ReactDOM.render(
 
 
     //Get the keycloak configuration
- 
+    // let keycloak = Keycloak('./resources/keycloak.json');
+    // sessionStorage.setItem('authentication', Keycloak.token);
+    //  sessionStorage.setItem('refreshToken', keycloak.refreshToken);
 
 
 

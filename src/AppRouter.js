@@ -6,7 +6,7 @@ import AdminMain from './components/admin/AdminMain';
 import Home from './components/home/Home'
 import UserMain from './components/user/UserMain'
 import Start from './components/start/Start'
-import { PrivateRoute } from './utilities/privateRoute';
+import { PrivateRoute } from './utilities/PrivateRoute';
 import Navigation from './components/shared/Navigation'
 
 
@@ -21,7 +21,7 @@ export const AppRouter = () => {
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/start" component={Start}/>
-                <Route path="/user" component={UserMain}/>
+                <PrivateRoute roles={['user']} path="/user" component={UserMain} />
                 <PrivateRoute roles={['admin']} path="/admin" component={AdminMain} />
             </Switch>
         </BrowserRouter>
