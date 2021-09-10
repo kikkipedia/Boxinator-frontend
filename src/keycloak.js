@@ -6,5 +6,5 @@ const keycloakConfig = {
   
 }
 
-const keycloak = new Keycloak(keycloakConfig);
-export default keycloak
+const keycloak2 = new Keycloak(keycloakConfig);
+export default keycloak2

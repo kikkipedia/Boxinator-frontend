@@ -1,12 +1,11 @@
 
 import './App.css'
 import { useState, useEffect } from 'react'
-import { Route, Switch, BrowserRouter } from 'react-router-dom'
 import Navigation from './components/shared/Navigation'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 import AppRouter from './AppRouter'
 import keycloak from './keycloak'
-import Keycloak from 'keycloak-js';
+
 
 function App() {
 
@@ -14,9 +13,7 @@ function App() {
 
   //sets user info
   
-  
   useEffect(() => {
-    let keycloak = Keycloak('./resources/keycloak.json');
      setAuthToken(sessionStorage.getItem("authentication")) 
     console.log(authToken + " IN APP.JS")
   }, [authToken])
@@ -24,8 +21,7 @@ function App() {
 
   return (
 
-    <ReactKeycloakProvider authClient={keycloak} keycloak={keycloak} initConfig={{
-      onLoad: 'login-required'}} >
+    <ReactKeycloakProvider authClient={keycloak} keycloak={keycloak}  >
       {/* <BrowserRouter> */}
         <Navigation />
         {/* <Switch> */}

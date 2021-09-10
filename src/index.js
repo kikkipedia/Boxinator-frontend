@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Keycloak from 'keycloak-js';
-
-
 
 
 ReactDOM.render(
@@ -14,14 +11,6 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById('root')
 );
-
-
-    //Get the keycloak configuration
-    // let keycloak = Keycloak('./resources/keycloak.json');
-    // sessionStorage.setItem('authentication', Keycloak.token);
-    //  sessionStorage.setItem('refreshToken', keycloak.refreshToken);
-
-
 
 
 // If you want to start measuring performance in your app, pass a function
