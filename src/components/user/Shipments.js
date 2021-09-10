@@ -2,7 +2,7 @@
 const Shipments = () => {
 
     return(
-        <div></div>
+        <div>Shipments</div>
     )
 }
 export default Shipments

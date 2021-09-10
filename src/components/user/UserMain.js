@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react"
 import { Container, Modal, Button, Form } from 'react-bootstrap'
-import { createNewOrder, getAllCountries, getPackageTypes } from "../../api/API"
-
-
+import { createNewOrder, getAllCountries, getAllUsers, getPackageTypes, postNewUser } from "../../api/API"
+import Shipments from "./Shipments"
 
 const UserMain = () => {
 
@@ -18,16 +17,37 @@ const UserMain = () => {
     const [price, setPrice] = useState(0)
     const [packages, setPackages] = useState([])
 
-    const [userInfo, setUserInfo] = useState()
+    const [userEmail, setUserEmail] = useState()
+    const [userId, setUserId] = useState()
+    const [users, setUsers] = useState([])
 
-    //user info from token
+    //user email from token
     useEffect(() => {
-        setUserInfo({
-            userName : parseJwt(authToken).preferred_username,
-            mail: parseJwt(authToken).email
-        })
+        setUserEmail(parseJwt(authToken).email)
+        fetchUser()
     },[authToken])
 
+    //save if new user, or else fetch user 
+    const fetchUser = () => {
+        getAllUsers()
+        .then(data => setUsers(data))
+        //search for user email in user table
+        let user = users.find(el => el.email === userEmail)
+        if (user === undefined) {
+            //TODO - post new user
+            console.log("User not found. Email: " + userEmail)
+            const post = ({
+                email: userEmail
+            })
+            console.log(post)
+            postNewUser(post)
+            //TODO - then get the id!
+        }
+        else {
+            setUserId(user.id)
+            console.log(user)
+        }
+    }
         
     const parseJwt = (token) => {
         var base64Url = token.split('.')[1];
@@ -36,7 +56,7 @@ const UserMain = () => {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
         }).join(''))
         return JSON.parse(jsonPayload)
-    }
+    }   
 
     //modal
     const handleClose = () => setShow(false)
@@ -66,17 +86,17 @@ const UserMain = () => {
         }
     },[])
 
-    const sortData = (a, b) => {
-        if(a.name < b.name){
-            return -1
-        }
-        else if (a.name > b.name) {
-            return 1
-        }
-        else {
-            return 0
-        }
-    } 
+    // const sortData = (a, b) => {
+    //     if(a.name < b.name){
+    //         return -1
+    //     }
+    //     else if (a.name > b.name) {
+    //         return 1
+    //     }
+    //     else {
+    //         return 0
+    //     }
+    // } 
 
     //calculate price
     useEffect(() => {        
@@ -84,16 +104,13 @@ const UserMain = () => {
         setPrice(total)
     },[weight, multiplier])
 
-    //TODO -- on component render - fetch user shipments
-
-
     //posts order to database
     const submitOrder = () => {
         const order = ({
             receiverName: name,
             color: colour,
             totalPrice: price,
-            //git push origin country: countryId
+            //country: countryId
         }) 
         console.log(order)
         createNewOrder(order)           
@@ -101,13 +118,7 @@ const UserMain = () => {
 
     return (
         <Container>
-            <h4>Shipments</h4>
-            <hr/>
-            <h5>Shipments under way</h5>
-            <p>(Fetch orders in progress)</p>
-            <hr/>
-            <h5>Completed shipments</h5>
-            <p>(Fetch complete orders)</p>
+            <Shipments/>
             <hr/>
             <button onClick={handleShow}>New shipment</button>
 
