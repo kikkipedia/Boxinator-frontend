@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { Container, Modal, Button, Form } from 'react-bootstrap'
-import { createNewOrder, getAllCountries } from "../../api/API"
+
+import { createNewOrder, getAllCountries, getAllUsers, getPackageTypes, postNewUser } from "../../api/API"
+import Shipments from "./Shipments"
 
 
 const UserMain = () => {
@@ -9,77 +11,123 @@ const UserMain = () => {
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
     const [weight, setWeight] = useState(0)
+
+    const [countryId, setCountryId] = useState()
+    const [multiplier, setMultiplier] = useState()
     //to post
-    const [name, setName] = useState("")
-    const [colour, setColour] = useState("")
+    const [name, setName] = useState('')
+    const [colour, setColour] = useState('')
     const [price, setPrice] = useState(0)
-    const [userInfo, setUserInfo] = useState()
-    
+    const [packages, setPackages] = useState([])
+
+    const [userEmail, setUserEmail] = useState()
+    const [userId, setUserId] = useState()
+    const [users, setUsers] = useState([])
+
+    //user email from token
     useEffect(() => {
+        setUserEmail(parseJwt(authToken).email)
+        fetchUser()
+    },[authToken])
+
+    //save if new user, or else fetch user 
+    const fetchUser = () => {
+        getAllUsers()
+        .then(data => setUsers(data))
+        //search for user email in user table
+        let user = users.find(el => el.email === userEmail)
+        if (user === undefined) {
+            //TODO - post new user
+            console.log("User not found. Email: " + userEmail)
+            const post = ({
+                email: userEmail
+            })
+            console.log(post)
+            postNewUser(post)
+            //TODO - then get the id!
+        }
+        else {
+            setUserId(user.id)
+            console.log(user)
+        }
+    }
         
-        setUserInfo({
-            
-             userName: parseJwt(authToken).preferred_username,
-             mail: parseJwt(authToken).email
-        })
-        console.log("IN userMain.js")
-    }, [authToken])
-
-
     const parseJwt = (token) => {
-
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-    }
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+        }).join(''))
+        return JSON.parse(jsonPayload)
+    }   
+
 
     //modal
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
-    //NOT WORKING
+
+    //fetch & sort countries from database
     useEffect(() => {
         try {
             getAllCountries()
-                .then(data => console.log(data))
-            console.log("data fetched")
-
+            //.then(data => data.sort(sortData))
+            .then(data => setCountries(data))
+            setMultiplier(countries[countryId - 1].multiplier)
         }
-        catch (err) {
+        catch(err) {
             console.log(err)
         }
-        console.log("hej")
-    }, [])
+    },[countryId])
 
+    useEffect(() => {
+        try {
+            getPackageTypes()
+            //.then(data => data.sort(sortData))
+            .then(data => setPackages(data))
+        }
+        catch(err) {
+            console.log(err)
+        }
+    },[])
 
-    //TODO -- on component render - fetch user shipments
+    // const sortData = (a, b) => {
+    //     if(a.name < b.name){
+    //         return -1
+    //     }
+    //     else if (a.name > b.name) {
+    //         return 1
+    //     }
+    //     else {
+    //         return 0
+    //     }
+    // } 
 
-    //TODO -- calculate price
+    //calculate price
+    useEffect(() => {        
+        const total = (200 + (multiplier * weight))
+        setPrice(total)
+    },[weight, multiplier])
 
+    //posts order to database
     const submitOrder = () => {
-        //call calculate price-function
         const order = ({
             receiverName: name,
             color: colour,
-            totalPrice: price
-        })
-        createNewOrder(order)
+            totalPrice: price,
+            //country: countryId
+        }) 
+        console.log(order)
+        createNewOrder(order)           
 
     }
 
     return (
         <Container>
-            <h4>Shipments</h4>
-            <hr />
-            <h5>Shipments under way</h5>
-            <p>(Fetch orders in progress)</p>
-            <hr />
-            <h5>Completed shipments</h5>
-            <p>(Fetch complete orders)</p>
-            <hr />
+
+            <Shipments/>
+            <hr/>
+
             <button onClick={handleShow}>New shipment</button>
 
             <Modal show={show} onHide={handleClose}>
@@ -89,18 +137,19 @@ const UserMain = () => {
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Form.Label>Reciever</Form.Label>
-                            <Form.Control type="text" placeholder="Name of reciever" onChange={e => setName(e.target.value)} />
+
+                            <Form.Label></Form.Label>
+                            <Form.Control type="text" placeholder="Name of reciever" onChange={e => setName(e.target.value)}/>
                         </Form.Group>
-                        <br />
+                        <br/>
                         <Form.Select aria-label="Select weight" onChange={e => setWeight(e.target.value)}>
-                            <option>Select weight</option>
-                            <option value="1">Basic 1kg</option>
-                            <option value="2">Humble 2kg</option>
-                            <option value="5">Deluxe 5kg</option>
-                            <option value="8">Premium 8kg</option>
+                            <option>Select package</option>
+                            {packages.map(pack => (
+                                <option key={pack.id} value={pack.weight}>{pack.name} - {pack.weight}kg</option>
+                            ))}
                         </Form.Select>
-                        <br />
+                        <br/>
+
                         <Form.Group>
                             <Form.Label htmlFor="colorInput">Box colour</Form.Label>
                             <Form.Control
@@ -109,23 +158,23 @@ const UserMain = () => {
                                 defaultValue="#F622E3"
                                 title="Choose your colour"
                                 onChange={e => setColour(e.target.value)}
-                            />
+
+                        />
                         </Form.Group>
-                        <br />
+                        <br/>
                         <Form.Group>
-                            <Form.Label>Country</Form.Label>
-                            <Form.Select aria-label="Select country">
-                                {countries && countries.map(opt => (
-                                    <option value={opt}>{opt}</option>
+                            <Form.Label></Form.Label>
+                            <Form.Select aria-label="Select country" onChange={e => setCountryId(e.target.value)}>
+                                {countries.map(opt => (
+                                    <option key={opt.id} value={opt.id}>{opt.name}</option>
                                 ))}
                             </Form.Select>
-                        </Form.Group>
-                        <Button variant="primary" type="submit" onClick={submitOrder}>Order</Button>
+                        </Form.Group> 
+                        <br/>
+                        <Button variant="primary"  onClick={submitOrder}>Order</Button> 
                     </Form>
-                    <br />
+                    <br/>
                     <p>Total price: {price} kr</p>
-                    <p>Weight: {weight}</p>
-                    <p>Colour: {colour}</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Cancel</Button>
@@ -137,3 +186,4 @@ const UserMain = () => {
 }
 
 export default UserMain
+

@@ -14,6 +14,7 @@ function App() {
   //sets user info
   
   useEffect(() => {
+
      setAuthToken(sessionStorage.getItem("authentication")) 
     console.log(authToken + " IN APP.JS")
   }, [authToken])
@@ -27,6 +28,7 @@ function App() {
         {/* <Switch> */}
           <AppRouter />
           {/* <Route exact path="/" component={Home}/>
+
         <Route exact path="/start" component={Start}/>
         <Route path="/user" component={UserMain}/>
         <Route path="/admin" component={AdminMain}/> */}
