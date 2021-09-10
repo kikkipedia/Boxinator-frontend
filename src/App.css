@@ -1,3 +1,7 @@
 .App {
   text-align: center;
 }
+.Button {
+  height: 30px;
+  width:60px;
+}

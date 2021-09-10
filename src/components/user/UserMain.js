@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
 import { Container, Modal, Button, Form } from 'react-bootstrap'
+
 import { createNewOrder, getAllCountries, getAllUsers, getPackageTypes, postNewUser } from "../../api/API"
 import Shipments from "./Shipments"
+
 
 const UserMain = () => {
 
@@ -9,6 +11,7 @@ const UserMain = () => {
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
     const [weight, setWeight] = useState(0)
+
     const [countryId, setCountryId] = useState()
     const [multiplier, setMultiplier] = useState()
     //to post
@@ -58,9 +61,11 @@ const UserMain = () => {
         return JSON.parse(jsonPayload)
     }   
 
+
     //modal
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
+
 
     //fetch & sort countries from database
     useEffect(() => {
@@ -114,12 +119,15 @@ const UserMain = () => {
         }) 
         console.log(order)
         createNewOrder(order)           
+
     }
 
     return (
         <Container>
+
             <Shipments/>
             <hr/>
+
             <button onClick={handleShow}>New shipment</button>
 
             <Modal show={show} onHide={handleClose}>
@@ -129,6 +137,7 @@ const UserMain = () => {
                 <Modal.Body>
                     <Form>
                         <Form.Group>
+
                             <Form.Label></Form.Label>
                             <Form.Control type="text" placeholder="Name of reciever" onChange={e => setName(e.target.value)}/>
                         </Form.Group>
@@ -140,6 +149,7 @@ const UserMain = () => {
                             ))}
                         </Form.Select>
                         <br/>
+
                         <Form.Group>
                             <Form.Label htmlFor="colorInput">Box colour</Form.Label>
                             <Form.Control
@@ -148,6 +158,7 @@ const UserMain = () => {
                                 defaultValue="#F622E3"
                                 title="Choose your colour"
                                 onChange={e => setColour(e.target.value)}
+
                         />
                         </Form.Group>
                         <br/>
@@ -167,6 +178,7 @@ const UserMain = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+
                 </Modal.Footer>
             </Modal>
         </Container>
@@ -174,3 +186,4 @@ const UserMain = () => {
 }
 
 export default UserMain
+
