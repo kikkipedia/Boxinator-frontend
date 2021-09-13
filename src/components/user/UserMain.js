@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Container, Modal, Button, Form } from 'react-bootstrap'
+import { findAllInRenderedTree } from "react-dom/test-utils"
 import { createNewOrder, getAllCountries, getAllUsers, getPackageTypes, postNewUser } from "../../api/API"
 import Shipments from "./Shipments"
 
@@ -31,29 +32,41 @@ const UserMain = () => {
     //user email from token
     useEffect(() => {
         setUserEmail(parseJwt(authToken).email)
-        fetchUser()
-    },[authToken])
+        const fetchUsers = async() => {
+            try {
+                await getAllUsers()
+                .then(data => setUsers(data))
+            }
+            catch(error) {console.log(error)}
+        }
+        fetchUsers()       
+    },[authToken, userEmail])
+
+    useEffect(() => {
+        getUserByEmail()
+    },[users])
 
     //save if new user, or else fetch user 
-    const fetchUser = () => {
-        getAllUsers()
-        .then(data => setUsers(data))
-        //search for user email in user table
-        let user = users.find(el => el.email === userEmail)
-        if (user === undefined) {
-            //TODO - post new user
-            console.log("User not found. Email: " + userEmail)
-            const post = ({
-                email: userEmail
-            })
-            console.log(post)
-            postNewUser(post)
-            //TODO - then get the id!
+    const getUserByEmail = () => {
+        if(userEmail === null) {
+            console.log("wait....")
         }
         else {
-            setUserId(user.id)
-            console.log(user)
+            let foundUser = users.find(element => element.email === userEmail)
+            if(foundUser === undefined) {
+                const post = {
+                    email: userEmail,
+                    role: 1
+                }
+                postNewUser(post)
+                .then(data => setUserId(data.id))
+            }
+            else {
+                setUserId(foundUser.id)
+                console.log("user already exists: " + userId)
+            }
         }
+        
     }
         
     const parseJwt = (token) => {
