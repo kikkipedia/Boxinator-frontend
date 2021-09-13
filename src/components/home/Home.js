@@ -20,6 +20,7 @@ const Home = () => {
         keycloak.authenticated && <pre >{JSON.stringify(keycloak, undefined, 2)}</pre>
         : <h2>keycloak initializing ....!!!!</h2>
       } */}
+      
     </div>
   )
 }
