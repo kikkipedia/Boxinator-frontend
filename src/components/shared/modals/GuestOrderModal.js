@@ -1,10 +1,10 @@
 
 import { useState, useEffect } from "react"
 import {  Modal, Button, Form } from 'react-bootstrap'
-import { createNewOrder, getAllCountries, getPackageTypes } from  "../../../api/API"
 
-const OrderModal = () => {
+import { getAllCountries, getPackageTypes } from  "../../../api/API"
 
+const GuestOrderModal = () => {
     const authToken = sessionStorage.getItem("authentication")
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
@@ -104,8 +104,11 @@ const OrderModal = () => {
     //TODO -- on component render - fetch user shipments
     //posts order to database
     const submitOrder = () => {
-        createNewOrder(order)
-        console.log(order)
+      localStorage.setItem("receiverName", order.receiverName)
+      localStorage.setItem("orderPackage", order.orderPackage.id)
+      localStorage.setItem("color",order.color)
+      localStorage.setItem("totalPrice", order.totalPrice)
+      localStorage.setItem("country",order.country.id)
     } 
 
     return (
@@ -168,4 +171,4 @@ const OrderModal = () => {
         </div>
     )
 }
-export default OrderModal;
+export default GuestOrderModal;
