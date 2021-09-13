@@ -1,5 +1,6 @@
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import ContextButton from './ContextButton'
+import AdminButton from './AdminButton'
 
 const Navigation = () => {
 
@@ -7,12 +8,13 @@ const Navigation = () => {
         <>
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Navbar.Brand href="/">BOXINATOR</Navbar.Brand>
+                    <Navbar.Brand href="/home">BOXINATOR</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav>
                             <Nav.Link href="/user">User</Nav.Link>
-                            <Nav.Link href="/admin">Admin</Nav.Link>
+                            {/* <Nav.Link href="/admin">Admin</Nav.Link> */}
+                            <AdminButton/>
                         </Nav>
                         <Nav className="m-auto">
 
@@ -26,4 +28,4 @@ const Navigation = () => {
         </>
     )
 }
-export default Navigation
+export default Navigation;

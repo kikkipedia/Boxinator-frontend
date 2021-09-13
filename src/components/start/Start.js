@@ -1,4 +1,6 @@
 
+import ContextButton from "../shared/ContextButton"
+import GuestButton from "../shared/GuestButton"
 
 const Home = () => {
 
@@ -6,7 +8,10 @@ const Home = () => {
     return(
 
         <div>
-            Welcome to Boxinator! What do you want to do?
+            Welcome to Boxinator! Login or continue as Guest?
+            <ContextButton/>
+            <GuestButton/>
+        
         </div>
 
     )
