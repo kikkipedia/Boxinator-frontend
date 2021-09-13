@@ -1,15 +1,10 @@
-import { Link } from "react-router-dom"
+
 import AuthorizedElement from "../../../utilities/AuthorizedElement"
-import { Navbar, Container, Nav } from 'react-bootstrap'
+import { Navbar} from 'react-bootstrap'
 import { withKeycloak } from '@react-keycloak/web';
 import React from 'react';
 
-
-const homeContext = () => {
-
-}
-
-const HomeButton = ({ keycloak, keycloakInitialized }) => {
+const HomeButton = ({ keycloak}) => {
 
     return (
         <div>
