@@ -1,7 +1,8 @@
 import { Navbar, Container, Nav } from 'react-bootstrap'
-import ContextButton from './ContextButton'
-import AdminButton from './AdminButton'
-import UserButton from './UserButton'
+import ContextButton from './buttons/ContextButton'
+import AdminButton from './buttons/AdminButton'
+import UserButton from './buttons/UserButton'
+import HomeButton from './buttons/HomeButton'
 
 const Navigation = () => {
 
@@ -9,7 +10,8 @@ const Navigation = () => {
         <>
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Navbar.Brand href="/home">BOXINATOR</Navbar.Brand>
+                    {/* <Navbar.Brand href="/home">BOXINATOR</Navbar.Brand> */}
+                    <HomeButton/>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav>

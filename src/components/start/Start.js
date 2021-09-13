@@ -1,6 +1,6 @@
 
-import ContextButton from "../shared/ContextButton"
-import GuestButton from "../shared/GuestButton"
+import ContextButton from "../shared/buttons/ContextButton"
+import GuestButton from "../shared/buttons/GuestButton"
 
 const Home = () => {
 

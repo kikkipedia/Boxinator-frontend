@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import AuthorizedElement from "../../utilities/AuthorizedElement"
+import AuthorizedElement from "../../../utilities/AuthorizedElement"
 import { Navbar, Container, Nav } from 'react-bootstrap'
 
 const AdminButton = () =>{
