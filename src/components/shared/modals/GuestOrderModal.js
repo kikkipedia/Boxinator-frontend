@@ -109,6 +109,7 @@ const GuestOrderModal = () => {
       localStorage.setItem("color",order.color)
       localStorage.setItem("totalPrice", order.totalPrice)
       localStorage.setItem("country",order.country.id)
+      localStorage.setItem("email", "TODO")
     } 
 
     return (
