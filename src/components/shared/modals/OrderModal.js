@@ -1,11 +1,10 @@
+
 import { useState, useEffect } from "react"
 import { Container, Modal, Button, Form } from 'react-bootstrap'
 
-import { createNewOrder, getAllCountries, getAllUsers, getPackageTypes, postNewUser } from "../../api/API"
-import Shipments from "./Shipments"
+import { createNewOrder, getAllCountries, getAllUsers, getPackageTypes, postNewUser } from  "../../../api/API"
 
-
-const UserMain = () => {
+const OrderModal = () => {
 
     const authToken = sessionStorage.getItem("authentication")
     const [show, setShow] = useState(false)
@@ -24,43 +23,29 @@ const UserMain = () => {
     const [userId, setUserId] = useState()
     const [users, setUsers] = useState([])
 
-    //user email from token
-    useEffect(() => {
-        setUserEmail(parseJwt(authToken).email)
-        fetchUser()
-    },[authToken])
 
-    //save if new user, or else fetch user 
-    const fetchUser = () => {
-        getAllUsers()
-        .then(data => setUsers(data))
-        //search for user email in user table
-        let user = users.find(el => el.email === userEmail)
-        if (user === undefined) {
-            //TODO - post new user
-            console.log("User not found. Email: " + userEmail)
-            const post = ({
-                email: userEmail
-            })
-            console.log(post)
-            postNewUser(post)
-            //TODO - then get the id!
-        }
-        else {
-            setUserId(user.id)
-            console.log(user)
-        }
-    }
+    // //save if new user, or else fetch user 
+    // const fetchUser = () => {
+    //     getAllUsers()
+    //     .then(data => setUsers(data))
+    //     //search for user email in user table
+    //     let user = users.find(el => el.email === userEmail)
+    //     if (user === undefined) {
+    //         //TODO - post new user
+    //         console.log("User not found. Email: " + userEmail)
+    //         const post = ({
+    //             email: userEmail
+    //         })
+    //         console.log(post)
+    //         postNewUser(post)
+    //         //TODO - then get the id!
+    //     }
+    //     else {
+    //         setUserId(user.id)
+    //         console.log(user)
+    //     }
+    // }
         
-    const parseJwt = (token) => {
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-        }).join(''))
-        return JSON.parse(jsonPayload)
-    }   
-
 
     //modal
     const handleClose = () => setShow(false)
@@ -91,17 +76,6 @@ const UserMain = () => {
         }
     },[])
 
-    // const sortData = (a, b) => {
-    //     if(a.name < b.name){
-    //         return -1
-    //     }
-    //     else if (a.name > b.name) {
-    //         return 1
-    //     }
-    //     else {
-    //         return 0
-    //     }
-    // } 
 
     //calculate price
     useEffect(() => {        
@@ -123,11 +97,7 @@ const UserMain = () => {
     }
 
     return (
-        <Container>
-
-            <Shipments/>
-            <hr/>
-
+        <div>
             <button onClick={handleShow}>New shipment</button>
 
             <Modal show={show} onHide={handleClose}>
@@ -139,16 +109,16 @@ const UserMain = () => {
                         <Form.Group>
 
                             <Form.Label></Form.Label>
-                            <Form.Control type="text" placeholder="Name of reciever" onChange={e => setName(e.target.value)}/>
+                            <Form.Control type="text" placeholder="Name of reciever" onChange={e => setName(e.target.value)} />
                         </Form.Group>
-                        <br/>
+                        <br />
                         <Form.Select aria-label="Select weight" onChange={e => setWeight(e.target.value)}>
                             <option>Select package</option>
                             {packages.map(pack => (
                                 <option key={pack.id} value={pack.weight}>{pack.name} - {pack.weight}kg</option>
                             ))}
                         </Form.Select>
-                        <br/>
+                        <br />
 
                         <Form.Group>
                             <Form.Label htmlFor="colorInput">Box colour</Form.Label>
@@ -159,9 +129,9 @@ const UserMain = () => {
                                 title="Choose your colour"
                                 onChange={e => setColour(e.target.value)}
 
-                        />
+                            />
                         </Form.Group>
-                        <br/>
+                        <br />
                         <Form.Group>
                             <Form.Label></Form.Label>
                             <Form.Select aria-label="Select country" onChange={e => setCountryId(e.target.value)}>
@@ -169,11 +139,11 @@ const UserMain = () => {
                                     <option key={opt.id} value={opt.id}>{opt.name}</option>
                                 ))}
                             </Form.Select>
-                        </Form.Group> 
-                        <br/>
-                        <Button variant="primary"  onClick={submitOrder}>Order</Button> 
+                        </Form.Group>
+                        <br />
+                        <Button variant="primary" onClick={submitOrder}>Order</Button>
                     </Form>
-                    <br/>
+                    <br />
                     <p>Total price: {price} kr</p>
                 </Modal.Body>
                 <Modal.Footer>
@@ -181,9 +151,7 @@ const UserMain = () => {
 
                 </Modal.Footer>
             </Modal>
-        </Container>
+        </div>
     )
 }
-
-export default UserMain
-
+export default OrderModal;

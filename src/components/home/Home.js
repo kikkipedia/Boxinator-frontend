@@ -1,6 +1,7 @@
 
 import { useEffect } from "react"
 import { useKeycloak } from '@react-keycloak/web';
+import OrderModal from "../shared/modals/OrderModal";
 
 
 const Home = () => {
@@ -16,11 +17,7 @@ const Home = () => {
        
       <strong>Welcome Users! </strong>
       {keycloak.tokenParsed.name}
-            {/* {initialized ?
-        keycloak.authenticated && <pre >{JSON.stringify(keycloak, undefined, 2)}</pre>
-        : <h2>keycloak initializing ....!!!!</h2>
-      } */}
-      
+      <OrderModal/>
     </div>
   )
 }

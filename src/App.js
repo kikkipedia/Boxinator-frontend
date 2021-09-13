@@ -21,8 +21,7 @@ function App() {
   return (
 
     <ReactKeycloakProvider authClient={keycloak} keycloak={keycloak}  >
-        
-          <AppRouter />
+              <AppRouter />
     </ReactKeycloakProvider>
 
   )
