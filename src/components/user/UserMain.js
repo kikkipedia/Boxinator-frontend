@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { Container, Modal, Button, Form } from 'react-bootstrap'
-import { findAllInRenderedTree } from "react-dom/test-utils"
 import { createNewOrder, getAllCountries, getAllUsers, getPackageTypes, postNewUser } from "../../api/API"
 import Shipments from "./Shipments"
 
@@ -48,11 +47,12 @@ const UserMain = () => {
 
     //save if new user, or else fetch user 
     const getUserByEmail = () => {
-        if(userEmail === null) {
-            console.log("wait....")
+        if(userEmail === undefined) {
+            console.log("user is null")
         }
         else {
             let foundUser = users.find(element => element.email === userEmail)
+            console.log(foundUser)
             if(foundUser === undefined) {
                 const post = {
                     email: userEmail,
@@ -65,8 +65,7 @@ const UserMain = () => {
                 setUserId(foundUser.id)
                 console.log("user already exists: " + userId)
             }
-        }
-        
+        }       
     }
         
     const parseJwt = (token) => {
@@ -158,7 +157,8 @@ const UserMain = () => {
 
     return (
         <Container>
-            <Shipments />
+            {/* if userId */}
+            <Shipments userId={userId} />
             <hr />
             <button onClick={handleShow}>New order</button>
             <Modal show={show} onHide={handleClose}>
