@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
+
 import { Container} from 'react-bootstrap'
 import {  getAllUsers,  postNewUser } from "../../api/API"
+
 import Shipments from "./Shipments"
 
 
@@ -11,6 +13,7 @@ const UserMain = () => {
     const [userEmail, setUserEmail] = useState()
     const [userId, setUserId] = useState()
     const [users, setUsers] = useState([])
+    const [user, setUser] = useState()
 
     //user email from token
     useEffect(() => {
@@ -19,26 +22,27 @@ const UserMain = () => {
     },[authToken])
 
     //save if new user, or else fetch user 
-    const fetchUser = () => {
-        getAllUsers()
-        .then(data => setUsers(data))
-        //search for user email in user table
-        let user = users.find(el => el.email === userEmail)
-        if (user === undefined) {
-            //TODO - post new user
-            console.log("User not found. Email: " + userEmail)
-            const post = ({
-                email: userEmail
-            })
-            console.log(post)
+
+    const getUserByEmail = () => {      
+        let foundUser = users.find(element => element.email === userEmail)
+        setUser(foundUser)             
+    }
+
+    useEffect(() => {
+        if(user === undefined) {
+            const post = {
+                email: userEmail,
+                role: 1
+            }
             postNewUser(post)
-            //TODO - then get the id!
+            .then(data => setUserId(data.id))
         }
         else {
             setUserId(user.id)
-            console.log(user)
+            console.log("user already exists: " + userId)
         }
-    }
+    },[user])
+
         
     const parseJwt = (token) => {
         var base64Url = token.split('.')[1];
@@ -68,6 +72,7 @@ const UserMain = () => {
 
     return (
         <Container>
+
 
             <Shipments/>
             <hr/>

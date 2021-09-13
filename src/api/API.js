@@ -20,12 +20,8 @@ export const postNewUser = (post) => {
 
 //ORDERS
 export const getOrdersByUserId = (userId) => {
-    return fetch(`${BASE_API_URL}orders?user_id=${userId}`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	})
+    return fetch(`${BASE_API_URL}orders/getByUserId/${userId}`)
+	.then(response => response.json())
 } 
 
 export const createNewOrder = (newOrder) => {
@@ -84,6 +80,7 @@ export const updateShipmentStatus = (updatedShipment) => {
 		body: JSON.stringify(updatedShipment)
 	})
 } 
+
 
 //COUNTRIES
 export const updateCountryMultiplier = (updatedCountry) => {
