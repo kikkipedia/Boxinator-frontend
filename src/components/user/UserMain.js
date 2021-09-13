@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { Container, Modal, Button, Form } from 'react-bootstrap'
-
 import { createNewOrder, getAllCountries, getAllUsers, getPackageTypes, postNewUser } from "../../api/API"
 import Shipments from "./Shipments"
 
@@ -10,15 +9,20 @@ const UserMain = () => {
     const authToken = sessionStorage.getItem("authentication")
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
+    const [multiplier, setMultiplier] = useState(1)
     const [weight, setWeight] = useState(0)
-
-    const [countryId, setCountryId] = useState()
-    const [multiplier, setMultiplier] = useState()
+    
     //to post
-    const [name, setName] = useState('')
-    const [colour, setColour] = useState('')
-    const [price, setPrice] = useState(0)
     const [packages, setPackages] = useState([])
+    const [userInfo, setUserInfo] = useState()
+
+    const [order, setOrder] = useState({
+        receiverName: '',
+        orderPackage: {id: 0},
+        color: '',
+        totalPrice: 0,
+        country: {id: 0}
+    })
 
     const [userEmail, setUserEmail] = useState()
     const [userId, setUserId] = useState()
@@ -69,121 +73,136 @@ const UserMain = () => {
 
     //fetch & sort countries from database
     useEffect(() => {
-        try {
-            getAllCountries()
-            //.then(data => data.sort(sortData))
+
+        getAllCountries()
             .then(data => setCountries(data))
-            setMultiplier(countries[countryId - 1].multiplier)
-        }
-        catch(err) {
-            console.log(err)
-        }
-    },[countryId])
+            .catch(error => {
+                console.log("Error fetching all data ", error)
+            })
 
-    useEffect(() => {
-        try {
-            getPackageTypes()
-            //.then(data => data.sort(sortData))
+        getPackageTypes()
             .then(data => setPackages(data))
-        }
-        catch(err) {
-            console.log(err)
-        }
-    },[])
+            .catch(error => {
+                console.log("Error fetching all data ", error)
+            })
 
-    // const sortData = (a, b) => {
-    //     if(a.name < b.name){
-    //         return -1
-    //     }
-    //     else if (a.name > b.name) {
-    //         return 1
-    //     }
-    //     else {
-    //         return 0
-    //     }
-    // } 
+    }, [])
+
+    const sortData = (a, b) => {
+        if (a.name < b.name) {
+            return -1
+        }
+        else if (a.name > b.name) {
+            return 1
+        }
+        else {
+            return 0
+        }
+    }
 
     //calculate price
-    useEffect(() => {        
-        const total = (200 + (multiplier * weight))
-        setPrice(total)
-    },[weight, multiplier])
+    useEffect(() => {
+        let total = 0;
+        for (let item of countries) {
+            if (item.id === order.country.id) {
+                if(weight > 0) {
+                    total = (200 + (item.multiplier * weight))
+                    setMultiplier(item.multiplier)
+                    setOrder({ ...order, totalPrice: total })
+                }
+                else {
+                    setMultiplier(item.multiplier)
+                    setOrder({ ...order, totalPrice: 0 })
+                }        
+            }
+        }
+        setOrder({ ...order, totalPrice: total })
+    }, [order.country.id])
 
+    useEffect(() => {
+        for(let item of packages) {
+            if(item.id === order.orderPackage.id) {
+                setWeight(item.weight);
+            }
+        }        
+    }, [order.orderPackage.id])
+
+    useEffect(() => {
+        if(weight > 0) {
+            const total = (200 + (multiplier * weight))
+            setOrder({ ...order, totalPrice: total })
+        }
+        else {
+            setOrder({ ...order, totalPrice: 0 })
+        }         
+    }, [weight])
+
+    //TODO -- on component render - fetch user shipments
     //posts order to database
     const submitOrder = () => {
-        const order = ({
-            receiverName: name,
-            color: colour,
-            totalPrice: price,
-            //country: countryId
-        }) 
-        console.log(order)
-        createNewOrder(order)           
-
-    }
+        createNewOrder(order)
+    } 
 
     return (
         <Container>
-
-            <Shipments/>
-            <hr/>
-
-            <button onClick={handleShow}>New shipment</button>
-
+            <Shipments />
+            <hr />
+            <button onClick={handleShow}>New order</button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>New shipment</Modal.Title>
+                    <Modal.Title>New order</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-
                             <Form.Label></Form.Label>
-                            <Form.Control type="text" placeholder="Name of reciever" onChange={e => setName(e.target.value)}/>
+                            <Form.Control type="text" placeholder="Name of receiver" onChange={e => setOrder({ ...order, receiverName: e.target.value })} />
                         </Form.Group>
-                        <br/>
-                        <Form.Select aria-label="Select weight" onChange={e => setWeight(e.target.value)}>
-                            <option>Select package</option>
-                            {packages.map(pack => (
-                                <option key={pack.id} value={pack.weight}>{pack.name} - {pack.weight}kg</option>
-                            ))}
+                        <br />
+                        <Form.Select aria-label="Select package..." onChange={e => setOrder({ ...order, orderPackage: {id: parseInt(e.target.value)} })}>
+                            <option defaultValue="" disabled selected>Select a package...</option>
+                            {
+                                packages && packages.map(pack => (
+                                    <option key={pack.id} value={pack.id}>{pack.name} - {pack.weight} KG</option>
+                                ))
+                            }
                         </Form.Select>
-                        <br/>
-
+                        <br />
                         <Form.Group>
-                            <Form.Label htmlFor="colorInput">Box colour</Form.Label>
+                            <Form.Label htmlFor="colorInput">Box color</Form.Label>
                             <Form.Control
                                 type="color"
                                 id="coloInput"
                                 defaultValue="#F622E3"
-                                title="Choose your colour"
-                                onChange={e => setColour(e.target.value)}
-
-                        />
+                                title="Select a color..."
+                                onChange={e => setOrder({ ...order, color: e.target.value })}
+                            />
                         </Form.Group>
-                        <br/>
+                        <br />
                         <Form.Group>
                             <Form.Label></Form.Label>
-                            <Form.Select aria-label="Select country" onChange={e => setCountryId(e.target.value)}>
-                                {countries.map(opt => (
-                                    <option key={opt.id} value={opt.id}>{opt.name}</option>
-                                ))}
+                            <Form.Select onChange={e => setOrder({ ...order, country: {id: parseInt(e.target.value)} })}>
+                                <option  defaultValue="" disabled selected>Select a country...</option>
+                                {
+                                    countries && countries.map(opt => (
+                                        <option key={opt.id} value={opt.id}>{opt.name}</option>
+                                    ))
+                                }
                             </Form.Select>
-                        </Form.Group> 
-                        <br/>
-                        <Button variant="primary"  onClick={submitOrder}>Order</Button> 
+                        </Form.Group>
+                        <br />
+                        <Button variant="primary" onClick={submitOrder}>Order</Button>
                     </Form>
-                    <br/>
-                    <p>Total price: {price} kr</p>
+                    <br />
+                    <p>Weight: {weight} KG</p>
+                    <p>Color: {order.color}</p>
+                    <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-
                 </Modal.Footer>
             </Modal>
         </Container>
     )
 }
-
 export default UserMain
-
