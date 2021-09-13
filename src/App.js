@@ -21,20 +21,8 @@ function App() {
   return (
 
     <ReactKeycloakProvider authClient={keycloak} keycloak={keycloak}  >
-      {/* <BrowserRouter> */}
-        <Navigation />
-        {/* <Switch> */}
+        
           <AppRouter />
-          {/* <Route exact path="/" component={Home}/>
-
-        <Route exact path="/start" component={Start}/>
-        <Route path="/user" component={UserMain}/>
-        <Route path="/admin" component={AdminMain}/> */}
-          {/* <Route path="/shipments" exact component={shipments}></Route>
-          <Route path="/adminsettings" exact component={adminsettings}></Route> */}
-
-        {/* </Switch> */}
-      {/* </BrowserRouter> */}
     </ReactKeycloakProvider>
 
   )
