@@ -1,7 +1,6 @@
 
 import './App.css'
 import { useState, useEffect } from 'react'
-import Navigation from './components/shared/Navigation'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 import AppRouter from './AppRouter'
 import keycloak from './keycloak'

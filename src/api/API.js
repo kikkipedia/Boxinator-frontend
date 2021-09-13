@@ -96,12 +96,13 @@ export const updateCountryMultiplier = (updatedCountry) => {
 	})
 } 
 
+export const getPackageTypes = () => {
+	return fetch(`${BASE_API_URL}packages`)
+	.then(result => result.json())
+}
 export const getAllCountries = () => {	
 	return fetch(`${BASE_API_URL}countries`)
 	.then(result => result.json())
 }
 
-export const getPackageTypes = () => {
-	return fetch(`${BASE_API_URL}packages`)
-	.then(result => result.json())
-}
+

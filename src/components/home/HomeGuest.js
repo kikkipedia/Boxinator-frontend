@@ -1,13 +1,12 @@
 import {Redirect} from "react-router-dom";
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
-import OrderModal from "../shared/modals/OrderModal";
-
+import GuestOrderModal from "../shared/modals/GusetOrderModal";
 
 
 const HomeGuest = () => {
 
-    const {keycloak, initialized} = useKeycloak();
+    const {keycloak} = useKeycloak();
     const [shouldRedirect, setShouldRedirect] = useState(false);
 
     useEffect(()=>{
@@ -23,7 +22,7 @@ const HomeGuest = () => {
       <h1>Home Page</h1>
        
       <strong>Welcome Guest</strong>
-      <OrderModal/>
+      <GuestOrderModal/>
     </div>
   )
 }

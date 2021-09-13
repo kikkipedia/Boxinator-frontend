@@ -10,7 +10,6 @@ const Navigation = () => {
         <>
             <Navbar bg="light" expand="lg">
                 <Container>
-                    {/* <Navbar.Brand href="/home">BOXINATOR</Navbar.Brand> */}
                     <HomeButton/>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -21,8 +20,6 @@ const Navigation = () => {
                         <Nav className="m-auto">
 
                             <ContextButton/>
-                            {/* <Nav.Link href="https://keycloak-boxinator.herokuapp.com/auth/realms/boxinator-app/protocol/openid-connect/logout?redirect_uri=http://localhost:3000/start">Logout</Nav.Link> */}
-
                         </Nav>                        
                     </Navbar.Collapse>
                 </Container>

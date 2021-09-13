@@ -1,15 +1,14 @@
 import { withKeycloak } from '@react-keycloak/web';
 import React from 'react';
-import { Navbar, Container, Nav } from 'react-bootstrap'
-import { NavLink } from 'react-router-dom';
+import { Navbar } from 'react-bootstrap'
 
 
-const Menu = ({ keycloak, keycloakInitialized }) => {
+
+const Menu = ({ keycloak }) => {
 
     return (
-        <ul>
+        <div>
            
-
             {keycloak && !keycloak.authenticated &&
                 // <a className="btn-link" onClick={() => keycloak.login()}>Login</a>
                 <Navbar.Brand onClick={() => keycloak.login()}>Login</Navbar.Brand>
@@ -23,7 +22,7 @@ const Menu = ({ keycloak, keycloakInitialized }) => {
                 
             }
 
-        </ul>
+        </div>
     )
 }
 

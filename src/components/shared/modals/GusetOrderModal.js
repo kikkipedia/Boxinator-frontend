@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react"
 import {  Modal, Button, Form } from 'react-bootstrap'
 
-import { createNewOrder, getAllCountries, getPackageTypes } from  "../../../api/API"
+import { getAllCountries, getPackageTypes } from  "../../../api/API"
 
-const OrderModal = () => {
+const GuestOrderModal = () => {
 
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
@@ -18,29 +18,6 @@ const OrderModal = () => {
     const [price, setPrice] = useState(0)
     const [packages, setPackages] = useState([])
 
-
-    // //save if new user, or else fetch user 
-    // const fetchUser = () => {
-    //     getAllUsers()
-    //     .then(data => setUsers(data))
-    //     //search for user email in user table
-    //     let user = users.find(el => el.email === userEmail)
-    //     if (user === undefined) {
-    //         //TODO - post new user
-    //         console.log("User not found. Email: " + userEmail)
-    //         const post = ({
-    //             email: userEmail
-    //         })
-    //         console.log(post)
-    //         postNewUser(post)
-    //         //TODO - then get the id!
-    //     }
-    //     else {
-    //         setUserId(user.id)
-    //         console.log(user)
-    //     }
-    // }
-        
 
     //modal
     const handleClose = () => setShow(false)
@@ -80,14 +57,16 @@ const OrderModal = () => {
 
     //posts order to database
     const submitOrder = () => {
-        const order = ({
-            receiverName: name,
-            color: colour,
-            totalPrice: price,
-            //country: countryId
-        }) 
-        console.log(order)
-        createNewOrder(order)           
+        // const order = ({
+        //     receiverName: name,
+        //     color: colour,
+        //     totalPrice: price,
+        //     //country: countryId
+        // }) 
+        localStorage.setItem("receiverName",name);
+        localStorage.setItem("color",colour);
+        localStorage.setItem("totalPrice",price);
+        //createNewOrder(order)           
 
     }
 
@@ -149,4 +128,4 @@ const OrderModal = () => {
         </div>
     )
 }
-export default OrderModal;
+export default GuestOrderModal;
