@@ -1,6 +1,7 @@
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import ContextButton from './ContextButton'
 import AdminButton from './AdminButton'
+import UserButton from './UserButton'
 
 const Navigation = () => {
 
@@ -12,8 +13,7 @@ const Navigation = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav>
-                            <Nav.Link href="/user">User</Nav.Link>
-                            {/* <Nav.Link href="/admin">Admin</Nav.Link> */}
+                            <UserButton/>
                             <AdminButton/>
                         </Nav>
                         <Nav className="m-auto">
