@@ -6,14 +6,16 @@ export const getAllUsers = () => {
 	return fetch(`${BASE_API_URL}users`)
 	.then(result => result.json())
 }
-export const postNewUser = (email) => {
-	fetch(`${BASE_API_URL}users`, {
+export const postNewUser = (post) => {
+	const requestOptions = {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-        body: JSON.stringify(email)
-	})
+        body: JSON.stringify(post)
+	}
+	return fetch(`${BASE_API_URL}users`, requestOptions)
+		.then(response => response.json())
 }
 
 //ORDERS

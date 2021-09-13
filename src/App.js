@@ -14,9 +14,7 @@ function App() {
   //sets user info
   
   useEffect(() => {
-
      setAuthToken(sessionStorage.getItem("authentication")) 
-    console.log(authToken + " IN APP.JS")
   }, [authToken])
 
 
