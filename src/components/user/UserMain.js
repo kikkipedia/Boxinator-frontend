@@ -27,6 +27,7 @@ const UserMain = () => {
     const [userEmail, setUserEmail] = useState()
     const [userId, setUserId] = useState()
     const [users, setUsers] = useState([])
+    const [user, setUser] = useState()
 
     //user email from token
     useEffect(() => {
@@ -46,27 +47,25 @@ const UserMain = () => {
     },[users])
 
     //save if new user, or else fetch user 
-    const getUserByEmail = () => {
-        if(userEmail === undefined) {
-            console.log("user is null")
+    const getUserByEmail = () => {      
+        let foundUser = users.find(element => element.email === userEmail)
+        setUser(foundUser)             
+    }
+
+    useEffect(() => {
+        if(user === undefined) {
+            const post = {
+                email: userEmail,
+                role: 1
+            }
+            postNewUser(post)
+            .then(data => setUserId(data.id))
         }
         else {
-            let foundUser = users.find(element => element.email === userEmail)
-            console.log(foundUser)
-            if(foundUser === undefined) {
-                const post = {
-                    email: userEmail,
-                    role: 1
-                }
-                postNewUser(post)
-                .then(data => setUserId(data.id))
-            }
-            else {
-                setUserId(foundUser.id)
-                console.log("user already exists: " + userId)
-            }
-        }       
-    }
+            setUserId(user.id)
+            console.log("user already exists: " + userId)
+        }
+    },[user])
         
     const parseJwt = (token) => {
         var base64Url = token.split('.')[1];
@@ -157,8 +156,8 @@ const UserMain = () => {
 
     return (
         <Container>
-            {/* if userId */}
-            <Shipments userId={userId} />
+            {/* if userId is present */}
+            {userId > 0 && <Shipments userId={userId} /> }
             <hr />
             <button onClick={handleShow}>New order</button>
             <Modal show={show} onHide={handleClose}>
@@ -185,7 +184,7 @@ const UserMain = () => {
                             <Form.Label htmlFor="colorInput">Box color</Form.Label>
                             <Form.Control
                                 type="color"
-                                id="coloInput"
+                                id="colorInput"
                                 defaultValue="#F622E3"
                                 title="Select a color..."
                                 onChange={e => setOrder({ ...order, color: e.target.value })}
