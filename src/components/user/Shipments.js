@@ -1,11 +1,14 @@
+import Keycloak from "keycloak-js"
 import { useEffect, useState } from "react"
 import { getOrdersByUserId } from "../../api/API"
+import { useKeycloak } from '@react-keycloak/web';
 
 const Shipments = (props) => {
     const id = props.userId
     const [shipments, setShipments] = useState([])
     const [oldShipments, setOldShipments] = useState([])
     const [inTransit, setInTransit] = useState([])
+    const {keycloak} = useKeycloak();
 
     useEffect(() => {
         getOrdersByUserId(id)

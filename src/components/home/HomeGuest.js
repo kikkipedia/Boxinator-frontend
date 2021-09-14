@@ -12,7 +12,7 @@ const HomeGuest = () => {
     useEffect(()=>{
         sessionStorage.setItem('authentication', keycloak.token);
         sessionStorage.setItem('refreshToken', keycloak.refreshToken);
-        if ( sessionStorage.getItem("authentication")=== keycloak.token) {
+        if ( sessionStorage.getItem("authentication") === keycloak.token) {
           setShouldRedirect(true);
       }
     })
@@ -23,6 +23,7 @@ const HomeGuest = () => {
        
       <strong>Welcome Guest</strong>
       <GuestOrderModal/>
+      <button onClick={keycloak.register}>Register Now!</button>
     </div>
   )
 }
