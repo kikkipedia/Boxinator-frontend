@@ -6,11 +6,11 @@ const AdminButton = () => {
 
     return (
         <div>
-            <AuthorizedElement roles={['admin']}>
+            <AuthorizedElement roles={['admin']}  roles ={['user']}>
                 <Nav.Link href="/admin">Admin</Nav.Link>
             </AuthorizedElement>
 
-            <AuthorizedElement roles={['user']}>
+            <AuthorizedElement roles={['user']} roles ={['!admin']} >
                 <Nav.Link href="/user">User</Nav.Link>
             </AuthorizedElement>
         </div>

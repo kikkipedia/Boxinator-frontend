@@ -1,7 +1,5 @@
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import ContextButton from './buttons/ContextButton'
-
-import UserButton from './buttons/UserButton'
 import HomeButton from './buttons/HomeButton'
 import ProfileButton from './buttons/ProfileButton'
 

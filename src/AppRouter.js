@@ -21,7 +21,7 @@ export const AppRouter = () => {
             <Switch>
                 <Route exact path="/" component={Start}/>
                 <Route exact path="/homeGuest" component={HomeGuest} />
-                <PrivateRoute roles={['user']} path="/user" component={UserMain} />
+                <PrivateRoute roles={['user']} roles ={['!admin']} path="/user" component={UserMain} />
                 <PrivateRoute roles={['admin']} path="/admin" component={AdminMain} />
                 <PrivateRoute roles={['user']} path="/home" component={Home} />
             </Switch>

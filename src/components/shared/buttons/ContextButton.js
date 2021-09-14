@@ -2,11 +2,12 @@ import { withKeycloak } from '@react-keycloak/web';
 import React from 'react';
 import { Navbar } from 'react-bootstrap'
 
-const handleLogout = () => {
+const handleLogout = ({ keycloak }) => {
     keycloak.logout()
     
     
 }
+
 
 const Menu = ({ keycloak }) => {
     

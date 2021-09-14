@@ -22,6 +22,7 @@ const Home = () => {
   return (
     <div>
       {shouldRedirect ? <Redirect to="/homeGuest"></Redirect> : null}
+      
       <h1>Home Page</h1>
        
       <strong>Welcome Users! </strong>
