@@ -5,7 +5,7 @@ import { useKeycloak } from "@react-keycloak/web";
 
 
 const AdminButton = () => {
-    const {keycloak} = useKeycloak();
+  
     
     return (
         <div>

@@ -19,16 +19,9 @@ export const AppRouter = () => {
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={Start}/>
-<<<<<<< HEAD
                 <Route exact path="/guest" component={GuestHome} />
                 <PrivateRoute roles={['user']} path="/user" component={UserHome} />
                 <PrivateRoute roles={['admin']} path="/admin" component={AdminHome} />
-=======
-                <Route exact path="/homeGuest" component={HomeGuest} />
-                <PrivateRoute roles={['user']}  path="/user" component={UserMain} />
-                <PrivateRoute roles={['admin']} path="/admin" component={AdminMain} />
-                <PrivateRoute roles={['user']} path="/home" component={Home} />
->>>>>>> daniel5
             </Switch>
         </BrowserRouter>
     </>

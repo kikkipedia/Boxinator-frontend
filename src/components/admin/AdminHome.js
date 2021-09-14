@@ -1,6 +1,15 @@
 import {Table} from "react-bootstrap";
+import { useEffect, useState } from "react"
+import { useKeycloak } from '@react-keycloak/web';
 
 const AdminHome = () => {
+    const {keycloak} = useKeycloak();
+
+    useEffect(()=>{
+        sessionStorage.setItem('authentication', keycloak.token);
+        sessionStorage.setItem('refreshToken', keycloak.refreshToken);
+        
+    })
 
     return(
         <div>

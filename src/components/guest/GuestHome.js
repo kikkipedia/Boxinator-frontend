@@ -18,7 +18,7 @@ const GuestHome = () => {
     })
   return (
     <div>
-      {shouldRedirect ? <Redirect to="/guest"></Redirect> : null}
+      {shouldRedirect ? <Redirect to="/user"></Redirect> : null}
       <h1>Home Page</h1>
        
       <strong>Welcome Guest</strong>
