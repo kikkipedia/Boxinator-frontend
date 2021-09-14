@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
-
+import { Redirect } from "react-router";
 import { Container} from 'react-bootstrap'
 import {  getAllUsers,  postNewUser } from "../../api/API"
+import { useKeycloak } from '@react-keycloak/web';
 
 import Shipments from "./Shipments"
 
@@ -9,12 +10,19 @@ import Shipments from "./Shipments"
 const UserHome = () => {
 
     const authToken = sessionStorage.getItem("authentication")
-
+    const {keycloak} = useKeycloak();
     const [userEmail, setUserEmail] = useState()
     const [userId, setUserId] = useState()
     const [users, setUsers] = useState([])
     const [user, setUser] = useState()
+    const [shouldRedirectAdmin, setShouldRedirectAdmin] = useState(false);
 
+    //Redirects if admin
+    useEffect(()=>{
+       if(keycloak.tokenParsed.realm_access.roles[2] === 'app-admin' ){
+              setShouldRedirectAdmin(true);
+      }
+    })
     //user email from token
     useEffect(() => {
         setUserEmail(parseJwt(authToken).email)
@@ -78,8 +86,9 @@ const UserHome = () => {
 
 
     return (
+        
         <Container>
-
+            {shouldRedirectAdmin ? <Redirect to="/admin"></Redirect> : null}
 
             <Shipments/>
             <hr/>
