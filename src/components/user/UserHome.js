@@ -5,8 +5,8 @@ import { useKeycloak } from '@react-keycloak/web';
 import OrderModal from "../shared/modals/OrderModal";
 
 
-
-const Home = () => {
+//
+const UserHome = () => {
 
     const {keycloak} = useKeycloak();
     const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -18,16 +18,17 @@ const Home = () => {
               setShouldRedirect(true);
       }
         
-    })
-  return (
-    <div>
-      {shouldRedirect ? <Redirect to="/homeGuest"></Redirect> : null}
-      <h1>Home Page</h1>
-       
-      <strong>Welcome Users! </strong>
-      {keycloak.tokenParsed.name}
-      <OrderModal/>
-    </div>
-  )
+    },[])
+
+    return (
+      <div>
+        {shouldRedirect ? <Redirect to="/homeGuest"></Redirect> : null}
+        <h1>Home Page</h1>
+        
+        <strong>Welcome Users! </strong>
+        {keycloak.tokenParsed.name}
+        <OrderModal/>
+      </div>
+    )
 }
-export default Home
+export default UserHome

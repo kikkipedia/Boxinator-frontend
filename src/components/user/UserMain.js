@@ -79,11 +79,7 @@ const UserMain = () => {
 
     return (
         <Container>
-
-
             <Shipments/>
-            <hr/>
-
         </Container>
     )
 }

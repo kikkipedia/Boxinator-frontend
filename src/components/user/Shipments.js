@@ -26,9 +26,7 @@ const Shipments = (props) => {
             <p>User id: {props.userId}</p>
             <h4>Shipments in transit</h4>
             <h4>Recieved shipments</h4>
-
-        </div>
-        
+        </div>        
     )
 }
 export default Shipments

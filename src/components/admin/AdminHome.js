@@ -1,6 +1,6 @@
 import {Table} from "react-bootstrap";
 
-const AdminMain = () => {
+const AdminHome = () => {
 
     return(
         <div>
@@ -47,4 +47,4 @@ const AdminMain = () => {
     )
 }
 
-export default AdminMain
+export default AdminHome
