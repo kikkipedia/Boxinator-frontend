@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { Redirect } from "react-router";
 import { useKeycloak } from '@react-keycloak/web';
-import OrderModal from "../shared/modals/OrderModal";
+import OrderModal from "./modals/OrderModal";
 
 
 

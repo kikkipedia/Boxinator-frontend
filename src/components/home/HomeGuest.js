@@ -1,7 +1,7 @@
 import {Redirect} from "react-router-dom";
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
-import GuestOrderModal from "../shared/modals/GuestOrderModal";
+import GuestOrderModal from "./modals/GuestOrderModal";
 
 
 const HomeGuest = () => {
