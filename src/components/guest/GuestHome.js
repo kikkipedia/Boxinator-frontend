@@ -12,13 +12,13 @@ const GuestHome = () => {
     useEffect(()=>{
         sessionStorage.setItem('authentication', keycloak.token);
         sessionStorage.setItem('refreshToken', keycloak.refreshToken);
-        if ( sessionStorage.getItem("authentication") === keycloak.token) {
+        if ( sessionStorage.getItem("authentication") === keycloak.token ) {
           setShouldRedirect(true);
       }
     })
   return (
     <div>
-      {shouldRedirect ? <Redirect to="/guest"></Redirect> : null}
+      {shouldRedirect ? <Redirect to="/user"></Redirect> : null}
       <h1>Home Page</h1>
        
       <strong>Welcome Guest</strong>

@@ -18,7 +18,7 @@ const HomeButton = ({ keycloak}) => {
                     <Navbar.Brand href="/user">BOXINATOR</Navbar.Brand>
                 </AuthorizedElement>
             }
-
+            
         </div>
 
     )
