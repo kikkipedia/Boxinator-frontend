@@ -24,6 +24,11 @@ export const getOrdersByUserId = (userId) => {
 	.then(response => response.json())
 } 
 
+export const getAllOrders = async() => {
+	const response = await fetch(`${BASE_API_URL}orders`)
+	return response.json()
+}
+
 export const createNewOrder = (newOrder) => {
     return fetch(`${BASE_API_URL}orders`, {
 		method: 'POST',

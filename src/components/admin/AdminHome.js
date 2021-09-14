@@ -1,57 +1,50 @@
-import {Table} from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
+import { getAllOrders } from "../../api/API";
+import OrderCard from "../shared/cards/OrderCard.js" 
 
 const AdminHome = () => {
-    const {keycloak} = useKeycloak();
+    const { keycloak } = useKeycloak();
+    const [orders, setOrders] = useState([]);
 
-    useEffect(()=>{
+    //Initializes token in session storage
+    useEffect(() => {
         sessionStorage.setItem('authentication', keycloak.token);
         sessionStorage.setItem('refreshToken', keycloak.refreshToken);
-        
-    })
+        //setOrders(getAllOrders())
+        setOrdersNew();
+    }, [])
 
-    return(
+   const  setOrdersNew = async () => {
+        const data = await getAllOrders();
+        setOrders(data);
+    }
+
+
+    const displayCardOrders = () => {
+        let cards = [];
+        {orders && orders.length > 0 && orders.map((order) => {
+            cards.push(
+                <OrderCard key={order.id}
+                                 orderName={order.receiverName}
+                                 orderId ={order.id}
+                                 orderColor={order.color}
+                                 orderTotalPrice ={order.totalPrice}
+                                 orderStatus={order.status}
+                ></OrderCard>
+            );
+        });}
+        
+        return cards;
+    }
+
+
+    return (
         <div>
-            Admin main page
-            <Table striped bordered hover>
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>E-Mail</th>
-                    <th>Order</th>
-                    <th>Shipment Status</th>
-                    <th>Multiplier ?</th>
-                    <th>Country</th>
-                    <th>Total Price</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td colSpan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                </tbody>
-            </Table>
+            <div>
+                {displayCardOrders()}
+            </div>
         </div>
     )
 }
