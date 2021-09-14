@@ -1,20 +1,21 @@
 import { withKeycloak } from '@react-keycloak/web';
 import React from 'react';
 import { Navbar } from 'react-bootstrap'
-import { useHistory } from 'react-router';
 
-
+const handleLogout = () => {
+    keycloak.logout()
+    
+    
+}
 
 const Menu = ({ keycloak }) => {
-    const history = useHistory();
-
+    
     return (
         <div>
            
             {keycloak && !keycloak.authenticated &&
                 <Navbar.Brand onClick={() => keycloak.login()}>Login</Navbar.Brand>
                
-
             }
 
             {keycloak && keycloak.authenticated &&
@@ -22,7 +23,6 @@ const Menu = ({ keycloak }) => {
                     keycloak.tokenParsed.preferred_username
                 })</Navbar.Brand>
                    
-                
             }
 
         </div>
