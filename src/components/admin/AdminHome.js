@@ -28,9 +28,6 @@ const AdminHome = () => {
 
     const displayCardOrders = () => {
         let cards = [];
-        console.log(orders)
-        // let ordersArr = [];
-        // ordersArr = JSON.parse(orders)
         {orders && orders.length > 0 && orders.map((order) => {
             cards.push(
                 <OrderCard key={order.id}
@@ -38,6 +35,7 @@ const AdminHome = () => {
                                  orderId ={order.id}
                                  orderColor={order.color}
                                  orderTotalPrice ={order.totalPrice}
+                                 orderStatus={order.status}
                 ></OrderCard>
             );
         });}
@@ -47,24 +45,6 @@ const AdminHome = () => {
 
     return (
         <div>
-
-            Admin main page
-            {/* <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Id</th>
-                        <th>receiverName</th>
-                        <th>color</th>
-                        <th>totalPrice</th>
-
-                    </tr>
-                    
-                </thead>
-                <tbody>
-              
-                </tbody>
-            </Table> */}
             <div>
                 {displayCardOrders()}
             </div>
