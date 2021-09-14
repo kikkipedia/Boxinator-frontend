@@ -4,18 +4,21 @@ import GuestButton from "../shared/buttons/GuestButton"
 import { Redirect } from "react-router";
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
+import { useHistory } from 'react-router';
 
 const Home = () => {
 
+    const history = useHistory();
     const {keycloak} = useKeycloak();
     const [shouldRedirect, setShouldRedirect] = useState(false);
 
     useEffect(()=>{
-        if ( sessionStorage.getItem("authentication") === undefined || sessionStorage.getItem("authentication") === keycloak.token ) {
-              setShouldRedirect(true);
+        if (keycloak.authenticated) {
+                history.push("/home")
+              //setShouldRedirect(true);
       }
         
-    })
+    },[shouldRedirect])
     return(
         
 
