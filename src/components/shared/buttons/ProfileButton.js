@@ -4,9 +4,9 @@ import { Nav } from 'react-bootstrap'
 import { useKeycloak } from "@react-keycloak/web";
 
 
-const AdminButton = () => {
+const ProfileButton = () => {
   
-    
+
     return (
         <div>
             <AuthorizedElement roles={['admin']} roles={['user']}  >
@@ -18,4 +18,4 @@ const AdminButton = () => {
     )
     
 }
-export default AdminButton;
+export default ProfileButton;

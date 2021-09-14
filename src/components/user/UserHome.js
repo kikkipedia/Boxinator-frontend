@@ -20,6 +20,7 @@ const UserHome = () => {
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [shouldRedirectAdmin, setShouldRedirectAdmin] = useState(false);
 
+    //Initializes token in session storage and redirects if not a user
     useEffect(()=>{
         sessionStorage.setItem('authentication', keycloak.token);
         sessionStorage.setItem('refreshToken', keycloak.refreshToken);
@@ -82,28 +83,11 @@ const UserHome = () => {
         return JSON.parse(jsonPayload)
     }   
 
- 
-
-    
-
-    // const sortData = (a, b) => {
-    //     if(a.name < b.name){
-    //         return -1
-    //     }
-    //     else if (a.name > b.name) {
-    //         return 1
-    //     }
-    //     else {
-    //         return 0
-    //     }
-    // } 
-
 
     return (
         
         <Container>
             {shouldRedirectAdmin ? <Redirect to="/admin"></Redirect> : null}
-
             <Shipments/>
             <OrderModal/>
             <hr/>
