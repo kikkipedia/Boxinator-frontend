@@ -18,8 +18,15 @@ const UserMain = () => {
     //user email from token
     useEffect(() => {
         setUserEmail(parseJwt(authToken).email)
-        fetchUser()
-    },[authToken])
+        const fetchUsers = async() => {
+            try {
+                await getAllUsers()
+                .then(data => setUsers(data))
+            }
+            catch(error) {console.log(error)}
+        }
+        fetchUsers()       
+    },[authToken, userEmail])
 
     //save if new user, or else fetch user 
 

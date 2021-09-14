@@ -10,12 +10,15 @@ const GuestOrderModal = () => {
     const [countries, setCountries] = useState([])
     const [multiplier, setMultiplier] = useState(1)
     const [weight, setWeight] = useState(0)
+    const [userEmail, setUserEmail] = useState()
+    
     
     //to post
     const [packages, setPackages] = useState([])
     const [userInfo, setUserInfo] = useState()
 
     const [order, setOrder] = useState({
+        userEmail:'',
         receiverName: '',
         orderPackage: {id: 0},
         color: '',
@@ -23,7 +26,7 @@ const GuestOrderModal = () => {
         country: {id: 0}
     })
 
-    const [userEmail, setUserEmail] = useState()
+    
     const [userId, setUserId] = useState()
     const [users, setUsers] = useState([])
     const [user, setUser] = useState()
@@ -109,7 +112,7 @@ const GuestOrderModal = () => {
       localStorage.setItem("color",order.color)
       localStorage.setItem("totalPrice", order.totalPrice)
       localStorage.setItem("country",order.country.id)
-      localStorage.setItem("email", "TODO")
+      localStorage.setItem("email", order.userEmail)
     } 
 
     return (
@@ -120,7 +123,10 @@ const GuestOrderModal = () => {
                     <Modal.Title>New order</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form><Form.Group>
+                            <Form.Label></Form.Label>
+                            <Form.Control type="text" placeholder="Email Address" onChange={e => setOrder({ ...order, userEmail: e.target.value })} />
+                        </Form.Group>
                         <Form.Group>
                             <Form.Label></Form.Label>
                             <Form.Control type="text" placeholder="Name of receiver" onChange={e => setOrder({ ...order, receiverName: e.target.value })} />
