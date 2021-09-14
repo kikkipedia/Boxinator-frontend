@@ -1,24 +1,21 @@
 
 import { useState, useEffect } from "react"
 import {  Modal, Button, Form } from 'react-bootstrap'
+import { createNewOrder, getAllCountries, getPackageTypes } from  "../../api/API"
 
-import { getAllCountries, getPackageTypes } from  "../../../api/API"
+const OrderModal = () => {
 
-const GuestOrderModal = () => {
     const authToken = sessionStorage.getItem("authentication")
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
     const [multiplier, setMultiplier] = useState(1)
     const [weight, setWeight] = useState(0)
-    const [userEmail, setUserEmail] = useState()
-    
     
     //to post
     const [packages, setPackages] = useState([])
     const [userInfo, setUserInfo] = useState()
 
     const [order, setOrder] = useState({
-        userEmail:'',
         receiverName: '',
         orderPackage: {id: 0},
         color: '',
@@ -26,7 +23,7 @@ const GuestOrderModal = () => {
         country: {id: 0}
     })
 
-    
+    const [userEmail, setUserEmail] = useState()
     const [userId, setUserId] = useState()
     const [users, setUsers] = useState([])
     const [user, setUser] = useState()
@@ -107,12 +104,8 @@ const GuestOrderModal = () => {
     //TODO -- on component render - fetch user shipments
     //posts order to database
     const submitOrder = () => {
-      localStorage.setItem("receiverName", order.receiverName)
-      localStorage.setItem("orderPackage", order.orderPackage.id)
-      localStorage.setItem("color",order.color)
-      localStorage.setItem("totalPrice", order.totalPrice)
-      localStorage.setItem("country",order.country.id)
-      localStorage.setItem("email", order.userEmail)
+        createNewOrder(order)
+        console.log(order)
     } 
 
     return (
@@ -123,10 +116,7 @@ const GuestOrderModal = () => {
                     <Modal.Title>New order</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form><Form.Group>
-                            <Form.Label></Form.Label>
-                            <Form.Control type="text" placeholder="Email Address" onChange={e => setOrder({ ...order, userEmail: e.target.value })} />
-                        </Form.Group>
+                    <Form>
                         <Form.Group>
                             <Form.Label></Form.Label>
                             <Form.Control type="text" placeholder="Name of receiver" onChange={e => setOrder({ ...order, receiverName: e.target.value })} />
@@ -178,4 +168,4 @@ const GuestOrderModal = () => {
         </div>
     )
 }
-export default GuestOrderModal;
+export default OrderModal;

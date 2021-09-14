@@ -10,12 +10,12 @@ const HomeButton = ({ keycloak}) => {
         <div>
 
             {keycloak && !keycloak.authenticated &&
-                <Navbar.Brand href="/homeGuest">BOXINATOR</Navbar.Brand>
+                <Navbar.Brand href="/guest">BOXINATOR</Navbar.Brand>
             }
 
             {keycloak && keycloak.authenticated &&
                 <AuthorizedElement roles={['user']}>
-                    <Navbar.Brand href="/home">BOXINATOR</Navbar.Brand>
+                    <Navbar.Brand href="/user">BOXINATOR</Navbar.Brand>
                 </AuthorizedElement>
             }
 

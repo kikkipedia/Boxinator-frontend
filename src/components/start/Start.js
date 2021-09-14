@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
 import { useHistory } from 'react-router';
 
-const Home = () => {
+const Start = () => {
 
     const history = useHistory();
     const {keycloak} = useKeycloak();
@@ -14,7 +14,7 @@ const Home = () => {
 
     useEffect(()=>{
         if (keycloak.authenticated) {
-                history.push("/home")
+                history.push("/user")
               //setShouldRedirect(true);
       }
         
@@ -23,7 +23,7 @@ const Home = () => {
         
 
         <div>
-            {shouldRedirect ? <Redirect to="/homeGuest"></Redirect> : null}
+            {shouldRedirect ? <Redirect to="/guest"></Redirect> : null}
             Welcome to Boxinator! Login or continue as Guest?
             <ContextButton/>
             <GuestButton/>
@@ -32,4 +32,4 @@ const Home = () => {
 
     )
 }
-export default Home
+export default Start;

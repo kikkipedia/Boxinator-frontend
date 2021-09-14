@@ -1,10 +1,10 @@
 import {Redirect} from "react-router-dom";
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
-import GuestOrderModal from "./modals/GuestOrderModal";
+import GuestOrderModal from "./GuestOrderModal";
 
 
-const HomeGuest = () => {
+const GuestHome = () => {
 
     const {keycloak} = useKeycloak();
     const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -18,7 +18,7 @@ const HomeGuest = () => {
     })
   return (
     <div>
-      {shouldRedirect ? <Redirect to="/home"></Redirect> : null}
+      {shouldRedirect ? <Redirect to="/guest"></Redirect> : null}
       <h1>Home Page</h1>
        
       <strong>Welcome Guest</strong>
@@ -27,4 +27,4 @@ const HomeGuest = () => {
     </div>
   )
 }
-export default HomeGuest;
+export default GuestHome;

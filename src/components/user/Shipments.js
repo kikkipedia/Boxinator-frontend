@@ -17,7 +17,7 @@ const Shipments = (props) => {
     },[id])
 
     const sortShipments = () => {
-        console.log("all shipments: " + shipments)
+        console.log("All shipments: " + shipments)
         //sort by shipments status
     }
 
@@ -31,4 +31,4 @@ const Shipments = (props) => {
         
     )
 }
-export default Shipments
+export default Shipments;

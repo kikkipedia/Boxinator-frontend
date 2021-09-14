@@ -6,7 +6,7 @@ import {  getAllUsers,  postNewUser } from "../../api/API"
 import Shipments from "./Shipments"
 
 
-const UserMain = () => {
+const UserHome = () => {
 
     const authToken = sessionStorage.getItem("authentication")
 
@@ -46,7 +46,7 @@ const UserMain = () => {
         }
         else {
             setUserId(user.id)
-            console.log("user already exists: " + userId)
+            console.log("User already exists: " + userId)
         }
     },[user])
 
@@ -88,5 +88,5 @@ const UserMain = () => {
     )
 }
 
-export default UserMain
+export default UserHome;
 
