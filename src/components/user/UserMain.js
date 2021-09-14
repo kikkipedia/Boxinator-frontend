@@ -22,7 +22,6 @@ const UserMain = () => {
        if(keycloak.tokenParsed.realm_access.roles[2] === 'app-admin' ){
               setShouldRedirectAdmin(true);
       }
-        
     })
     //user email from token
     useEffect(() => {
