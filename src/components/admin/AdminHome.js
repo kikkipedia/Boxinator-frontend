@@ -4,10 +4,6 @@ import { useKeycloak } from '@react-keycloak/web';
 import { getAllOrders } from "../../api/API";
 import OrderCard from "../shared/cards/OrderCard.js" 
 
-
-
-
-
 const AdminHome = () => {
     const { keycloak } = useKeycloak();
     const [orders, setOrders] = useState([]);
@@ -39,6 +35,7 @@ const AdminHome = () => {
                 ></OrderCard>
             );
         });}
+        
         return cards;
     }
 

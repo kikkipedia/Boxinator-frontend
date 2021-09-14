@@ -4,6 +4,10 @@ import { useState, useEffect } from "react";
 
 
 const OrderCard = (props) => {
+    const [status, setStatus] = useState('CREATED');
+    useEffect (()=>{
+        console.log(status)
+    },[status])
 
     return (
         <Card className="card-container">
@@ -29,8 +33,8 @@ const OrderCard = (props) => {
                         <td>{props.orderColor}</td>
                         <td>{props.orderTotalPrice}</td>
                         <td>
-                                 {/* onChange={e => setOrder({ ...order, country: {id: parseInt(e.target.value)} })} */}
-                                <select  class="form-select" aria-label="Default select example">
+
+                                <select  onChange={e => setStatus({ ...props.order,orderStatus: {id: e.target.value} })}class="form-select" aria-label="Default select example">
                                 <option value="CREATED">Created</option>
                                 <option value="RECEIVED">Received</option>
                                 <option value="INTRANSIT">Intransit</option>
