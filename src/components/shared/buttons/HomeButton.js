@@ -14,15 +14,11 @@ const HomeButton = ({ keycloak}) => {
             }
 
             {keycloak && keycloak.authenticated &&
-                <AuthorizedElement roles={['user']} roles={['!admin']}>
+                <AuthorizedElement roles={['user']}>
                     <Navbar.Brand href="/home">BOXINATOR</Navbar.Brand>
                 </AuthorizedElement>
             }
-            {keycloak && keycloak.authenticated &&
-                <AuthorizedElement roles={['admin']} roles={['user']}>
-                    <Navbar.Brand href="/admin">BOXINATOR</Navbar.Brand>
-                </AuthorizedElement>
-            }
+            
         </div>
 
     )

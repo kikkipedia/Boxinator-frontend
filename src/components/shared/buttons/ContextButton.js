@@ -2,12 +2,6 @@ import { withKeycloak } from '@react-keycloak/web';
 import React from 'react';
 import { Navbar } from 'react-bootstrap'
 
-const handleLogout = ({ keycloak }) => {
-    keycloak.logout()
-    
-    
-}
-
 
 const Menu = ({ keycloak }) => {
     
@@ -20,7 +14,7 @@ const Menu = ({ keycloak }) => {
             }
 
             {keycloak && keycloak.authenticated &&
-                <Navbar.Brand href="/homeGuest" onClick={() => keycloak.logout()}>Logout ({
+                <Navbar.Brand onClick={() => keycloak.logout()}>Logout ({
                     keycloak.tokenParsed.preferred_username
                 })</Navbar.Brand>
                    
