@@ -8,14 +8,14 @@ const OrderCardAdmin = (props) => {
     const [status, setStatus] = useState();
 
     useEffect (()=>{
-        setStatusNew(props.id);
+        // setStatusNew(props.id);
         console.log(status)
     },[status])
 
-    const setStatusNew = async (sts) =>{
-        const data = await getShipmentStatusHistoryByShipmentId(sts);
-        setStatus(data);
-    }
+    // const setStatusNew = async (sts) =>{
+    //     const data = await getShipmentStatusHistoryByShipmentId(sts);
+    //     setStatus(data);
+    // }
     
 
     return (
@@ -37,13 +37,14 @@ const OrderCardAdmin = (props) => {
                         </tr>
 
                     </thead>
+                    <tbody>
                     <tr>
                         <td>{props.orderName}</td>
                         <td>{props.orderColor}</td>
                         <td>{props.orderTotalPrice}</td>
                         <td>
 
-                                <select  onChange={e => setStatus({ ...props.order,orderStatus: {id: e.target.value} })}class="form-select" aria-label="Default select example">
+                                <select  onChange={e => setStatus({ ...props.order,orderStatus: {id: e.target.value} })}className="form-select" aria-label="Default select example">
                                 <option value="CREATED">Created</option>
                                 <option value="RECEIVED">Received</option>
                                 <option value="INTRANSIT">Intransit</option>
@@ -52,6 +53,7 @@ const OrderCardAdmin = (props) => {
                             </select>
                         </td>
                     </tr>
+                    </tbody>
                 </Table>
 
 
