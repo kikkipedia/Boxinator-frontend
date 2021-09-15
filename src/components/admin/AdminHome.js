@@ -1,50 +1,76 @@
-import { Table } from "react-bootstrap";
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
+<<<<<<< HEAD
 import { getAllOrders } from "../../api/API";
 import { Container} from 'react-bootstrap'
 import OrderCardAdmin from "./OrderCardAdmin.js" 
+=======
+import { getAllOrders, getAllShipments } from "../../api/API";
+import OrderCardAdmin from "./OrderCardAdmin.js"
+import StatusChanger from "./StatusChanger";
+>>>>>>> daniel6
 
 const AdminHome = () => {
     const { keycloak } = useKeycloak();
     const [orders, setOrders] = useState([]);
-
+    const [shipments, setShipments] = useState([]);
     //Initializes token in session storage
     useEffect(() => {
         sessionStorage.setItem('authentication', keycloak.token);
         sessionStorage.setItem('refreshToken', keycloak.refreshToken);
-        //setOrders(getAllOrders())
         setOrdersNew();
+        setShipmentsNew();
     }, [])
 
-   const  setOrdersNew = async () => {
+    const setOrdersNew = async () => {
         const data = await getAllOrders();
         setOrders(data);
     }
-
-
-    const displayCardOrders = () => {
+    const setShipmentsNew = async () => {
+        const data = await getAllShipments();
+        setShipments(data);
+    }
+    const displayCardStatus = () => {
         let cards = [];
-        {orders && orders.length > 0 && orders.map((order) => {
-            cards.push(
-                <OrderCardAdmin key={order.id}
-                                 orderName={order.receiverName}
-                                 orderId ={order.id}
-                                 orderColor={order.color}
-                                 orderTotalPrice ={order.totalPrice}
-                                 orderStatus={order.status}
-                ></OrderCardAdmin>
-            );
-        });}
-        
+        {
+            shipments && shipments.length > 0 && shipments.map((shipment) => {
+                cards.push(
+                    <StatusChanger key={shipment.id}
+                        orderId={shipment.id}
+                        orderStatus={shipment.status.statusType}
+                    ></StatusChanger>
+                );
+            });
+        }
+
         return cards;
     }
+    const displayCardOrders = () => {
+        let cards = [];
+        {
+            orders && orders.length > 0 && orders.map((order) => {
+                cards.push(
+                    <OrderCardAdmin key={order.id}
+                        orderName={order.receiverName}
+                        orderId={order.id}
+                        orderColor={order.color}
+                        orderTotalPrice={order.totalPrice}>
+                    </OrderCardAdmin>
+                    
+                );
+            });
+        }
+        return cards;
+    }
+
 
 
     return (
         <Container>
             <div>
-                {displayCardOrders()}
+                {/* {displayCardOrders()} */}
+                {displayCardStatus()}
+                
             </div>
         </Container>
     )

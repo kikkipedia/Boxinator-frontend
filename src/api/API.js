@@ -29,32 +29,36 @@ export const getAllOrders = async() => {
 	return response.json()
 }
 
-export const createNewOrder = (newOrder) => {
-    return fetch(`${BASE_API_URL}orders`, {
+export const createNewOrder = async (newOrder) => {
+	const response = await fetch(`${BASE_API_URL}orders`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
         body: JSON.stringify(newOrder)
 	})
+	return response.json()
 } 
 
-export const getAllShipments = () => {
-    return fetch(`${BASE_API_URL}shipments`, {
+export const getAllShipments = async() => {
+	const response = await fetch(`${BASE_API_URL}shipments`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	})
-} 
+	return response.json()
+}
+
 //SHIPMENTS
-export const getShipmentByOrderId = (orderId) => {
-    return fetch(`${BASE_API_URL}shipments?order_id=${orderId}`, {
+export const getShipmentById = async (orderId) => {
+	const response = await fetch(`${BASE_API_URL}shipments/${orderId}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	})
+	return response.json()
 } 
 
 export const createNewShipment = (newShipment) => {
@@ -67,23 +71,34 @@ export const createNewShipment = (newShipment) => {
 	})
 } 
 
-export const getShipmentStatusHistoryByShipmentId = (shipmentId) => {
-    return fetch(`${BASE_API_URL}shipmentstatushistory?shipment_id=${shipmentId}`, {
+export const getShipmentStatusHistoryByShipmentId = async(shipmentId) => {
+	const response = await fetch(`${BASE_API_URL}shipmentstatushistory?shipment_id=${shipmentId}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	})
+	return response.json()
 } 
 
-export const updateShipmentStatus = (updatedShipment) => {
-    return fetch(`${BASE_API_URL}shipments`, {
+export const updateShipment = async(updatedShipment) => {
+	const response = await fetch(`${BASE_API_URL}shipments`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(updatedShipment)})
+	return response.json()
+} 
+
+export const updateShipmentStatus = async(id, status) => {
+	const response = await fetch(`${BASE_API_URL}shipments/updateShipmentStatus/${id}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(updatedShipment)
-	})
+		body: JSON.stringify(status)})
+	return response.json()
 } 
 
 

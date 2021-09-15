@@ -27,11 +27,13 @@ const OrderCardUser = (props) => {
                         </tr>
 
                     </thead>
+                    <tbody>
                     <tr>
                         <td>{props.orderName}</td>
                         <td>{props.orderColor}</td>
                         <td>{props.orderTotalPrice}</td>
                     </tr>
+                    </tbody>
                 </Table>
 
 
