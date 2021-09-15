@@ -51,11 +51,11 @@ const UserHome = () => {
     useEffect(() => {
         getAllUsers()
         .then(data => {
-            console.log(data)
             setUsers(data)
             //check if user exists
             let user = data.find(el => el.email === userEmail)
             if(!user) {
+                //if not - post new user to database
                 if (userEmail !== undefined) {
                     const reqParams = {
                         email: userEmail
@@ -63,6 +63,7 @@ const UserHome = () => {
                     console.log(reqParams)
                     postNewUser(reqParams)
                 }
+                // userEmail == null --> should re-render TODO?
                 else{console.log("cant find email")}
             }
             else {
@@ -77,15 +78,6 @@ const UserHome = () => {
             //if new user is saved // array changes => re-render
         }
     },[users])
-        
-    // const parseJwt = (token) => {
-    //     var base64Url = token.split('.')[1];
-    //     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    //     var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-    //         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-    //     }).join(''))
-    //     return JSON.parse(jsonPayload)
-    // }   
 
     return (
         
