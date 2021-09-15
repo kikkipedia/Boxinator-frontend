@@ -1,6 +1,6 @@
 import { withKeycloak } from '@react-keycloak/web';
 import React from 'react';
-import { Navbar } from 'react-bootstrap'
+import { Nav } from 'react-bootstrap'
 
 const Menu = ({ keycloak }) => {
     
@@ -8,14 +8,14 @@ const Menu = ({ keycloak }) => {
         <div>
            
             {keycloak && !keycloak.authenticated &&
-                <Navbar.Brand style={{"color": "white", "margin-left": "1000px", "cursor": "pointer"}} onClick={() => keycloak.login()}>LOGIN</Navbar.Brand>
+                <Nav.Link style={{"color": "white", "cursor": "pointer"}} onClick={() => keycloak.login()}>LOGIN</Nav.Link>
                
             }
 
             {keycloak && keycloak.authenticated &&
-                <Navbar.Brand style={{"color": "white"}}  onClick={() => keycloak.logout()}>LOGOUT ({
+                <Nav.Link style={{"color": "white"}}  onClick={() => keycloak.logout()}>LOGOUT ({
                     keycloak.tokenParsed.preferred_username
-                })</Navbar.Brand>   
+                })</Nav.Link>   
             }
 
         </div>

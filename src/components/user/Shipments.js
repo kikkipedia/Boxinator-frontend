@@ -2,8 +2,6 @@ import Keycloak from "keycloak-js"
 import { useEffect, useState } from "react"
 import { getOrdersByUserId } from "../../api/API"
 import { useKeycloak } from '@react-keycloak/web'
-import OrderCardUser from "./OrderCardUser.js"
-import { getAllOrders } from "../../api/API"
 import { Table } from 'react-bootstrap'
 
 const Shipments = (props) => {
@@ -15,7 +13,6 @@ const Shipments = (props) => {
     const [status, setStatus] = useState();
 
     useEffect(() => {
-        console.log(props.id)
         getOrdersByUserId(props.id)
         .then(data => {
             console.log(data)
@@ -25,6 +22,12 @@ const Shipments = (props) => {
             //setOrdersNew()
         })
     },[props.id])
+
+    useEffect(() => {
+        if(shipments.length) {
+            //after order
+        }
+    },[shipments])
 
     
 
@@ -60,7 +63,6 @@ const Shipments = (props) => {
     return(
         <div className="content">
             <br/>
-            {props.id}
             <Table bordered variant="dark" size="sm" className="orderTable">
                 <thead>
                     <tr>

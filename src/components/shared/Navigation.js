@@ -12,11 +12,7 @@ const Navigation = () => {
                     <HomeButton/>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav>
-                            {/* <UserButton/>
-                            <AdminButton/> */}
-                            <ProfileButton/>
-                        </Nav>
+
                         <Nav className="m-auto">
 
                             <ContextButton/>

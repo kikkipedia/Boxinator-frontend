@@ -63,7 +63,6 @@ const UserHome = () => {
                     console.log(reqParams)
                     postNewUser(reqParams)
                 }
-                // userEmail == null --> should re-render TODO?
                 else{console.log("cant find email")}
             }
             else {

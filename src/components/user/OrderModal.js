@@ -11,6 +11,7 @@ const OrderModal = (props) => {
     const [countries, setCountries] = useState([])
     const [multiplier, setMultiplier] = useState(0)
     const [weight, setWeight] = useState(0)
+    const [userId, setUserId] = useState(props.id)
     
     //to post
     const [packages, setPackages] = useState([])
@@ -22,8 +23,7 @@ const OrderModal = (props) => {
         color: '',
         totalPrice: 0,
         country: {id: 0},
-        //får inte id!!!!!
-        user: props
+        user: {id: props.id}
     })
 
     //modal
@@ -31,7 +31,7 @@ const OrderModal = (props) => {
     const handleShow = () => setShow(true)
 
 
-    //fetch & sort countries from database
+    //fetch & sort countries & packages from database
     useEffect(() => {
 
         getAllCountries()
@@ -48,21 +48,9 @@ const OrderModal = (props) => {
 
     }, [])
 
-    const sortData = (a, b) => {
-        if (a.name < b.name) {
-            return -1
-        }
-        else if (a.name > b.name) {
-            return 1
-        }
-        else {
-            return 0
-        }
-    }
-
     //calculate price
     useEffect(() => {
-        let total = 0;
+        let total = 0
         for (let item of countries) {
             if (item.id === order.country.id) {
                 if(weight > 0) {
@@ -97,11 +85,16 @@ const OrderModal = (props) => {
         }         
     }, [weight])
 
-    //TODO -- on component render - fetch user shipments
-    //posts order to database
+    useEffect(() => {
+        //re-renders when show/close
+        setOrder({...order, user: {id: props.id}})
+    },[show])
+
+
     const submitOrder = () => {
         createNewOrder(order)
         console.log(order)
+        setShow(false)
     } 
 
     return (
