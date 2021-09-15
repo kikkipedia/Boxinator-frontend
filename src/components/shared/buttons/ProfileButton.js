@@ -1,16 +1,15 @@
-
 import AuthorizedElement from "../../../utilities/AuthorizedElement"
 import { Nav } from 'react-bootstrap'
-import { useKeycloak } from "@react-keycloak/web";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUserCog } from "@fortawesome/free-solid-svg-icons"
 
 const ProfileButton = () => {
   
 
     return (
         <div>
-            <AuthorizedElement roles={['admin']} roles={['user']}  >
-                <Nav.Link style={{"color": "white"}} href="/user">Profile</Nav.Link>
+            <AuthorizedElement /* roles={['admin']}  */roles={['user']}  >
+                <Nav.Link style={{"color": "white"}} href="/profile">Profile <FontAwesomeIcon icon={faUserCog} /> </Nav.Link>
             </AuthorizedElement>
 
         </div>
@@ -18,4 +17,4 @@ const ProfileButton = () => {
     )
     
 }
-export default ProfileButton;
+export default ProfileButton
