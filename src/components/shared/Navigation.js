@@ -12,9 +12,10 @@ const Navigation = () => {
                     <HomeButton/>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
-
+                        <Nav>
+                            <ProfileButton/>
+                        </Nav>
                         <Nav className="m-auto">
-
                             <ContextButton/>
                         </Nav>                      
                     </Navbar.Collapse>
