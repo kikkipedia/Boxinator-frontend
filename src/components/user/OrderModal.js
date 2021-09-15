@@ -23,7 +23,7 @@ const OrderModal = (props) => {
         totalPrice: 0,
         country: {id: 0},
         //får inte id!!!!!
-        user: {id: props.id}
+        user: props
     })
 
     //modal

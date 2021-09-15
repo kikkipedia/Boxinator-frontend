@@ -26,6 +26,8 @@ const Shipments = (props) => {
         })
     },[props.id])
 
+    
+
     // const  setOrdersNew = async () => {
     //     const data = await getAllOrders();
     //     setOrders(data);
@@ -56,9 +58,10 @@ const Shipments = (props) => {
     
 
     return(
-        <div>
-            <h4>All shipments</h4>
-            <Table>
+        <div className="content">
+            <br/>
+            {props.id}
+            <Table bordered variant="dark" size="sm" className="orderTable">
                 <thead>
                     <tr>
                         <th>Reciever name</th>
@@ -71,19 +74,13 @@ const Shipments = (props) => {
                     {shipments && !!shipments.length && shipments.map(shipment => (
                         <tr key={shipment.id}>
                             <td>{shipment.receiverName}</td>
-                            <td>{shipment.color}</td>
+                            <td style={{background: shipment.color}}></td>
                             <td>{shipment.orderPackage.name}</td>
                             <td>{shipment.totalPrice}</td>
                         </tr>
                     ))}
                 </tbody>
             </Table>
-
-
-
-{/*             <h4>Shipments in transit</h4>
-            {displayCardOrdersIntransit()}
-            <h4>Recieved shipments</h4> */}
         </div>
         
     )
