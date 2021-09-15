@@ -1,10 +1,11 @@
 
 import { useState, useEffect } from "react"
 import { Modal, Button, Form } from 'react-bootstrap'
+import { propTypes } from "react-bootstrap/esm/Image"
 
 import { getAllCountries, getPackageTypes } from "../../api/API"
 
-const GuestOrderModal = () => {
+const GuestOrderModal = (props) => {
     const authToken = sessionStorage.getItem("authentication")
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])

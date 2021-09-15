@@ -21,7 +21,8 @@ const OrderModal = (props) => {
         orderPackage: {id: 0},
         color: '',
         totalPrice: 0,
-        country: {id: 0}
+        country: {id: 0},
+        user: {id: props.id}
     })
 
     //modal
