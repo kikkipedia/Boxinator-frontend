@@ -65,11 +65,13 @@ const Shipments = (props) => {
             <br/>
             <Table bordered variant="dark" size="sm" className="orderTable">
                 <thead>
-                    <tr>
+                    <tr style={{color: "#c0eb75"}}>
                         <th>Reciever name</th>
                         <th>Box colour</th>
                         <th>Package type</th>
                         <th>Total price</th>
+                        <th>Order status</th>
+                        <th>Last updated</th>
                     </tr>
                 </thead>
                 <tbody>
