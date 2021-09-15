@@ -15,7 +15,7 @@ const HomeButton = ({ keycloak}) => {
 
             {keycloak && keycloak.authenticated &&
                 <AuthorizedElement roles={['user']}>
-                    <Navbar.Brand style={{"color": "white", "font-weight": "bold", "font-size": "25px"}} href="/guest"><img className="navbarImg" src="../resources/images/whiteBox.svg" /> BOXINATOR</Navbar.Brand>
+                    <Navbar.Brand style={{"color": "white", "font-weight": "bold", "font-size": "25px"}} href="/user"><img className="navbarImg" src="../resources/images/whiteBox.svg" /> BOXINATOR</Navbar.Brand>
                 </AuthorizedElement>
             }
 
