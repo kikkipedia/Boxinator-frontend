@@ -4,6 +4,7 @@ import { Container} from 'react-bootstrap'
 import {  getAllUsers,  postNewUser } from "../../api/API"
 import { useKeycloak } from '@react-keycloak/web';
 import OrderModal from "../user/OrderModal";
+import { getAllOrders } from "../../api/API";
 
 import Shipments from "./Shipments"
 
@@ -20,27 +21,25 @@ const UserHome = () => {
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [shouldRedirectAdmin, setShouldRedirectAdmin] = useState(false);
 
-    //Initializes token in session storage and redirects if not a user
+    //Redirects if not a user  or an admin
     useEffect(()=>{
-        sessionStorage.setItem('authentication', keycloak.token);
-        sessionStorage.setItem('refreshToken', keycloak.refreshToken);
         if ( sessionStorage.getItem("authentication") === undefined ) {
               setShouldRedirect(true);
       }else if(keycloak.tokenParsed.realm_access.roles[2] === 'app-admin'){
               setShouldRedirectAdmin(true);
-      }
+      } 
+    })
+    //Initializes token in session storage
+    useEffect(() => {
+        sessionStorage.setItem('authentication', keycloak.token);
+        sessionStorage.setItem('refreshToken', keycloak.refreshToken);
         
-    })
+    }, [])
 
-    //Redirects if admin
-    useEffect(()=>{
-       if(keycloak.tokenParsed.realm_access.roles[2] === 'app-admin' ){
-              setShouldRedirectAdmin(true);
-      }
-    })
     //user email from token
     useEffect(() => {
-        setUserEmail(parseJwt(authToken).email)
+        //setUserEmail(parseJwt(authToken).email)
+        setUserEmail(keycloak.tokenParsed.preferred_username)
         const fetchUsers = async() => {
             try {
                 await getAllUsers()
@@ -52,12 +51,6 @@ const UserHome = () => {
     },[authToken, userEmail])
 
     //save if new user, or else fetch user 
-
-    const getUserByEmail = () => {      
-        let foundUser = users.find(element => element.email === userEmail)
-        setUser(foundUser)             
-    }
-
     useEffect(() => {
         if(user === undefined) {
             const post = {
@@ -73,7 +66,6 @@ const UserHome = () => {
         }
     },[user])
 
-        
     const parseJwt = (token) => {
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -82,6 +74,10 @@ const UserHome = () => {
         }).join(''))
         return JSON.parse(jsonPayload)
     }   
+    const getUserByEmail = () => {      
+        let foundUser = users.find(element => element.email === userEmail)
+        setUser(foundUser)             
+    }
 
 
     return (

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 
 
-const OrderCard = (props) => {
+const OrderCardAdmin = (props) => {
     const [status, setStatus] = useState('CREATED');
     useEffect (()=>{
         console.log(status)
@@ -50,4 +50,4 @@ const OrderCard = (props) => {
         </Card>
     );
 };
-export default OrderCard;
+export default OrderCardAdmin;
