@@ -43,6 +43,10 @@ const UserHome = () => {
         setUserEmail(keycloak.tokenParsed.preferred_username) 
     },[authToken])
 
+    useEffect(() => {
+        //userId changes
+    },[userId])
+
     //fetch al users
     useEffect(() => {
         getAllUsers()
@@ -52,47 +56,27 @@ const UserHome = () => {
             //check if user exists
             let user = data.find(el => el.email === userEmail)
             if(!user) {
-                const reqParams = {
-                    email: userEmail
+                if (userEmail !== undefined) {
+                    const reqParams = {
+                        email: userEmail
+                    }
+                    console.log(reqParams)
+                    postNewUser(reqParams)
                 }
-                postNewUser(reqParams)
+                else{console.log("cant find email")}
             }
             else {
                 setUserId(user.id)
                 console.log("user exists: ", user.email, user.id)
             }
         })
-
     },[userEmail])
 
-    // useEffect(() => {
-    //     if(users.length) {
-    //         //if new user is saved // array changes => re-render
-    //         getUserByEmail()
-    //     }
-    // },[users])
-
-    //save if new user, or else fetch user 
-    // const getUserByEmail = () => {    
-    //     console.log(users)
-    //     let foundUser = users.find(element => element.email === userEmail)
-    //     if (!foundUser) {
-    //         if (userEmail !== undefined) {
-    //             const reqParams = {
-    //                 email: userEmail
-    //             }
-    //             console.log(reqParams)
-    //             postNewUser(reqParams)
-    //         }
-    //         else{console.log("cant find email")}
-            
-    //     }
-    //     else {
-    //         console.log("user found" + foundUser.email)
-    //         console.log("user id: ", foundUser.id)
-    //         setUserId(foundUser.id)
-    //     }     
-    // }
+    useEffect(() => {
+        if(users.length) {
+            //if new user is saved // array changes => re-render
+        }
+    },[users])
         
     // const parseJwt = (token) => {
     //     var base64Url = token.split('.')[1];
@@ -108,9 +92,9 @@ const UserHome = () => {
         <Container>
             {shouldRedirectAdmin ? <Redirect to="/admin"></Redirect> : null}
 
-            <Shipments email={userEmail} id={userId}/>
+            <Shipments id={userId}/>
             <hr/>
-            <OrderModal email={userEmail} id={userId}/>
+            <OrderModal id={userId}/>
         </Container>
     )
 }
