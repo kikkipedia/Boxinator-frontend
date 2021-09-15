@@ -21,7 +21,7 @@ const GuestHome = () => {
       {shouldRedirect ? <Redirect to="/guest"></Redirect> : null}
       <div className="guestHomeHeader">BOXINATOR</div>
       <div className="guestImgContainer">
-        <img className="guestImg" src="../resources/images/blackBox.svg" />
+        <img className="guestImg" src="../resources/images/blackBox.svg" alt="Black box"/>
       </div>     
       <div className="guestNewOrderBtnContainer">
         <GuestOrderModal/>
