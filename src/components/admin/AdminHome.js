@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
-<<<<<<< HEAD
-import { getAllOrders } from "../../api/API";
+import { getAllOrders, getAllShipments } from "../../api/API";
 import { Container} from 'react-bootstrap'
 import OrderCardAdmin from "./OrderCardAdmin.js" 
-=======
-import { getAllOrders, getAllShipments } from "../../api/API";
-import OrderCardAdmin from "./OrderCardAdmin.js"
 import StatusChanger from "./StatusChanger";
->>>>>>> daniel6
+
 
 const AdminHome = () => {
     const { keycloak } = useKeycloak();
