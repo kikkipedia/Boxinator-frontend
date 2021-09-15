@@ -67,13 +67,20 @@ export const createNewShipment = (newShipment) => {
 	})
 } 
 
-export const getShipmentStatusHistoryByShipmentId = (shipmentId) => {
-    return fetch(`${BASE_API_URL}shipmentstatushistory?shipment_id=${shipmentId}`, {
+export const getShipmentStatusHistoryByShipmentId = async(shipmentId) => {
+    // return fetch(`${BASE_API_URL}shipmentstatushistory?shipment_id=${shipmentId}`, {
+	// 	method: 'GET',
+	// 	headers: {
+	// 		'Content-Type': 'application/json',
+	// 	},
+	// })
+	const response = await fetch(`${BASE_API_URL}shipmentstatushistory?shipment_id=${shipmentId}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	})
+	return response.json()
 } 
 
 export const updateShipmentStatus = (updatedShipment) => {

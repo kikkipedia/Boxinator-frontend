@@ -20,8 +20,8 @@ const OrderModal = () => {
         orderPackage: {id: 0},
         color: '',
         totalPrice: 0,
-        country: {id: 0},
-        status: 'CREATED'
+        country: {id: 0}
+      
     })
 
     const [userEmail, setUserEmail] = useState()

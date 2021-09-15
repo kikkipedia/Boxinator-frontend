@@ -1,13 +1,22 @@
 import { Card, Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { getShipmentStatusHistoryByShipmentId } from "../../api/API";
 
 
 
 const OrderCardAdmin = (props) => {
-    const [status, setStatus] = useState('CREATED');
+    const [status, setStatus] = useState();
+
     useEffect (()=>{
+        setStatusNew(props.id);
         console.log(status)
     },[status])
+
+    const setStatusNew = async (sts) =>{
+        const data = await getShipmentStatusHistoryByShipmentId(sts);
+        setStatus(data);
+    }
+    
 
     return (
         <Card className="card-container">
