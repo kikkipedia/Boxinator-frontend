@@ -3,8 +3,9 @@ import { useState, useEffect } from "react"
 import {  Modal, Button, Form } from 'react-bootstrap'
 import { createNewOrder, getAllCountries, getPackageTypes } from  "../../api/API"
 
-const OrderModal = () => {
+const OrderModal = (props) => {
 
+    
     const authToken = sessionStorage.getItem("authentication")
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
@@ -21,15 +22,9 @@ const OrderModal = () => {
         color: '',
         totalPrice: 0,
         country: {id: 0},
+        user: {id: props.id},
         status: 'CREATED'
     })
-
-    const [userEmail, setUserEmail] = useState()
-    const [userId, setUserId] = useState()
-    const [users, setUsers] = useState([])
-    const [user, setUser] = useState()
-
-  
 
     //modal
     const handleClose = () => setShow(false)
