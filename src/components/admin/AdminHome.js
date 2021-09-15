@@ -2,7 +2,7 @@ import { Table } from "react-bootstrap";
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
 import { getAllOrders } from "../../api/API";
-import OrderCard from "../shared/cards/OrderCard.js" 
+import OrderCardAdmin from "./OrderCardAdmin.js" 
 
 const AdminHome = () => {
     const { keycloak } = useKeycloak();
@@ -26,13 +26,13 @@ const AdminHome = () => {
         let cards = [];
         {orders && orders.length > 0 && orders.map((order) => {
             cards.push(
-                <OrderCard key={order.id}
+                <OrderCardAdmin key={order.id}
                                  orderName={order.receiverName}
                                  orderId ={order.id}
                                  orderColor={order.color}
                                  orderTotalPrice ={order.totalPrice}
                                  orderStatus={order.status}
-                ></OrderCard>
+                ></OrderCardAdmin>
             );
         });}
         
