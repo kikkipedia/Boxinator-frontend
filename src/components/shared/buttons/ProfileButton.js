@@ -10,7 +10,7 @@ const ProfileButton = () => {
     return (
         <div>
             <AuthorizedElement roles={['admin']} roles={['user']}  >
-                <Nav.Link href="/user">Profile</Nav.Link>
+                <Nav.Link style={{"color": "white"}} href="/user">Profile</Nav.Link>
             </AuthorizedElement>
 
         </div>
