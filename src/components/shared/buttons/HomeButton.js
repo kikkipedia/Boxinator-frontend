@@ -10,15 +10,15 @@ const HomeButton = ({ keycloak}) => {
         <div>
 
             {keycloak && !keycloak.authenticated &&
-                <Navbar.Brand href="/guest">BOXINATOR</Navbar.Brand>
+                <Navbar.Brand style={{"color": "white", "font-weight": "bold", "font-size": "25px"}} href="/guest"><img className="navbarImg" src="../resources/images/whiteBox.svg" /> BOXINATOR</Navbar.Brand>
             }
 
             {keycloak && keycloak.authenticated &&
                 <AuthorizedElement roles={['user']}>
-                    <Navbar.Brand href="/user">BOXINATOR</Navbar.Brand>
+                    <Navbar.Brand style={{"color": "white", "font-weight": "bold", "font-size": "25px"}} href="/guest"><img className="navbarImg" src="../resources/images/whiteBox.svg" /> BOXINATOR</Navbar.Brand>
                 </AuthorizedElement>
             }
-            
+
         </div>
 
     )

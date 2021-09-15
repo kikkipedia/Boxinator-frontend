@@ -9,7 +9,7 @@ const OrderModal = (props) => {
     const authToken = sessionStorage.getItem("authentication")
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
-    const [multiplier, setMultiplier] = useState(1)
+    const [multiplier, setMultiplier] = useState(0)
     const [weight, setWeight] = useState(0)
     
     //to post
@@ -21,9 +21,7 @@ const OrderModal = (props) => {
         orderPackage: {id: 0},
         color: '',
         totalPrice: 0,
-        country: {id: 0},
-        user: {id: props.id},
-        status: 'CREATED'
+        country: {id: 0}
     })
 
     //modal
