@@ -13,7 +13,7 @@ const Menu = ({ keycloak }) => {
             }
 
             {keycloak && keycloak.authenticated &&
-                <Navbar.Brand style={{"color": "white"}} href="/guest" onClick={() => keycloak.logout()}>LOGOUT ({
+                <Navbar.Brand style={{"color": "white"}}  onClick={() => keycloak.logout()}>LOGOUT ({
                     keycloak.tokenParsed.preferred_username
                 })</Navbar.Brand>   
             }

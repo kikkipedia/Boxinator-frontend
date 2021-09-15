@@ -2,6 +2,7 @@ import { Table } from "react-bootstrap";
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
 import { getAllOrders } from "../../api/API";
+import { Container} from 'react-bootstrap'
 import OrderCardAdmin from "./OrderCardAdmin.js" 
 
 const AdminHome = () => {
@@ -41,11 +42,11 @@ const AdminHome = () => {
 
 
     return (
-        <div>
+        <Container>
             <div>
                 {displayCardOrders()}
             </div>
-        </div>
+        </Container>
     )
 }
 
