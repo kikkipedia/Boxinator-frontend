@@ -82,6 +82,7 @@ const UserHome = () => {
     return (
         
         <Container>
+            {userId}
             {shouldRedirectAdmin ? <Redirect to="/admin"></Redirect> : null}
 
             <Shipments id={userId}/>

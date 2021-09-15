@@ -135,3 +135,7 @@ body {
   height: 40px;
   width: 40px;
 }
+
+.orderTable {
+  width: 80%;
+}
