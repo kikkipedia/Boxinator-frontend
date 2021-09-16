@@ -2,9 +2,9 @@ const BASE_API_URL = "http://localhost:8080/api/"
 //const BASE_API_UR = "https://boxinator-server.herokuapp.com/api/"
 
 //USERS
-export const getAllUsers = () => {
-	return fetch(`${BASE_API_URL}users`)
-	.then(result => result.json())
+export const getAllUsers = async() => {
+	const response = await fetch(`${BASE_API_URL}users`)
+	return response.json()
 }
 export const postNewUser = (post) => {
 	const requestOptions = {
@@ -20,6 +20,7 @@ export const postNewUser = (post) => {
 
 //ORDERS
 export const getOrdersByUserId = (userId) => {
+	let parsed = parseInt(userId)
     return fetch(`${BASE_API_URL}orders/getByUserId/${userId}`)
 	.then(response => response.json())
 } 

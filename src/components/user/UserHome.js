@@ -83,6 +83,11 @@ const UserHome = () => {
         }
     },[users])
 
+    const setUsersNew = async () => {
+        const data = await getAllUsers();
+        setUsers(data);
+    }
+
 
     //modal open/close
     const handleClose = () => setShow(false)

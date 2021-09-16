@@ -1,6 +1,6 @@
 import Keycloak from "keycloak-js"
 import { useEffect, useState } from "react"
-import { getOrdersByUserId } from "../../api/API"
+import { getOrdersByUserId, getShipmentById } from "../../api/API"
 import { useKeycloak } from '@react-keycloak/web'
 import { Table } from 'react-bootstrap'
 
@@ -8,28 +8,40 @@ const Shipments = (props) => {
     const [shipments, setShipments] = useState([])
     const [oldShipments, setOldShipments] = useState([])
     const [inTransit, setInTransit] = useState([])
-    const {keycloak} = useKeycloak();
+    const { keycloak } = useKeycloak();
     const [orders, setOrders] = useState([]);
     const [status, setStatus] = useState();
 
     useEffect(() => {
         getOrdersByUserId(props.id)
-        .then(data => {
-            console.log(data)
-            setShipments(data)
-            //sortShipments(data)
-            setStatus(data.status)
-            //setOrdersNew()
-        })
+            .then(data => {
+                // console.log(data)
+                setOrders(data)
+               console.log(props.id)
+               
+            })
+                     
     },[props.id])
 
     useEffect(() => {
-        if(shipments.length) {
+        if (orders.length) {
             //after order
         }
-    },[shipments])
+    }, [orders])
+    //Get shipment based upon relevant order id
+    useEffect(() => {
+        {orders && !!orders.length && orders.map(order => (
+            getShipmentById(order.id)
+                .then(data => {
+                setShipments(data)
+                console.log(shipments)
+                })
+        ))
+    }  
+        
+    },[])
 
-    
+
 
     // const  setOrdersNew = async () => {
     //     const data = await getAllOrders();
@@ -43,7 +55,7 @@ const Shipments = (props) => {
     // }
     // const displayCardOrdersIntransit = () => {
     //     let cards = [];
-       
+
     //         {orders && orders.length > 0 && orders.map((order) => {
     //             cards.push(
     //                 <OrderCardUser key={order.id}
@@ -51,21 +63,21 @@ const Shipments = (props) => {
     //                                  orderId ={order.id}
     //                                  orderColor={order.color}
     //                                  orderTotalPrice ={order.totalPrice}
-                                                                    
+
     //                 ></OrderCardUser>
     //             )
     //         })}
-        
+
     //     return cards;
     // }
-    
 
-    return(
+
+    return (
         <div className="content">
-            <br/>
+            <br />
             <Table bordered variant="dark" size="sm" className="orderTable">
                 <thead>
-                    <tr style={{color: "#c0eb75"}}>
+                    <tr style={{ color: "#c0eb75" }}>
                         <th>Reciever name</th>
                         <th>Box colour</th>
                         <th>Package type</th>
@@ -75,18 +87,29 @@ const Shipments = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {shipments && !!shipments.length && shipments.map(shipment => (
-                        <tr key={shipment.id}>
-                            <td>{shipment.receiverName}</td>
-                            <td style={{background: shipment.color}}></td>
-                            <td>{shipment.orderPackage.name}</td>
-                            <td>{shipment.totalPrice}</td>
+                    {orders && !!orders.length && orders.map(order => (
+                        <tr key={order.id}>
+                            <td>{order.receiverName}</td>
+                            <td style={{ background: order.color }}></td>
+                            <td>{order.orderPackage.name}</td>
+                            <td>{order.totalPrice}</td>
+                            {/* <td>{getShipmentById(order.id).shipments.status.statusType}</td> */}
+                            <td>
+                                {shipments && !!shipments.length && shipments.map(shipment => (
+                                    <tr key={shipment.id}>
+                                        <td></td>
+                                        {/* <td>{shipment.status.statusType}</td> */}
+                                        {/* <td>{shipment.shipmentStatusHistory.timestamp}</td> */}
+                                    </tr>
+                                ))}
+                            </td>
                         </tr>
                     ))}
+
                 </tbody>
             </Table>
         </div>
-        
+
     )
 }
 export default Shipments;
