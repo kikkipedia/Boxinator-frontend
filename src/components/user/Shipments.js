@@ -28,6 +28,7 @@ const Shipments = (props) => {
             //after order
         }
     }, [orders])
+
     //Get shipment based upon relevant order id
     useEffect(() => {
         {orders && !!orders.length && orders.map(order => (
@@ -37,9 +38,8 @@ const Shipments = (props) => {
                 console.log(shipments)
                 })
         ))
-    }  
-        
-    },[])
+    }   
+    },[orders])
 
 
 
@@ -98,7 +98,7 @@ const Shipments = (props) => {
                                 {shipments && !!shipments.length && shipments.map(shipment => (
                                     <tr key={shipment.id}>
                                         <td></td>
-                                        {/* <td>{shipment.status.statusType}</td> */}
+                                        <td>{shipment.status.statusType}</td>
                                         {/* <td>{shipment.shipmentStatusHistory.timestamp}</td> */}
                                     </tr>
                                 ))}
