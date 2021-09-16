@@ -1,20 +1,15 @@
 import AuthorizedElement from "../../../utilities/AuthorizedElement"
 import { Nav } from 'react-bootstrap'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faUserCog } from "@fortawesome/free-solid-svg-icons"
 
 const ProfileButton = () => {
-  
+
 
     return (
         <div>
-            <AuthorizedElement /* roles={['admin']}  */roles={['user']}  >
-                <Nav.Link style={{"color": "white"}} href="/profile">Profile <FontAwesomeIcon icon={faUserCog} /> </Nav.Link>
+            <AuthorizedElement roles={['user']}  >
+                <Nav.Link href="/profile"><img className="profileImg" src="../resources/images/user.svg" /></Nav.Link>
             </AuthorizedElement>
-
         </div>
-
     )
-    
 }
 export default ProfileButton

@@ -19,6 +19,7 @@ const UserHome = () => {
     const [multiplier, setMultiplier] = useState(0)
     const [weight, setWeight] = useState(0)
     const [packages, setPackages] = useState([])
+
     //for posting to backend
     const [order, setOrder] = useState({
         receiverName: '',
@@ -155,10 +156,10 @@ const UserHome = () => {
         <div className="content">
             {shouldRedirectAdmin ? <Redirect to="/admin"></Redirect> : null}
 
-            <Button onClick={handleShow}>New order</Button>
-            <Modal show={show} onHide={handleClose}>
+            <Button onClick={handleShow}>NEW ORDER</Button>
+            <Modal show={show} onHide={handleClose} className="userOrderModal">
                 <Modal.Header closeButton>
-                    <Modal.Title>New order</Modal.Title>
+                    <Modal.Title style={{"fontWeight": "bold"}}>NEW ORDER</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -179,6 +180,7 @@ const UserHome = () => {
                         <Form.Group>
                             <Form.Label htmlFor="colorInput">Box color</Form.Label>
                             <Form.Control
+                                className="colorPicker"
                                 type="color"
                                 id="colorInput"
                                 defaultValue="#F622E3"
@@ -186,7 +188,7 @@ const UserHome = () => {
                                 onChange={e => setOrder({ ...order, color: e.target.value })}
                             />
                         </Form.Group>
-                        <br />
+                       
                         <Form.Group>
                             <Form.Label></Form.Label>
                             <Form.Select onChange={e => setOrder({ ...order, country: {id: parseInt(e.target.value)} })}>
@@ -199,16 +201,15 @@ const UserHome = () => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <Button variant="primary" type="submit "onClick={submitOrder}>Order</Button>
+                        <p>Weight: {weight} KG</p>
+                        <p>Color: {order.color}</p>
+                        <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
+                        <br />
+                        <div className="orderBtnContainer">
+                            <button className="orderBtn" onClick={submitOrder}>ORDER</button>
+                        </div>
                     </Form>
-                    <br />
-                    <p>Weight: {weight} KG</p>
-                    <p>Color: {order.color}</p>
-                    <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                </Modal.Footer>
             </Modal>
             <br/>
             <h4>All user shipments</h4>

@@ -8,7 +8,7 @@ const Menu = ({ keycloak }) => {
         <div>
            
             {keycloak && !keycloak.authenticated &&
-                <Nav.Link style={{"color": "white", "cursor": "pointer"}} onClick={() => keycloak.login()}>LOGIN</Nav.Link>
+                <Nav.Link style={{"color": "white", "margin-left": "1000px", "cursor": "pointer"}} onClick={() => keycloak.login()}>LOGIN</Nav.Link>
                
             }
 

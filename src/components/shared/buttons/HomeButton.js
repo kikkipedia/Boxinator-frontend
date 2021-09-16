@@ -4,7 +4,7 @@ import { Navbar} from 'react-bootstrap'
 import { withKeycloak } from '@react-keycloak/web';
 import React from 'react';
 
-const HomeButton = ({ keycloak}) => {
+const HomeButton = ({keycloak}) => {
 
     return (
         <div>
@@ -15,7 +15,7 @@ const HomeButton = ({ keycloak}) => {
 
             {keycloak && keycloak.authenticated &&
                 <AuthorizedElement roles={['user']}>
-                    <Navbar.Brand style={{"color": "white", "font-weight": "bold", "font-size": "25px"}} href="/user"><img className="navbarImg" src="../resources/images/whiteBox.svg" alt="logo" /> BOXINATOR</Navbar.Brand>
+                    <Navbar.Brand style={{"color": "white", "font-weight": "bold", "font-size": "25px"}} href="/user"><img className="navbarImg" src="../resources/images/whiteBox.svg" alt="logo"/> BOXINATOR</Navbar.Brand>
                 </AuthorizedElement>
             }
 
