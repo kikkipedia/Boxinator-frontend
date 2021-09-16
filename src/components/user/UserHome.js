@@ -71,11 +71,11 @@ const UserHome = () => {
                 else{console.log("cant find email")}
             }
             else {
-                setUserId(user.id)
-                console.log("user exists: ", user.email, user.id)
+                setUserId(parseInt(user.id))
+                console.log("user exists: ", user.email, userId)
             }
         })
-    },[userEmail])
+    },[userEmail,userId])
 
     useEffect(() => {
         if(users.length) {
