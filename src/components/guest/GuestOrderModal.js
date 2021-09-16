@@ -121,7 +121,7 @@ const GuestOrderModal = (props) => {
             <button className="guestNewOrderBtn" onClick={handleShow}>NEW ORDER</button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title style={{"font-weight": "bold"}}>NEW ORDER</Modal.Title>
+                    <Modal.Title style={{"fontWeight": "bold"}}>NEW ORDER</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form><Form.Group>
