@@ -35,42 +35,40 @@ const Shipments = (props) => {
             getShipmentById(order.id)
                 .then(data => {
                 setShipments(data)
-                console.log(shipments)
+                let sts = parseStatus((JSON.stringify(shipments.status)).charAt(JSON.stringify(shipments.status).length-2))
+                
+                console.log((JSON.stringify(shipments.status)).charAt(JSON.stringify(shipments.status).length-2))
+                console.log(JSON.stringify(shipments.status))
+              console.log(sts)
+
                 })
         ))
     }   
     },[orders])
 
-
-
-    // const  setOrdersNew = async () => {
-    //     const data = await getAllOrders();
-    //     setOrders(data);
-    // }
-
-    // const sortShipments = () => {
-    //     console.log("All shipments: " + shipments)
-    //     console.log(status)
-    //     //sort by shipments status
-    // }
-    // const displayCardOrdersIntransit = () => {
-    //     let cards = [];
-
-    //         {orders && orders.length > 0 && orders.map((order) => {
-    //             cards.push(
-    //                 <OrderCardUser key={order.id}
-    //                                  orderName={order.receiverName}
-    //                                  orderId ={order.id}
-    //                                  orderColor={order.color}
-    //                                  orderTotalPrice ={order.totalPrice}
-
-    //                 ></OrderCardUser>
-    //             )
-    //         })}
-
-    //     return cards;
-    // }
-
+    const parseStatus = (stausAPILink) => {
+        let statusCode = parseInt(stausAPILink, 12);
+        switch(statusCode){
+            case 1:
+                return 'Created'
+                break;
+            case 2:
+                return 'Intransit'
+                break;
+            case 3:
+                return 'Received'
+                break;
+            case 4:
+                return 'Completed'
+                break;
+            case 5:
+                return 'Cancelled'
+                break;
+            default:
+                return 'Error' 
+                              
+        }
+    }
 
     return (
         <div className="content">
@@ -98,7 +96,7 @@ const Shipments = (props) => {
                                 {shipments && !!shipments.length && shipments.map(shipment => (
                                     <tr key={shipment.id}>
                                         <td></td>
-                                        <td>{shipment.status.statusType}</td>
+                                        <td>{ parseStatus((JSON.stringify(shipment.status)).charAt(JSON.stringify(shipments.status).length-2))}</td>
                                         {/* <td>{shipment.shipmentStatusHistory.timestamp}</td> */}
                                     </tr>
                                 ))}
