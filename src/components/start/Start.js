@@ -29,8 +29,8 @@ const Start = () => {
             {shouldRedirect ? <Redirect to="/guest"></Redirect> : null}
             
             <h4>Welcome to Boxinator!</h4>
-            <FontAwesomeIcon icon={faBoxOpen} size="10x" className="startIcon"/>
-            <p><ContextButton/></p>
+            <FontAwesomeIcon icon={faBoxOpen} size="10x" className="startIcon" style={{color: "black"}}/>
+
             <p><GuestButton/></p>
             
         
