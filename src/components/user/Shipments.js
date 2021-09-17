@@ -3,66 +3,39 @@ import { useEffect, useState } from "react"
 import { getAllShipments, getAllUsers, getOrdersByUserId, getShipmentById } from "../../api/API"
 import { useKeycloak } from '@react-keycloak/web'
 import { Table } from 'react-bootstrap'
+import ShipmentModal from "./ShipmentModal"
+import userEvent from "@testing-library/user-event"
+import { getOrdersByUserEmail } from "../../api/API"
 
 const Shipments = (props) => {
-    const [shipments, setShipments] = useState([])
-    const [oldShipments, setOldShipments] = useState([])
-    const [inTransit, setInTransit] = useState([])
     const { keycloak } = useKeycloak();
     const [orders, setOrders] = useState([]);
-    const [status, setStatus] = useState();
-    
+
+
     useEffect(() => {
-       
-        
-        getOrdersByUserId(props.id)
+        //Asynchronously retrieves all orders made by the current user 
+        //getOrdersByUserId(props.id)
+        getOrdersByUserEmail(keycloak.tokenParsed.email)
             .then(data => {
-                // console.log(data)
                 setOrders(data)
-                console.log(props.id)
+                console.log("ID " + props.id)
+                console.log(data)
             })
-            {
-                orders && !!orders.length && orders.map(order => (
-                    getShipmentById(order.id)
-                        .then(data => {
-                            setShipments(data)
-                        })
-                ))
-            }
-            console.log(shipments.status)
-    }, [props.id])
+    },[props.id])
 
-
-    //Get shipment based upon relevant order id
-    useEffect(() => {
-        
-        {orders && !!orders.length && orders.map(order => (
-                getShipmentById(order.id)
-                    .then(data => {
-                        setShipmentsNew(data)
-                    })
-            ))
-        }
-    }, [orders])
-
-    
     useEffect(() => {
         if (orders.length) {
             //after order
         }
     }, [orders])
 
-    const setShipmentsNew = async() => {
-        const data = await getAllShipments()
-        setShipments(data);
-    }
-
     const parseStatus = (stausAPILink) => {
-        if (stausAPILink === undefined) {
+        const statusString = JSON.stringify(stausAPILink)
+        if (statusString === undefined) {
             console.log("Link empty")
             return 'EMPTY'
         } else {
-            let sts = JSON.stringify(stausAPILink).charAt(JSON.stringify(stausAPILink).length - 2)
+            let sts = statusString.charAt(statusString.length - 2)
             let statusCode = parseInt(sts);
             switch (statusCode) {
                 case 1:
@@ -99,7 +72,7 @@ const Shipments = (props) => {
                         <th>Package type</th>
                         <th>Total price</th>
                         <th>Order status</th>
-                        <th>Last updated</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -109,19 +82,16 @@ const Shipments = (props) => {
                             <td style={{ background: order.color }}></td>
                             <td>{order.orderPackage.name}</td>
                             <td>{order.totalPrice}</td>
-                            {/* <td>{(getShipmentById(order.id)).status}</td> */}
-                            <td>{parseStatus((getShipmentById(order.id)).status)}</td>
-                            {/* <td>{parseStatus((getShipmentById(order.id)).status)}</td> */}
-                            {/* <td>
-                                {shipments && !!shipments.length && shipments.map(shipment => (
-                                    parseStatus(shipment.status)
-                                ))}
-                            </td> */}
+                            <td><ShipmentModal id={order.id} /></td>
                         </tr>
                     ))}
 
                 </tbody>
+
             </Table>
+            <div>
+
+            </div>
         </div>
 
     )

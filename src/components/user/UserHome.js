@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react"
 import { Redirect } from "react-router";
 import { Container, Modal, Button, Form} from 'react-bootstrap'
-import { getAllUsers, postNewUser, createNewOrder, getAllCountries, getPackageTypes } from "../../api/API"
+import { getAllOrders, getAllUsers, postNewUser, createNewOrder, getAllCountries, getPackageTypes, getAllShipments } from "../../api/API"
 import { useKeycloak } from '@react-keycloak/web'
 import Shipments from "./Shipments"
 
 const UserHome = () => {
 
     const {keycloak} = useKeycloak()
-    const [userEmail, setUserEmail] = useState()
+    const [userEmail, setUserEmail] = useState(keycloak.tokenParsed.email)
     const [users, setUsers] = useState([])
-    const [userId, setUserId] = useState()
+    const [userId, setUserId] = useState(keycloak.tokenParsed.sid)
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [shouldRedirectAdmin, setShouldRedirectAdmin] = useState(false)
+    const [shipments, setShipments] = useState([])
     //modal
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
@@ -25,13 +26,14 @@ const UserHome = () => {
         orderPackage: {id: 0},
         color: '',
         totalPrice: 0,
+        email: {id: userEmail},
         country: {id: 0},
         user: {id: userId}
     })
 
     useEffect(()=>{
         sessionStorage.setItem('authentication', keycloak.token);
-        sessionStorage.setItem('refreshToken', keycloak.refreshToken)
+        sessionStorage.setItem('refreshToken', keycloak.refreshToken) 
         if ( sessionStorage.getItem("authentication") === undefined ) {
               setShouldRedirect(true)
         }
@@ -42,7 +44,8 @@ const UserHome = () => {
 
     //user email from token & redirects if admin
     useEffect(()=>{
-        setUserEmail(keycloak.tokenParsed.preferred_username) 
+        getAllOrders()
+        setUserEmail(keycloak.tokenParsed.email) 
        if(keycloak.tokenParsed.realm_access.roles[2] === 'app-admin' ){
               setShouldRedirectAdmin(true);
       }
@@ -52,7 +55,7 @@ const UserHome = () => {
         //userId changes
     },[userId])
 
-    //fetch al users
+    //fetch all users
     useEffect(() => {
         getAllUsers()
         .then(data => {
@@ -63,19 +66,23 @@ const UserHome = () => {
                 //if not - post new user to database
                 if (userEmail !== undefined) {
                     const reqParams = {
-                        email: userEmail
+
+                        email: keycloak.tokenParsed.email,
+                    
                     }
                     console.log(reqParams)
                     postNewUser(reqParams)
+                   
                 }
                 else{console.log("cant find email")}
             }
             else {
-                setUserId(parseInt(user.id))
+                setUserId(keycloak.tokenParsed.sid)
                 console.log("user exists: ", user.email, userId)
+               
             }
         })
-    },[userEmail,userId])
+    },[userEmail])
 
     useEffect(() => {
         if(users.length) {
@@ -83,11 +90,10 @@ const UserHome = () => {
         }
     },[users])
 
-    const setUsersNew = async () => {
-        const data = await getAllUsers();
-        setUsers(data);
-    }
-
+    // const setShipmentsNew = async() => {
+    //     const data = await getAllShipments()
+    //     setShipments(data);
+    // }
 
     //modal open/close
     const handleClose = () => setShow(false)
@@ -106,6 +112,8 @@ const UserHome = () => {
             .catch(error => {
                 console.log("Error fetching all data ", error)
             })
+         getAllShipments()
+            .then(data => setShipments(data))   
     }, [])
 
     //calculate total price
@@ -147,7 +155,8 @@ const UserHome = () => {
 
     useEffect(() => {
         //re-renders when show/close
-        setOrder({...order, user: {id: userId}})
+        setOrder({...order,user: {id: userId}})
+        console.log(order)
     },[show])
 
 
@@ -217,7 +226,7 @@ const UserHome = () => {
             </Modal>
             <br/>
             <h4>All user shipments</h4>
-            <Shipments id={userId}/>
+            <Shipments id={userEmail}/>
             
         </div>
     )
