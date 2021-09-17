@@ -45,7 +45,7 @@ const UserHome = () => {
     //user email from token & redirects if admin
     useEffect(()=>{
         getAllOrders()
-        setUserEmail(keycloak.tokenParsed.email) 
+        //setUserEmail(keycloak.tokenParsed.email) 
        if(keycloak.tokenParsed.realm_access.roles[2] === 'app-admin' ){
               setShouldRedirectAdmin(true);
       }
