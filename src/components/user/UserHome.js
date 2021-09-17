@@ -10,7 +10,7 @@ const UserHome = () => {
     const {keycloak} = useKeycloak()
     const [userEmail, setUserEmail] = useState(keycloak.tokenParsed.email)
     const [users, setUsers] = useState([])
-    const [userId, setUserId] = useState(keycloak.tokenParsed.sid)
+    const [userId, setUserId] = useState()
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [shouldRedirectAdmin, setShouldRedirectAdmin] = useState(false)
     const [shipments, setShipments] = useState([])
