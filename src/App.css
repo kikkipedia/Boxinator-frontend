@@ -210,7 +210,7 @@ body {
 }
 
 .dateOfBirthField {
-  width: 60%
+  width: 45%
 }
 
 .loadingImg {
@@ -241,17 +241,11 @@ body {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
-}
-
-th {
-  color: white;
-  font-size: 18px;
-}
-
-tr {
   background-color: white;
 }
 
-td {
-  color: black
+th {
+  color: black;
+  background-color: #5c940d;
+  font-size: 18px;
 }

@@ -63,7 +63,7 @@ const Shipments = (props) => {
     return(
         <div className="content">
             <br/>
-            <Table bordered variant="dark" size="sm" className="orderTable">
+            <Table bordered size="sm" className="orderTable">
                 <thead>
                     <tr style={{color: "#c0eb75"}}>
                         <th>Reciever name</th>
@@ -78,9 +78,11 @@ const Shipments = (props) => {
                     {shipments && !!shipments.length && shipments.map(shipment => (
                         <tr key={shipment.id}>
                             <td>{shipment.receiverName}</td>
-                            <td style={{background: shipment.color}}></td>
+                            <td style={{background: shipment.color}}>{shipment.color}</td>
                             <td>{shipment.orderPackage.name}</td>
-                            <td>{shipment.totalPrice}</td>
+                            <td>{shipment.totalPrice} SEK</td>
+                            <td>Closed</td>
+                            <td>2021-05-04</td>
                         </tr>
                     ))}
                 </tbody>

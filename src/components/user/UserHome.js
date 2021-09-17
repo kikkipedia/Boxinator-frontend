@@ -1,4 +1,4 @@
-import { useState, useEffect, Component } from "react"
+import { useState, useEffect, Component, useCallback } from "react"
 import { Redirect } from "react-router";
 import { getAllUsers, postNewUser } from "../../api/API"
 import { useKeycloak } from '@react-keycloak/web'
@@ -9,8 +9,7 @@ import Shipments from "./Shipments"
 const UserHome = () => {
 
     const {keycloak} = useKeycloak()
-    const [user, setUser] = useState({
-        id: keycloak.tokenParsed.sid,
+    const [newUser, setNewUser] = useState({
         address: keycloak.tokenParsed.address,
         contactNumber: keycloak.tokenParsed.contactNumber,
         dateOfBirth: keycloak.tokenParsed.dob,
@@ -20,6 +19,7 @@ const UserHome = () => {
         postalCode: keycloak.tokenParsed.postalCode,
         country: keycloak.tokenParsed.countryOfResidence
     })
+    const [user, setUser] = useState()
     const userEmail = keycloak.tokenParsed.preferred_username
     const [users, setUsers] = useState([])
     const [userId, setUserId] = useState()
@@ -38,33 +38,38 @@ const UserHome = () => {
     useEffect(()=>{
         if(keycloak.tokenParsed.realm_access.roles[2] === 'app-admin' ){
               setShouldRedirectAdmin(true);
-      }
-      console.log(user)
-      checkUser()
+        }
+      
     },[userEmail])
+
     useEffect(() => {
-        //user changes
-    },[user])
+        checkUser()
+        console.log(user)
+    }, [userEmail])
+
     //fetch all users
     const checkUser = () => {
         getAllUsers()
         .then(data => {
             setUsers(data)
             //check if user exists
-            let userFound = data.find(el => el.email === user.email)
+            const userFound = data.find(el => el.email === newUser.email)
             if(!userFound) {
                 //if not - post new user to database
-                if (user.email !== undefined) {
-                    postNewUser(user)
+                if (newUser.email !== undefined) {
+                    postNewUser(newUser)
+                    setUser(newUser)
                 }
                 else{console.log("cant find user email in database")}
             }
             else {
-                setUserId(keycloak.tokenParsed.sid)
-                console.log("user exists: ", userFound.email, userFound.id)
+                setUserId(userFound.id)
+                setUser(userFound)
+                console.log(userFound.email, userFound.firstName)
             }
         })
     }
+
     useEffect(() => {
         if(users.length) {
             //if new user is saved // array changes => re-render
@@ -72,12 +77,7 @@ const UserHome = () => {
     },[users])
     //modal open/close
 
-    useEffect(() => {
-        if(userId !== undefined) {
-            <ProfileModal userId={userId} />
-        }
-        
-    }, [userId])
+    
 
     return (
         <div className="content">
@@ -85,7 +85,8 @@ const UserHome = () => {
 
             <UserOrderModal userId={userId} />
             <h4>All user shipments</h4>
-            <Shipments id={userId} /> 
+            {/* <Shipments id={userId} /> */}
+            <ProfileModal user={user} />
 
         </div>
     )

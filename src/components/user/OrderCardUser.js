@@ -19,11 +19,9 @@ const OrderCardUser = (props) => {
                 <Table>
                     <thead>
                         <tr>
-
                             <th>Receiver Name</th>
                             <th>Color</th>
-                            <th>Total Price</th>
-                
+                            <th>Total Price</th>   
                         </tr>
 
                     </thead>

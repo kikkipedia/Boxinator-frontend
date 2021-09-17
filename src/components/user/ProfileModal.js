@@ -1,29 +1,33 @@
 import AuthorizedElement from "../../utilities/AuthorizedElement"
 import { Nav } from 'react-bootstrap'
 import { useState, useEffect } from "react"
-import { useKeycloak } from '@react-keycloak/web'
-import { Modal, Button, Form } from 'react-bootstrap'
+import { Modal, Form } from 'react-bootstrap'
 import { updateUser } from "../../api/API"
 
-const ProfileButton = () => {
+const ProfileButton = (props) => {
 
-    const { keycloak } = useKeycloak()
     const [show, setShow] = useState(false)
     const [user, setUser] = useState({
-        id: keycloak.tokenParsed.sid,
-        firstName: keycloak.tokenParsed.given_name,
-        lastName: keycloak.tokenParsed.family_name,
-        email: keycloak.tokenParsed.preferred_username,
-        dateOfBirth: keycloak.tokenParsed.dob,
-        address: keycloak.tokenParsed.address,
-        country: keycloak.tokenParsed.countryOfResidence,
-        postalCode: keycloak.tokenParsed.postalCode,
-        contactNumber: keycloak.tokenParsed.contactNumber
+        id: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        dateOfBirth: '',
+        address: '',
+        country: '',
+        postalCode: '',
+        contactNumber: ''
     })
 
     //modal open/close
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
+
+    useEffect (() => {
+        if(props.user !== undefined) {
+            setUser(props.user)
+        }
+    }, [props])
 
     const onClickSaveButton = () => {
         const confirm = window.confirm("Are you sure you want to save all changes made?")
@@ -60,7 +64,7 @@ const ProfileButton = () => {
                             <br/>
                             <Form.Group>
                                 <Form.Label className="editLabel">Date of Birth</Form.Label>
-                                <Form.Control className="dateOfBirthField" type="text" value={user.dateOfBirth} placeholder="Date of birth (YYYY-MM-DD)..." onChange={e => setUser({ ...user, dateOfBirth: e.target.value })} />
+                                <Form.Control className="dateOfBirthField" type="date" value={user.dateOfBirth} onChange={e => setUser({ ...user, dateOfBirth: e.target.value })} />
                             </Form.Group>
                             <br/>
                             <Form.Group>

@@ -1,10 +1,11 @@
-
 import { useState, useEffect } from "react"
+import { useKeycloak } from '@react-keycloak/web'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { createNewOrder, getAllCountries, getPackageTypes } from "../../api/API"
 import { propTypes } from "react-bootstrap/esm/Image"
 
 const UserOrderModal = (props) => {
+    const { keycloak } = useKeycloak()
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
     const [multiplier, setMultiplier] = useState(0)
@@ -17,8 +18,8 @@ const UserOrderModal = (props) => {
         orderPackage: {id: 0},
         color: '',
         totalPrice: 0,
-        country: {id: 0},
-        user: 1
+        country: 0,
+        user: keycloak.tokenParsed.sid
     })
    
     //modal open/close
