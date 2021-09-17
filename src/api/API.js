@@ -30,8 +30,8 @@ export const getAllOrders = async() => {
 	return response.json()
 }
 
-export const createNewOrder = async (newOrder) => {
-	const response = await fetch(`${BASE_API_URL}orders`, {
+export const createNewOrder = (newOrder) => {
+	const response = fetch(`${BASE_API_URL}orders`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -127,3 +127,13 @@ export const getUserByEmail = (email) => {
 	return fetch(`${BASE_API_URL}users/getByEmail/${email}`)
 	.then(result => result.json())
 }
+
+export const updateUser = (updatedUser) => {
+	const response = fetch(`${BASE_API_URL}users`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(updatedUser)})
+	return response.json()
+} 

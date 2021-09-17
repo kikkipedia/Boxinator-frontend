@@ -18,7 +18,7 @@ const UserOrderModal = (props) => {
         color: '',
         totalPrice: 0,
         country: {id: 0},
-        user: {id: props.userId}
+        user: 1
     })
    
     //modal open/close

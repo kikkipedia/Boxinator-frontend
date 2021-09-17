@@ -1,20 +1,22 @@
-import AuthorizedElement from "../../../utilities/AuthorizedElement"
+import AuthorizedElement from "../../utilities/AuthorizedElement"
 import { Nav } from 'react-bootstrap'
 import { useState, useEffect } from "react"
 import { useKeycloak } from '@react-keycloak/web'
 import { Modal, Button, Form } from 'react-bootstrap'
+import { updateUser } from "../../api/API"
 
-const ProfileButton = (props) => {
+const ProfileButton = () => {
 
     const { keycloak } = useKeycloak()
     const [show, setShow] = useState(false)
     const [user, setUser] = useState({
-        id: 0,
+        id: keycloak.tokenParsed.sid,
         firstName: keycloak.tokenParsed.given_name,
         lastName: keycloak.tokenParsed.family_name,
         email: keycloak.tokenParsed.preferred_username,
         dateOfBirth: keycloak.tokenParsed.dob,
         address: keycloak.tokenParsed.address,
+        country: keycloak.tokenParsed.countryOfResidence,
         postalCode: keycloak.tokenParsed.postalCode,
         contactNumber: keycloak.tokenParsed.contactNumber
     })
@@ -23,15 +25,11 @@ const ProfileButton = (props) => {
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
-    useEffect(() => {
-        setUser({ ...user, id: props.userId })
-    },[props.userId])
-
     const onClickSaveButton = () => {
         const confirm = window.confirm("Are you sure you want to save all changes made?")
 
         if (confirm) {
-            
+            updateUser(user)
         }
     }
 
@@ -68,6 +66,11 @@ const ProfileButton = (props) => {
                             <Form.Group>
                                 <Form.Label className="editLabel">Contact Number</Form.Label>
                                 <Form.Control type="text" value={user.contactNumber} placeholder="Enter a contact number..." onChange={e => setUser({ ...user, contactNumber: e.target.value })} />
+                            </Form.Group>
+                            <br/>
+                            <Form.Group>
+                                <Form.Label className="editLabel">Country</Form.Label>
+                                <Form.Control type="text" value={user.country} placeholder="Enter a country..." onChange={e => setUser({ ...user, country: e.target.value })} />
                             </Form.Group>
                             <br/>
                             <Form.Group>

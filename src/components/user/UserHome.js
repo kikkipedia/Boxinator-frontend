@@ -3,24 +3,22 @@ import { Redirect } from "react-router";
 import { getAllUsers, postNewUser } from "../../api/API"
 import { useKeycloak } from '@react-keycloak/web'
 import UserOrderModal from "./UserOrderModal";
-import ProfileButton from "../shared/buttons/ProfileButton";
+import ProfileModal from "./ProfileModal";
 import Shipments from "./Shipments"
 
 const UserHome = () => {
 
     const {keycloak} = useKeycloak()
     const [user, setUser] = useState({
-        address: keycloak.idTokenParsed.address,
-        contactNumber: keycloak.idTokenParsed.contactNumber,
-        dateOfBirth: keycloak.idTokenParsed.dob,
+        id: keycloak.tokenParsed.sid,
+        address: keycloak.tokenParsed.address,
+        contactNumber: keycloak.tokenParsed.contactNumber,
+        dateOfBirth: keycloak.tokenParsed.dob,
         email: keycloak.tokenParsed.preferred_username,
-        firstName: keycloak.idTokenParsed.given_name,
-        lastName: keycloak.idTokenParsed.family_name,
-        postalCode: keycloak.idTokenParsed.postalCode,
-        //is user
-        role: 1,
-        //must write function...
-        country: 1
+        firstName: keycloak.tokenParsed.given_name,
+        lastName: keycloak.tokenParsed.family_name,
+        postalCode: keycloak.tokenParsed.postalCode,
+        country: keycloak.tokenParsed.countryOfResidence
     })
     const userEmail = keycloak.tokenParsed.preferred_username
     const [users, setUsers] = useState([])
@@ -62,7 +60,7 @@ const UserHome = () => {
                 else{console.log("cant find user email in database")}
             }
             else {
-                setUserId(userFound.id)
+                setUserId(keycloak.tokenParsed.sid)
                 console.log("user exists: ", userFound.email, userFound.id)
             }
         })
@@ -75,8 +73,11 @@ const UserHome = () => {
     //modal open/close
 
     useEffect(() => {
-        <ProfileButton userId={userId} />
-    }, [])
+        if(userId !== undefined) {
+            <ProfileModal userId={userId} />
+        }
+        
+    }, [userId])
 
     return (
         <div className="content">

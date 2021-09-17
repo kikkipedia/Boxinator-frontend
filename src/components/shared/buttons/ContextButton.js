@@ -2,7 +2,7 @@ import { withKeycloak } from '@react-keycloak/web';
 import React from 'react';
 import { Nav } from 'react-bootstrap'
 
-const Menu = ({ keycloak }) => {
+const ContextButton = ({ keycloak }) => {
     
     return (
         <div>
@@ -22,4 +22,4 @@ const Menu = ({ keycloak }) => {
     )
 }
 
-export default withKeycloak(Menu)
+export default withKeycloak(ContextButton)
