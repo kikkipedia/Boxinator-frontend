@@ -2,10 +2,11 @@ const BASE_API_URL = "http://localhost:8080/api/"
 //const BASE_API_UR = "https://boxinator-server.herokuapp.com/api/"
 
 //USERS
-export const getAllUsers = () => {
-	return fetch(`${BASE_API_URL}users`)
-	.then(result => result.json())
+export const getAllUsers = async () => {
+    const result = await fetch(`${BASE_API_URL}users`)
+    return result.json()
 }
+
 export const postNewUser = (post) => {
 	const requestOptions = {
 		method: 'POST',
@@ -101,7 +102,6 @@ export const updateShipmentStatus = async(id, status) => {
 	return response.json()
 } 
 
-
 //COUNTRIES
 export const updateCountryMultiplier = (updatedCountry) => {
     return fetch(`${BASE_API_URL}countries`, {
@@ -120,5 +120,10 @@ export const getAllCountries = () => {
 
 export const getPackageTypes = () => {
 	return fetch(`${BASE_API_URL}packages`)
+	.then(result => result.json())
+}
+
+export const getUserByEmail = (email) => {
+	return fetch(`${BASE_API_URL}users/getByEmail/${email}`)
 	.then(result => result.json())
 }
