@@ -32,8 +32,10 @@ const Shipments = (props) => {
    
     return (
         <div className="content">
-            <br />
-            <Table bordered variant="dark" size="sm" className="orderTable">
+
+            <br/>
+            <Table bordered size="sm" className="orderTable">
+
                 <thead>
                     <tr style={{ color: "#c0eb75" }}>
                         <th>Reciever name</th>
@@ -45,6 +47,7 @@ const Shipments = (props) => {
                     </tr>
                 </thead>
                 <tbody>
+
                     {orders && !!orders.length && orders.map(order => (
                         <tr key={order.id}>
                             <td>{order.receiverName}</td>
@@ -52,6 +55,7 @@ const Shipments = (props) => {
                             <td>{order.orderPackage.name}</td>
                             <td>{order.totalPrice}</td>
                             <td><ShipmentModal id={order.id} /></td>
+
                         </tr>
                     ))}
 

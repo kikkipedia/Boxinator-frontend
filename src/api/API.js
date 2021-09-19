@@ -1,12 +1,14 @@
 const BASE_API_URL = "http://localhost:8080/api/"
 //const BASE_API_UR = "https://boxinator-server.herokuapp.com/api/"
 
+
 //Gets all users from API
 export const getAllUsers = async() => {
 	const response = await fetch(`${BASE_API_URL}users`)
 	return response.json()
 }
 //Posts a new User to the API
+
 export const postNewUser = (post) => {
 	const requestOptions = {
 		method: 'POST',
@@ -36,9 +38,10 @@ export const getAllOrders = async() => {
 	const response = await fetch(`${BASE_API_URL}orders`)
 	return response.json()
 }
-//Posts a new order to the API
-export const createNewOrder = async (newOrder) => {
-	const response = await fetch(`${BASE_API_URL}orders`, {
+
+
+export const createNewOrder = (newOrder) => {
+	const response = fetch(`${BASE_API_URL}orders`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -112,7 +115,9 @@ export const updateShipmentStatus = async(id, status) => {
 } 
 
 
+
 //Updates the multiplier of a specific country
+
 export const updateCountryMultiplier = (updatedCountry) => {
     return fetch(`${BASE_API_URL}countries`, {
 		method: 'PATCH',
@@ -132,3 +137,18 @@ export const getPackageTypes = () => {
 	return fetch(`${BASE_API_URL}packages`)
 	.then(result => result.json())
 }
+
+export const getUserByEmail = (email) => {
+	return fetch(`${BASE_API_URL}users/getByEmail/${email}`)
+	.then(result => result.json())
+}
+
+export const updateUser = (updatedUser) => {
+	const response = fetch(`${BASE_API_URL}users`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(updatedUser)})
+	return response.json()
+} 

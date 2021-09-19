@@ -2,13 +2,13 @@ import { withKeycloak } from '@react-keycloak/web';
 import React from 'react';
 import { Nav } from 'react-bootstrap'
 
-const Menu = ({ keycloak }) => {
+const ContextButton = ({ keycloak }) => {
     
     return (
         <div>
            
             {keycloak && !keycloak.authenticated &&
-                <Nav.Link style={{"color": "white", "cursor": "pointer"}} onClick={() => keycloak.login()}>LOGIN</Nav.Link>
+                <Nav.Link style={{"color": "white", "marginLeft": "1000px", "cursor": "pointer"}} onClick={() => keycloak.login()}>LOGIN</Nav.Link>
                
             }
 
@@ -22,4 +22,4 @@ const Menu = ({ keycloak }) => {
     )
 }
 
-export default withKeycloak(Menu)
+export default withKeycloak(ContextButton)

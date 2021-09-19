@@ -1,18 +1,36 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, Component, useCallback } from "react"
 import { Redirect } from "react-router";
+
 import { Container, Modal, Button, Form} from 'react-bootstrap'
 import { getAllOrders, getAllUsers, postNewUser, createNewOrder, getAllCountries, getPackageTypes, getAllShipments } from "../../api/API"
+
 import { useKeycloak } from '@react-keycloak/web'
+import UserOrderModal from "./UserOrderModal";
+import ProfileModal from "./ProfileModal";
 import Shipments from "./Shipments"
 
 const UserHome = () => {
 
     const {keycloak} = useKeycloak()
-    const [userEmail, setUserEmail] = useState(keycloak.tokenParsed.email)
+
+    const [newUser, setNewUser] = useState({
+        address: keycloak.tokenParsed.address,
+        contactNumber: keycloak.tokenParsed.contactNumber,
+        dateOfBirth: keycloak.tokenParsed.dob,
+        email: keycloak.tokenParsed.preferred_username,
+        firstName: keycloak.tokenParsed.given_name,
+        lastName: keycloak.tokenParsed.family_name,
+        postalCode: keycloak.tokenParsed.postalCode,
+        country: keycloak.tokenParsed.countryOfResidence
+    })
+    const [user, setUser] = useState()
+    const userEmail = keycloak.tokenParsed.email
+
     const [users, setUsers] = useState([])
     const [userId, setUserId] = useState()
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [shouldRedirectAdmin, setShouldRedirectAdmin] = useState(false)
+
     const [shipments, setShipments] = useState([])
     //modal
     const [show, setShow] = useState(false)
@@ -33,7 +51,9 @@ const UserHome = () => {
 
     useEffect(()=>{
         sessionStorage.setItem('authentication', keycloak.token);
-        sessionStorage.setItem('refreshToken', keycloak.refreshToken) 
+        sessionStorage.setItem('refreshToken', keycloak.refreshToken)
+   
+    useEffect(()=>{
         if ( sessionStorage.getItem("authentication") === undefined ) {
               setShouldRedirect(true)
         }
@@ -41,54 +61,58 @@ const UserHome = () => {
             setShouldRedirectAdmin(true)
         }        
     },[])
-
-    //user email from token & redirects if admin
+    //redirects if admin
     useEffect(()=>{
+
         getAllOrders()
         //setUserEmail(keycloak.tokenParsed.email) 
        if(keycloak.tokenParsed.realm_access.roles[2] === 'app-admin' ){
+
               setShouldRedirectAdmin(true);
-      }
-    },[])
+        }
+      
+    },[userEmail])
 
     useEffect(() => {
-        //userId changes
-    },[userId])
+        checkUser()
+        console.log(user)
+    }, [userEmail])
 
     //fetch all users
-    useEffect(() => {
+
+    const checkUser = () => {
+
         getAllUsers()
         .then(data => {
             setUsers(data)
             //check if user exists
-            let user = data.find(el => el.email === userEmail)
-            if(!user) {
+            const userFound = data.find(el => el.email === newUser.email)
+            if(!userFound) {
                 //if not - post new user to database
-                if (userEmail !== undefined) {
-                    const reqParams = {
 
-                        email: keycloak.tokenParsed.email,
-                    
-                    }
-                    console.log(reqParams)
-                    postNewUser(reqParams)
-                   
+                if (newUser.email !== undefined) {
+                    postNewUser(newUser)
+                    setUser(newUser)
+
                 }
-                else{console.log("cant find email")}
+                else{console.log("cant find user email in database")}
             }
             else {
-                setUserId(keycloak.tokenParsed.sid)
-                console.log("user exists: ", user.email, userId)
-               
+
+                setUserId(userFound.id)
+                setUser(userFound)
+                console.log(userFound.email, userFound.firstName)
+
             }
         })
-    },[userEmail])
+    }
 
     useEffect(() => {
         if(users.length) {
             //if new user is saved // array changes => re-render
         }
     },[users])
+
 
     // const setShipmentsNew = async() => {
     //     const data = await getAllShipments()
@@ -135,13 +159,9 @@ const UserHome = () => {
         setOrder({ ...order, totalPrice: total })
     }, [order.country.id])
 
-    useEffect(() => {
-        for(let item of packages) {
-            if(item.id === order.orderPackage.id) {
-                setWeight(item.weight);
-            }
-        }        
-    }, [order.orderPackage.id])
+
+    
+
 
     useEffect(() => {
         if(weight > 0) {
@@ -166,68 +186,17 @@ const UserHome = () => {
     } 
 
     return (        
+
         <div className="content">
             {shouldRedirectAdmin ? <Redirect to="/admin"></Redirect> : null}
 
-            <Button onClick={handleShow}>New order</Button>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>New order</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group>
-                            <Form.Label></Form.Label>
-                            <Form.Control type="text" placeholder="Name of receiver" onChange={e => setOrder({ ...order, receiverName: e.target.value })} />
-                        </Form.Group>
-                        <br />
-                        <Form.Select aria-label="Select package..." onChange={e => setOrder({ ...order, orderPackage: {id: parseInt(e.target.value)} })}>
-                            <option defaultValue="" disabled selected>Select a package...</option>
-                            {
-                                packages && packages.map(pack => (
-                                    <option key={pack.id} value={pack.id}>{pack.name} - {pack.weight} KG</option>
-                                ))
-                            }
-                        </Form.Select>
-                        <br />
-                        <Form.Group>
-                            <Form.Label htmlFor="colorInput">Box color</Form.Label>
-                            <Form.Control
-                                type="color"
-                                id="colorInput"
-                                defaultValue="#F622E3"
-                                title="Select a color..."
-                                onChange={e => setOrder({ ...order, color: e.target.value })}
-                            />
-                        </Form.Group>
-                        <br />
-                        <Form.Group>
-                            <Form.Label></Form.Label>
-                            <Form.Select onChange={e => setOrder({ ...order, country: {id: parseInt(e.target.value)} })}>
-                                <option  defaultValue="" disabled selected>Select a country...</option>
-                                {
-                                    countries && countries.map(opt => (
-                                        <option key={opt.id} value={opt.id}>{opt.name}</option>
-                                    ))
-                                }
-                            </Form.Select>
-                        </Form.Group>
-                        <br />
-                        <Button variant="primary" type="submit "onClick={submitOrder}>Order</Button>
-                    </Form>
-                    <br />
-                    <p>Weight: {weight} KG</p>
-                    <p>Color: {order.color}</p>
-                    <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                </Modal.Footer>
-            </Modal>
-            <br/>
+            <UserOrderModal userId={userId} />
             <h4>All user shipments</h4>
-            <Shipments id={userEmail}/>
-            
+
+             <Shipments id={userId} /> 
+            <ProfileModal user={user} />
+
+
         </div>
     )
 }
