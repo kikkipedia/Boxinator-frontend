@@ -52,7 +52,7 @@ const UserHome = () => {
     useEffect(()=>{
         sessionStorage.setItem('authentication', keycloak.token);
         sessionStorage.setItem('refreshToken', keycloak.refreshToken)
-   
+    })
     useEffect(()=>{
         if ( sessionStorage.getItem("authentication") === undefined ) {
               setShouldRedirect(true)
