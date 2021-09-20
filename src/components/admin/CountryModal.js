@@ -34,8 +34,11 @@ const CountryModal = (props) => {
     }
     //Handles submisson of data on button press
     const handleSubmit = () =>{
-        //countryIdandName.multiplier = newMultiplier
-        updateCountryMultiplier(countryIdandName)
+        try{
+            updateCountryMultiplier(countryIdandName)
+        }
+        catch(err){ console.log(err)}       
+
     }
 
     //modal

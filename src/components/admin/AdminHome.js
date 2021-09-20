@@ -66,7 +66,6 @@ const AdminHome = () => {
         <Container>
             <div>
                 <CountryModal/>
-                {/* {displayCardOrders()} */}
                 {displayCardStatus()}
                 
             </div>

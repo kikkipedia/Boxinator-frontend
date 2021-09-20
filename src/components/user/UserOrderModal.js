@@ -82,7 +82,7 @@ const UserOrderModal = (props) => {
         setOrder({...order, user: {id: props.userId}})
     },[show])
 
-
+    //Submits the new order to the database using a POST request
     const submitOrder = () => {
             try{
                 createNewOrder(order)

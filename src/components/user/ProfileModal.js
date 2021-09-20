@@ -28,7 +28,7 @@ const ProfileButton = (props) => {
             setUser(props.user)
         }
     }, [props])
-
+    //Checks if user want sto save daata
     const onClickSaveButton = () => {
         const confirm = window.confirm("Are you sure you want to save all changes made?")
 

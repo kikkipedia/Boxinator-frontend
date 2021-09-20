@@ -10,12 +10,10 @@ const Shipments = (props) => {
   
     useEffect(() => {
         //Asynchronously retrieves all orders made by the current user 
-        //getOrdersByUserId(props.id)
         getOrdersByUserEmail(keycloak.tokenParsed.email)
             .then(data => {
                 setOrders(data)
                 console.log("ID " + props.id)
-                console.log(data)
               
             })
     },[props.id])

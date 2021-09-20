@@ -1,14 +1,12 @@
 
 import { useState, useEffect } from "react"
-
-import { Modal, Button, Form } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import { getShipmentById, updateShipmentStatus } from "../../api/API"
 
 
 const ShipmentModal = (props) => {
     const [show, setShow] = useState(false)
     const [status, setStatus] = useState(['Created']);
-    const [shipments, setShipments] = useState([])
     const [timestamp, setTimestamp] = useState(1)
     const [shipmentStatusHistory, setShipmentStatusHistory] = useState()
     const [shipmentId, setShipmentId] = useState()
@@ -77,7 +75,7 @@ const ShipmentModal = (props) => {
 
     }
 
-    //modal
+    //Shows the modal based upon a boolean value
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
