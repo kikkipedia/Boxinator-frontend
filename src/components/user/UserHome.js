@@ -9,6 +9,7 @@ import Shipments from "./Shipments"
 const UserHome = () => {
 
     const {keycloak} = useKeycloak()
+
     const [newUser, setNewUser] = useState({
         firstName: keycloak.tokenParsed.given_name,
         lastName: keycloak.tokenParsed.family_name,
@@ -19,13 +20,21 @@ const UserHome = () => {
         postalCode: keycloak.tokenParsed.postalCode,
         country: keycloak.tokenParsed.countryOfResidence
     })
-    const [user, setUser] = useState()
-    const userEmail = keycloak.tokenParsed.preferred_username
+    const [user, setUser] = useState([])
+    const userEmail = keycloak.tokenParsed.email
+
     const [users, setUsers] = useState([])
     const [userId, setUserId] = useState()
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [shouldRedirectAdmin, setShouldRedirectAdmin] = useState(false)
-   
+    const [refresh, setRefresh ] = useState(true)
+    //Saves the users authentication token to the session storage
+    useEffect(()=>{
+        sessionStorage.setItem('authentication', keycloak.token);
+        sessionStorage.setItem('refreshToken', keycloak.refreshToken)
+        forceReload()
+    },[])
+    //Redirects the user if they lack and authenicatiion token or they are an admin
     useEffect(()=>{
         if ( sessionStorage.getItem("authentication") === undefined ) {
               setShouldRedirect(true)
@@ -34,31 +43,37 @@ const UserHome = () => {
             setShouldRedirectAdmin(true)
         }        
     },[])
-    //redirects if admin
-    useEffect(()=>{
-        if(keycloak.tokenParsed.realm_access.roles[2] === 'app-admin' ){
-              setShouldRedirectAdmin(true);
-        }
-      
-    },[userEmail])
 
+
+    //Check if user exists in database
     useEffect(() => {
         checkUser()
-        console.log(user)
-    }, [userEmail])
+    }, [])
+    //Force a reload in order to render data
+    const forceReload = ()=> {
+        const reloadCount = sessionStorage.getItem('reloadCount');
+        if(reloadCount < 1) {
+          sessionStorage.setItem('reloadCount', String(reloadCount +1));
+          window.location.reload();
+         } 
+         //else {
+        //   sessionStorage.removeItem('reloadCount');
+        // }
+      }
 
-    //fetch all users
+    //Fetch all users from the database and check the new user already exits, and if not posts them to the database
     const checkUser = () => {
-        getAllUsers()
-        .then(data => {
+        try {
+            getAllUsers()
+            .then(data => {
             setUsers(data)
-            //check if user exists
             const userFound = data.find(el => el.email === newUser.email)
             if(!userFound) {
-                //if not - post new user to database
                 if (newUser.email !== undefined) {
+                    setNewUser(newUser)
                     postNewUser(newUser)
-                    setUser(newUser)
+                    sessionStorage.removeItem('reloadCount');
+                    forceReload()
                 }
                 else{console.log("cant find user email in database")}
             }
@@ -68,25 +83,28 @@ const UserHome = () => {
                 console.log(userFound.email, userFound.firstName)
             }
         })
+        }
+        catch(err) { console.log(err) }
     }
 
+    //If a new user is saved or the array changes then a re-render is triggered
     useEffect(() => {
         if(users.length) {
-            //if new user is saved // array changes => re-render
         }
     },[users])
-    //modal open/close
 
-    
 
-    return (
+    return (        
+
         <div className="content">
             {shouldRedirectAdmin ? <Redirect to="/admin"></Redirect> : null}
 
             <UserOrderModal userId={userId} />
             <h4>All user shipments</h4>
-            {/* <Shipments id={userId} /> */}
+
+            <Shipments id={userId} /> 
             <ProfileModal user={user} />
+
 
         </div>
     )

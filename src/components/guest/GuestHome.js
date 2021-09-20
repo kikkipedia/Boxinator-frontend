@@ -9,6 +9,7 @@ const GuestHome = () => {
   const { keycloak } = useKeycloak();
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
+  //Saves the authentication token to session storage, and redirects if the user is authenticated
   useEffect(() => {
     sessionStorage.setItem('authentication', keycloak.token);
     sessionStorage.setItem('refreshToken', keycloak.refreshToken);

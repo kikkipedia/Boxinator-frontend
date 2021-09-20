@@ -16,7 +16,7 @@ export const AppRouter = () => {
         return (
             <div>
                 <div className="loadingImgContainer">
-                    <img className="loadingImg" src="../resources/images/spinner.svg" />
+                    <img className="loadingImg" src="../resources/images/spinner.svg" alt="spinner"/>
                 </div>
                 <div className="loadingText">LOADING...</div>
             </div>

@@ -11,15 +11,13 @@ const Start = () => {
 
     const history = useHistory();
     const {keycloak} = useKeycloak();
-    const [shouldRedirect, setShouldRedirect] = useState(false);
-
+    
+//Redirects an authenticated user back to the /user 
     useEffect(()=>{
         if (keycloak.authenticated) {
-                history.push("/user")
-              //setShouldRedirect(true);
-      }
-        
-    },[shouldRedirect])
+                history.push("/user")   
+      } 
+    },[])
 
     const onClickContinueButton = () => {
         history.push("/guest")

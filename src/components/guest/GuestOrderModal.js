@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react"
 import { Modal, Button, Form } from 'react-bootstrap'
 import { propTypes } from "react-bootstrap/esm/Image"
@@ -7,7 +6,6 @@ import { Link } from "react-router-dom"
 import { getAllCountries, getPackageTypes, createNewOrder, sendOrderInformation } from "../../api/API"
 
 const GuestOrderModal = (props) => {
-    const authToken = sessionStorage.getItem("authentication")
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
     const [multiplier, setMultiplier] = useState(0)
@@ -18,10 +16,10 @@ const GuestOrderModal = (props) => {
 
     //to post
     const [packages, setPackages] = useState([])
-    const [userInfo, setUserInfo] = useState()
 
+    //Creates a structure for an order object to be submitted to the Database
     const [order, setOrder] = useState({
-        userEmail: "",
+        email: '',
         receiverName: '',
         orderPackage: { id: 0 },
         color: '',
@@ -29,30 +27,23 @@ const GuestOrderModal = (props) => {
         country: { id: 0 }
     })
 
-    const [userId, setUserId] = useState()
-    const [users, setUsers] = useState([])
-    const [user, setUser] = useState()
-
-    //modal
+  //Handles whether or not the Modal is visible based upon a boolean
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
 
-    //fetch & sort countries from database
+    //Fetch & sort countries & packages from the database
     useEffect(() => {
-
         getAllCountries()
             .then(data => setCountries(data))
             .catch(error => {
                 console.log("Error fetching all data ", error)
             })
-
         getPackageTypes()
             .then(data => setPackages(data))
             .catch(error => {
                 console.log("Error fetching all data ", error)
             })
-
     }, [])
 
     useEffect(() => {
@@ -70,18 +61,6 @@ const GuestOrderModal = (props) => {
             }
         }
     }, [order.country.id])
-
-    const sortData = (a, b) => {
-        if (a.name < b.name) {
-            return -1
-        }
-        else if (a.name > b.name) {
-            return 1
-        }
-        else {
-            return 0
-        }
-    }
 
     //calculate price
     useEffect(() => {
@@ -101,7 +80,7 @@ const GuestOrderModal = (props) => {
         }
         setOrder({ ...order, totalPrice: total })
     }, [order.country.id])
-
+    //Initializes the weight of each package type
     useEffect(() => {
         for (let item of packages) {
             if (item.id === order.orderPackage.id) {
@@ -109,7 +88,7 @@ const GuestOrderModal = (props) => {
             }
         }
     }, [order.orderPackage.id])
-
+    //Initializes the cost of a package based upon its weight and country multiplier
     useEffect(() => {
         if (weight > 0) {
             const total = (200 + (multiplier * weight))
@@ -120,8 +99,7 @@ const GuestOrderModal = (props) => {
         }
     }, [weight])
 
-    //TODO -- on component render - fetch user shipments
-    //posts order to database
+    //Guest order is saved in local storage
     const submitOrder = () => {
         try {
             const information = {
@@ -150,7 +128,7 @@ const GuestOrderModal = (props) => {
                 <Modal.Body>
                     <Form><Form.Group>
                         <Form.Label></Form.Label>
-                        <Form.Control type="text" placeholder="Email address..." onChange={e => setOrder({ ...order, userEmail: e.target.value })} />
+                        <Form.Control type="text" placeholder="Email address..." onChange={e => setOrder({ ...order, email: e.target.value })} />
                     </Form.Group>
                         <Form.Group>
                             <Form.Label></Form.Label>
@@ -179,10 +157,10 @@ const GuestOrderModal = (props) => {
                         </Form.Group>
                         
                         <Form.Group>
-                            <Form.Label></Form.Label>
                             <Form.Select onChange={e => setOrder({ ...order, country: { id: parseInt(e.target.value) } })}>
                                 <option defaultValue="" disabled selected>Select a country...</option>
                                 {
+                                    countries.sort((a, b) => a.id - b.id),
                                     countries && countries.map(opt => (
                                         <option key={opt.id} value={opt.id}>{opt.name}</option>
                                     ))
@@ -190,8 +168,6 @@ const GuestOrderModal = (props) => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <p>Weight: {weight} KG</p>
-                        <p>Color: {order.color}</p>
                         <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">

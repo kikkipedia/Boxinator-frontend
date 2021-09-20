@@ -5,7 +5,8 @@ import { Redirect, Route } from 'react-router-dom';
 
 export function PrivateRoute({ component: Component, roles, ...rest }) {
   const {keycloak} = useKeycloak();
-
+  
+  //Checks whether or not the current user is autherizer, and if so allows them access to role specifc pages
   const isAutherized = (roles) => {
     if (keycloak && roles) {
         return roles.some(r => {

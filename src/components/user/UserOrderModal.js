@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import { useKeycloak } from '@react-keycloak/web'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { createNewOrder, getAllCountries, getPackageTypes, sendOrderInformation } from "../../api/API"
-import { propTypes } from "react-bootstrap/esm/Image"
 
 const UserOrderModal = (props) => {
     const { keycloak } = useKeycloak()
@@ -14,22 +13,22 @@ const UserOrderModal = (props) => {
     const [orderPackage, setOrderPackage] = useState({})
     const [country, setCountry] = useState({})
 
-    //for posting to backend
+    //Creates a structure for an order object to be submitted to the Database
     const [order, setOrder] = useState({
         receiverName: '',
         orderPackage: { id: 0 },
         color: '',
         totalPrice: 0,
-        country: { id: 0 },
-        user: { id: props.userId }
+        country: 0,
+        user: {id: props.userId},
+        email: keycloak.tokenParsed.email
     })
    
-    //modal open/close
+    //Handles whether or not the Modal is visible based upon a boolean
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
-
-    //fetch & sort countries & packages from database
+    //Fetch & sort countries & packages from the database
     useEffect(() => {
         getAllCountries()
             .then(data => setCountries(data))
@@ -78,6 +77,7 @@ const UserOrderModal = (props) => {
         setOrder({ ...order, totalPrice: total })
     }, [order.country.id])
 
+    //Initializes the weight of each package type
     useEffect(() => {
         for(let item of packages) {
             if(item.id === order.orderPackage.id) {
@@ -86,6 +86,7 @@ const UserOrderModal = (props) => {
         }        
     }, [order.orderPackage.id])
 
+    //Initializes the cost of a package based upon its weight and country multiplier
     useEffect(() => {
         if(weight > 0) {
             const total = (200 + (multiplier * weight))
@@ -96,12 +97,12 @@ const UserOrderModal = (props) => {
         }         
     }, [weight])
 
+    //Re-renders when show/close switch
     useEffect(() => {
-        //re-renders when show/close
         setOrder({...order, user: {id: props.userId}})
     },[show])
 
-
+    //Submits the new order to the database using a POST request
     const submitOrder = () => {
         try {
             const information = {
@@ -118,6 +119,7 @@ const UserOrderModal = (props) => {
             console.log(error)
         }
     } 
+
 
     return (
         <div>
@@ -159,6 +161,7 @@ const UserOrderModal = (props) => {
                             <Form.Select onChange={e => setOrder({ ...order, country: {id: parseInt(e.target.value)} })}>
                                 <option  defaultValue="" disabled selected>Select a country...</option>
                                 {
+                                    countries.sort((a, b) => a.id - b.id),
                                     countries && countries.map(opt => (
                                         <option key={opt.id} value={opt.id}>{opt.name}</option>
                                     ))
@@ -166,8 +169,6 @@ const UserOrderModal = (props) => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <p>Weight: {weight} KG</p>
-                        <p>Color: {order.color}</p>
                         <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">
