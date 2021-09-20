@@ -18,3 +18,20 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ## About this project
 
 This was a 4 weeks long project built by candidates at Experis Academy for the Full-stack Programming short course. Project goal was to produce a software solution for a given case called Boxinator - an application designed for calculationg the shipping cost for mystery boxes to specific locations around the world. This repository contains only the front-end application. The project also includes a server application to be found at --------- . A full working application is deployed at --------
+
+**General functionality - Users**
+- Users are authenticated via [Keycloak](https://www.keycloak.org/) using JWT tokens and redirected to User page
+- A new user is saved in database at first login after registration
+- Create a new order and see all orders with current shipment status
+- Cancel an order in transit
+- Edit profile
+
+**General functionality - Guest**
+- Visitors that are not logged in can create an order aved to the database with an email address
+- Need to register for order to be shipped
+
+**General functionality - Admin**
+- Administrators are authenticated via [Keycloak](https://www.keycloak.org/) using JWT tokens and redirected to Admin page
+- See all orders
+- Change shipment status
+- Change shipment price (aka price manipulator)

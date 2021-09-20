@@ -100,7 +100,6 @@ const UserHome = () => {
             {shouldRedirectAdmin ? <Redirect to="/admin"></Redirect> : null}
 
             <UserOrderModal userId={userId} />
-            <h4>All user shipments</h4>
 
             <Shipments id={userId} /> 
             <ProfileModal user={user} />
