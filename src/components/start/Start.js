@@ -16,7 +16,7 @@ const Start = () => {
     useEffect(()=>{
         if (keycloak.authenticated) {
                 history.push("/user")   
-      } 
+       } 
     },[])
 
     const onClickContinueButton = () => {
@@ -25,7 +25,6 @@ const Start = () => {
 
     return (
         <div className="startContainer">
-          {shouldRedirect ? <Redirect to="/guest"></Redirect> : null}
           <div className="startHeader">BOXINATOR</div>
           <div className="startImgContainer">
             <img className="startImg" src="../resources/images/blackBox.svg" alt="Black box" />
