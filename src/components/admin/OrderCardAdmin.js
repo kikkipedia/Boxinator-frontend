@@ -12,6 +12,7 @@ const OrderCardAdmin = (props) => {
         <Card className="card-container">
             <Card.Header>
                 <p>Order ID: {props.orderId}</p>
+                <p>Current Status: {props}</p>
             </Card.Header>
 
             <Card.Body>
@@ -22,7 +23,6 @@ const OrderCardAdmin = (props) => {
                             <th>Receiver Name</th>
                             <th>Color</th>
                             <th>Total Price</th>
-                        
                         </tr>
 
                     </thead>

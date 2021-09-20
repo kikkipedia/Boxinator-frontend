@@ -36,36 +36,41 @@ const AdminHome = () => {
         {
             shipments && shipments.length > 0 && shipments.map((shipment) => {
                 cards.push(
+                    <div>
+                        <p>{shipment.status.statusType}</p>
+                    
                     <StatusChanger key={shipment.id}
                         orderId={shipment.id}
                         orderStatus={shipment.status.statusType}
                     ></StatusChanger>
+                    </div>
+                    
                 );
             });
         }
 
         return cards;
     }
-    const displayCardOrders = () => {
-        let cards = [];
+    // const displayCardOrders = () => {
+    //     let cards = [];
         
-        {   
+    //     {   
             
-            orders && orders.length > 0 && orders.map((order) => {
+    //         orders && orders.length > 0 && orders.map((order) => {
                 
-                cards.push(
-                    <OrderCardAdmin key={order.id}
-                        orderName={order.receiverName}
-                        orderId={order.id}
-                        orderColor={order.color}
-                        orderTotalPrice={order.totalPrice}>
-                    </OrderCardAdmin>
+    //             cards.push(
+    //                 <OrderCardAdmin key={order.id}
+    //                     orderName={order.receiverName}
+    //                     orderId={order.id}
+    //                     orderColor={order.color}
+    //                     orderTotalPrice={order.totalPrice}>
+    //                 </OrderCardAdmin>
                     
-                );
-            });
-        }
-        return cards;
-    }
+    //             );
+    //         });
+    //     }
+    //     return cards;
+    // }
 
 
 
