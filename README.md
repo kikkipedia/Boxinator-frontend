@@ -1,4 +1,4 @@
-# Boxinator :package:
+# :package: Boxinator :package:
 
 A client application designed for creating orders and calculationg costs for mystery boxes to be shipped around the world, built with React, JavaScript and CSS.
 
