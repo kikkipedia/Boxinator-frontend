@@ -20,7 +20,6 @@ const ShipmentModal = (props) => {
                 setStatus(data.status)
                 setShipmentStatusHistory(data.shipmentStatusHistory[0])
                 setTimestamp(data.shipmentStatusHistory[0].timestamp)
-                console.log(timestamp)
             })
             
     }, [props.id])
@@ -33,9 +32,10 @@ const ShipmentModal = (props) => {
     }
     // Parse time from timestamp
     const parseTime = (tStamp) => {
-        var timestamp = tStamp
-        var date = new Date(timestamp);
-        return date;
+        let time = tStamp
+        let date = new Date(time);
+        let dateTimeString = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+        return dateTimeString;
     }
 
     //Parse the shipments status code from the API link received, then returns the string equivalent to that code
@@ -88,9 +88,9 @@ const ShipmentModal = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div>
-                        {parseStatus(status)}
-                        {/* {parseTime(timestamp)} */}
-                        {timestamp}
+                        <p>Current Status: {parseStatus(status)}</p>
+                        <p>Creation time: {parseTime(timestamp)}</p>
+                        
                     </div>
 
                     <div className="orderBtnContainer">

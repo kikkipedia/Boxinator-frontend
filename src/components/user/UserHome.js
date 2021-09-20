@@ -176,13 +176,13 @@ const UserHome = () => {
     useEffect(() => {
         //re-renders when show/close
         setOrder({...order,user: {id: userId}})
-        console.log(order)
+       
     },[show])
 
 
     const submitOrder = () => {
         createNewOrder(order)
-        console.log(order)
+      
     } 
 
     return (        
