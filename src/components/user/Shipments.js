@@ -28,10 +28,11 @@ const Shipments = (props) => {
         <div className="content">
 
             <br/>
+            <h4>All orders</h4>
             <Table bordered size="sm" className="orderTable">
 
                 <thead>
-                    <tr style={{ color: "#c0eb75" }}>
+                    <tr>
                         <th>Reciever name</th>
                         <th>Box colour</th>
                         <th>Total price</th>

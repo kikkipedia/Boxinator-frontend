@@ -1,11 +1,7 @@
-import ContextButton from "../shared/buttons/ContextButton"
-import GuestButton from "../shared/buttons/GuestButton"
-import { Link, Redirect } from "react-router-dom";
-import { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
+import { useEffect } from "react"
 import { useKeycloak } from '@react-keycloak/web';
 import { useHistory } from 'react-router';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 
 const Start = () => {
 
