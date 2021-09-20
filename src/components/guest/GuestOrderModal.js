@@ -1,35 +1,22 @@
-
 import { useState, useEffect } from "react"
-import { Modal, Button, Form } from 'react-bootstrap'
-import { propTypes } from "react-bootstrap/esm/Image"
+import { Modal, Form } from 'react-bootstrap'
 
-import { getAllCountries, getPackageTypes } from "../../api/API"
+import { createNewOrder, getAllCountries, getPackageTypes } from "../../api/API"
 
 const GuestOrderModal = (props) => {
-    const authToken = sessionStorage.getItem("authentication")
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
     const [multiplier, setMultiplier] = useState(0)
     const [weight, setWeight] = useState(0)
-    const [userEmail, setUserEmail] = useState()
-
-
-    //to post
     const [packages, setPackages] = useState([])
-    const [userInfo, setUserInfo] = useState()
-
     const [order, setOrder] = useState({
-        userEmail: '',
+        email: '',
         receiverName: '',
         orderPackage: { id: 0 },
         color: '',
         totalPrice: 0,
         country: { id: 0 }
     })
-
-    const [userId, setUserId] = useState()
-    const [users, setUsers] = useState([])
-    const [user, setUser] = useState()
 
     //modal
     const handleClose = () => setShow(false)
@@ -38,32 +25,17 @@ const GuestOrderModal = (props) => {
 
     //fetch & sort countries from database
     useEffect(() => {
-
         getAllCountries()
             .then(data => setCountries(data))
             .catch(error => {
                 console.log("Error fetching all data ", error)
             })
-
         getPackageTypes()
             .then(data => setPackages(data))
             .catch(error => {
                 console.log("Error fetching all data ", error)
             })
-
     }, [])
-
-    const sortData = (a, b) => {
-        if (a.name < b.name) {
-            return -1
-        }
-        else if (a.name > b.name) {
-            return 1
-        }
-        else {
-            return 0
-        }
-    }
 
     //calculate price
     useEffect(() => {
@@ -102,15 +74,9 @@ const GuestOrderModal = (props) => {
         }
     }, [weight])
 
-    //TODO -- on component render - fetch user shipments
-    //posts order to database
+    //guest order is saved in local storage
     const submitOrder = () => {
-        localStorage.setItem("receiverName", order.receiverName)
-        localStorage.setItem("orderPackage", order.orderPackage.id)
-        localStorage.setItem("color", order.color)
-        localStorage.setItem("totalPrice", order.totalPrice)
-        localStorage.setItem("country", order.country.id)
-        localStorage.setItem("email", order.userEmail)
+        createNewOrder(order)
     }
 
     return (
@@ -123,7 +89,7 @@ const GuestOrderModal = (props) => {
                 <Modal.Body>
                     <Form><Form.Group>
                         <Form.Label></Form.Label>
-                        <Form.Control type="text" placeholder="Email address..." onChange={e => setOrder({ ...order, userEmail: e.target.value })} />
+                        <Form.Control type="text" placeholder="Email address..." onChange={e => setOrder({ ...order, email: e.target.value })} />
                     </Form.Group>
                         <Form.Group>
                             <Form.Label></Form.Label>
@@ -152,7 +118,6 @@ const GuestOrderModal = (props) => {
                         </Form.Group>
                         
                         <Form.Group>
-                            <Form.Label></Form.Label>
                             <Form.Select onChange={e => setOrder({ ...order, country: { id: parseInt(e.target.value) } })}>
                                 <option defaultValue="" disabled selected>Select a country...</option>
                                 {
@@ -164,8 +129,6 @@ const GuestOrderModal = (props) => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <p>Weight: {weight} KG</p>
-                        <p>Color: {order.color}</p>
                         <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">

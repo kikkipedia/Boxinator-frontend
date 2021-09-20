@@ -1,9 +1,6 @@
 import { useState, useEffect, Component, useCallback } from "react"
 import { Redirect } from "react-router";
-
-import { Container, Modal, Button, Form} from 'react-bootstrap'
-import { getAllOrders, getAllUsers, postNewUser, createNewOrder, getAllCountries, getPackageTypes, getAllShipments } from "../../api/API"
-
+import { getAllUsers, postNewUser } from "../../api/API"
 import { useKeycloak } from '@react-keycloak/web'
 import UserOrderModal from "./UserOrderModal";
 import ProfileModal from "./ProfileModal";
@@ -23,31 +20,13 @@ const UserHome = () => {
         postalCode: keycloak.tokenParsed.postalCode,
         country: keycloak.tokenParsed.countryOfResidence
     })
-    const [user, setUser] = useState()
+    const [user, setUser] = useState([])
     const userEmail = keycloak.tokenParsed.email
 
     const [users, setUsers] = useState([])
     const [userId, setUserId] = useState()
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [shouldRedirectAdmin, setShouldRedirectAdmin] = useState(false)
-
-    const [shipments, setShipments] = useState([])
-    //modal
-    const [show, setShow] = useState(false)
-    const [countries, setCountries] = useState([])
-    const [multiplier, setMultiplier] = useState(0)
-    const [weight, setWeight] = useState(0)
-    const [packages, setPackages] = useState([])
-    //for posting to backend
-    const [order, setOrder] = useState({
-        receiverName: '',
-        orderPackage: {id: 0},
-        color: '',
-        totalPrice: 0,
-        email: {id: userEmail},
-        country: {id: 0},
-        user: {id: userId}
-    })
 
     useEffect(()=>{
         sessionStorage.setItem('authentication', keycloak.token);
@@ -61,50 +40,37 @@ const UserHome = () => {
             setShouldRedirectAdmin(true)
         }        
     },[])
-    //redirects if admin
-    useEffect(()=>{
 
-        getAllOrders()
-        //setUserEmail(keycloak.tokenParsed.email) 
-       if(keycloak.tokenParsed.realm_access.roles[2] === 'app-admin' ){
 
-              setShouldRedirectAdmin(true);
-        }
-      
-    },[userEmail])
-
+    //check if user exiits in database
     useEffect(() => {
         checkUser()
-        console.log(user)
     }, [userEmail])
 
     //fetch all users
-
     const checkUser = () => {
-
-        getAllUsers()
-        .then(data => {
+        try {
+            getAllUsers()
+            .then(data => {
             setUsers(data)
             //check if user exists
             const userFound = data.find(el => el.email === newUser.email)
             if(!userFound) {
                 //if not - post new user to database
-
                 if (newUser.email !== undefined) {
                     postNewUser(newUser)
                     setUser(newUser)
-
                 }
                 else{console.log("cant find user email in database")}
             }
             else {
-
                 setUserId(userFound.id)
                 setUser(userFound)
                 console.log(userFound.email, userFound.firstName)
-
             }
         })
+        }
+        catch(err) { console.log(err) }
     }
 
     useEffect(() => {
@@ -185,6 +151,7 @@ const UserHome = () => {
       
     } 
 
+
     return (        
 
         <div className="content">
@@ -193,7 +160,7 @@ const UserHome = () => {
             <UserOrderModal userId={userId} />
             <h4>All user shipments</h4>
 
-             <Shipments id={userId} /> 
+            <Shipments id={userId} /> 
             <ProfileModal user={user} />
 
 

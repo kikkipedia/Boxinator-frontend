@@ -1,9 +1,7 @@
-import Keycloak from "keycloak-js"
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web'
 import { Table } from 'react-bootstrap'
 import ShipmentModal from "./ShipmentModal"
-import userEvent from "@testing-library/user-event"
 import { getOrdersByUserEmail } from "../../api/API"
 
 const Shipments = (props) => {
@@ -39,7 +37,6 @@ const Shipments = (props) => {
                     <tr style={{ color: "#c0eb75" }}>
                         <th>Reciever name</th>
                         <th>Box colour</th>
-                        <th>Package type</th>
                         <th>Total price</th>
                         <th>Order status</th>
 
@@ -51,7 +48,6 @@ const Shipments = (props) => {
                         <tr key={order.id}>
                             <td>{order.receiverName}</td>
                             <td style={{ background: order.color }}></td>
-                            <td>{order.orderPackage.name}</td>
                             <td>{order.totalPrice}</td>
                             <td><ShipmentModal id={order.id} /></td>
 
