@@ -18,6 +18,7 @@ const AdminHome = () => {
         sessionStorage.setItem('refreshToken', keycloak.refreshToken);
         setOrdersNew();
         setShipmentsNew();
+       
     }, [])
     //Asynchronously retrieves all orders from the database, then sets their current state to be equivilent
     const setOrdersNew = async () => {
@@ -36,13 +37,14 @@ const AdminHome = () => {
         {
             shipments && shipments.length > 0 && shipments.map((shipment) => {
                 cards.push(
-                    <div>
-                        <p>{shipment.status.statusType}</p>
                     
+                    <div>
+                        <p> </p>
                     <StatusChanger key={shipment.id}
                         orderId={shipment.id}
                         orderStatus={shipment.status.statusType}
                     ></StatusChanger>
+                
                     </div>
                     
                 );
