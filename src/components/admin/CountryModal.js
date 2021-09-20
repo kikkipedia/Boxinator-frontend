@@ -49,7 +49,7 @@ const CountryModal = (props) => {
 
     return (
         <div>
-            <button className="guestNewOrderBtn" onClick={handleShow}>View Status</button>
+            <button className="guestNewOrderBtn" onClick={handleShow}>Update Country Multiplier</button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title style={{ "font-weight": "bold" }}>Update Multiplier</Modal.Title>
