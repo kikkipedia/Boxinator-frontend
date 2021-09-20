@@ -4,9 +4,10 @@ import { getShipmentById,getShipmentStatusHistoryByShipmentId, updateShipment, g
 import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
 
 const StatusChanger = (props) => {
-    const [status, setStatus] = useState(props.orderStatus);
+    const [status, setStatus] = useState();
     const [newShipment, setNewShipment] = useState();
 
+ 
     const handleOnChange = async (event) => {
         setStatus({ orderStatus: { id: event.target.value } })
         updateShipmentStatus(props.orderId ,{ id: event.target.value })
@@ -17,7 +18,6 @@ const StatusChanger = (props) => {
         <Card className="card-container">
             <Card.Header>
                 <p>Order ID: {props.orderId} </p>
-                {/* <p>Current Status: {props.orderStatus}</p> */}
             </Card.Header>
 
             <Card.Body>

@@ -1,27 +1,41 @@
 
 import { useState, useEffect } from "react"
 import { Modal } from 'react-bootstrap'
-import { getShipmentById } from "../../api/API"
+import { getShipmentById, updateShipmentStatus } from "../../api/API"
+
 
 const ShipmentModal = (props) => {
     const [show, setShow] = useState(false)
     const [status, setStatus] = useState(['Created']);
-    const [shipments, setShipments] = useState([])
+    const [timestamp, setTimestamp] = useState(1)
+    const [shipmentStatusHistory, setShipmentStatusHistory] = useState()
+    const [shipmentId, setShipmentId] = useState()
 
     //Asynchronously retrieves all shipments with matching id to the order id
     useEffect(() => {
+        setTimestamp(1)
         getShipmentById(props.id)
             .then(data => {
-                console.log(data.status)
-                setStatus(data.status)  
+                setShipmentId(props.id)
+                setStatus(data.status)
+                setShipmentStatusHistory(data.shipmentStatusHistory[0])
+                setTimestamp(data.shipmentStatusHistory[0].timestamp)
             })
-        console.log(status)
-
+            
     }, [props.id])
 
-    const setShipmentsNew = async (id) => {
-        const data = await getShipmentById(id);
-        setShipments(data);
+    //Handles the change to cancelled by user 
+    const handleOnChange = async () => {
+        setStatus('/api/statuses/5')
+        updateShipmentStatus(shipmentId, { id: 5 })
+
+    }
+    // Parse time from timestamp
+    const parseTime = (tStamp) => {
+        let time = tStamp
+        let date = new Date(time);
+        let dateTimeString = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+        return dateTimeString;
     }
 
     //Parse the shipments status code from the API link received, then returns the string equivalent to that code
@@ -33,7 +47,6 @@ const ShipmentModal = (props) => {
         } else if (statusString.charAt(statusString.length - 2) === 1) {
             return 'Created'
         }
-
 
         else {
             let sts = statusString.charAt(statusString.length - 2)
@@ -62,7 +75,7 @@ const ShipmentModal = (props) => {
 
     }
 
-    //modal
+    //Shows the modal based upon a boolean value
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
@@ -75,12 +88,13 @@ const ShipmentModal = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div>
-                        {status}
-                        {parseStatus(status)}
+                        <p>Current Status: {parseStatus(status)}</p>
+                        <p>Creation time: {parseTime(timestamp)}</p>
+                        
                     </div>
 
                     <div className="orderBtnContainer">
-                        <button className="orderBtn" >Cancel Order?</button>
+                        <button className="orderBtn" onClick={handleOnChange} >Cancel Order?</button>
                     </div>
 
 
