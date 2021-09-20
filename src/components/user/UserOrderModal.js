@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import { useKeycloak } from '@react-keycloak/web'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { createNewOrder, getAllCountries, getPackageTypes } from "../../api/API"
-import { propTypes } from "react-bootstrap/esm/Image"
 
 const UserOrderModal = (props) => {
     const { keycloak } = useKeycloak()
@@ -19,7 +18,7 @@ const UserOrderModal = (props) => {
         color: '',
         totalPrice: 0,
         country: 0,
-        user: 'userId',
+        user: props.userId,
         email: keycloak.tokenParsed.email
     })
    
@@ -86,9 +85,12 @@ const UserOrderModal = (props) => {
 
 
     const submitOrder = () => {
-        createNewOrder(order)
-        console.log(order)
+        try{
+            createNewOrder(order)
+        }
+        catch(err){ console.log(err)}
     } 
+
 
     return (
         <div>
@@ -137,8 +139,6 @@ const UserOrderModal = (props) => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <p>Weight: {weight} KG</p>
-                        <p>Color: {order.color}</p>
                         <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">

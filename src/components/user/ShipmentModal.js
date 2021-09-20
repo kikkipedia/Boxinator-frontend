@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react"
-import { Modal, Button, Form } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import { getShipmentById } from "../../api/API"
 
 const ShipmentModal = (props) => {

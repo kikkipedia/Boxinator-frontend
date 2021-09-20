@@ -1,23 +1,15 @@
 
 import { useState, useEffect } from "react"
-import { Modal, Button, Form } from 'react-bootstrap'
-import { propTypes } from "react-bootstrap/esm/Image"
+import { Modal, Form } from 'react-bootstrap'
 
 import { getAllCountries, getPackageTypes } from "../../api/API"
 
 const GuestOrderModal = (props) => {
-    const authToken = sessionStorage.getItem("authentication")
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
     const [multiplier, setMultiplier] = useState(0)
     const [weight, setWeight] = useState(0)
-    const [userEmail, setUserEmail] = useState()
-
-
-    //to post
     const [packages, setPackages] = useState([])
-    const [userInfo, setUserInfo] = useState()
-
     const [order, setOrder] = useState({
         userEmail: '',
         receiverName: '',
@@ -27,10 +19,6 @@ const GuestOrderModal = (props) => {
         country: { id: 0 }
     })
 
-    const [userId, setUserId] = useState()
-    const [users, setUsers] = useState([])
-    const [user, setUser] = useState()
-
     //modal
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
@@ -38,32 +26,17 @@ const GuestOrderModal = (props) => {
 
     //fetch & sort countries from database
     useEffect(() => {
-
         getAllCountries()
             .then(data => setCountries(data))
             .catch(error => {
                 console.log("Error fetching all data ", error)
             })
-
         getPackageTypes()
             .then(data => setPackages(data))
             .catch(error => {
                 console.log("Error fetching all data ", error)
             })
-
     }, [])
-
-    const sortData = (a, b) => {
-        if (a.name < b.name) {
-            return -1
-        }
-        else if (a.name > b.name) {
-            return 1
-        }
-        else {
-            return 0
-        }
-    }
 
     //calculate price
     useEffect(() => {
