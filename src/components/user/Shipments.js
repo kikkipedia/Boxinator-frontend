@@ -10,8 +10,7 @@ import { getOrdersByUserEmail } from "../../api/API"
 const Shipments = (props) => {
     const { keycloak } = useKeycloak();
     const [orders, setOrders] = useState([]);
-
-
+  
     useEffect(() => {
         //Asynchronously retrieves all orders made by the current user 
         //getOrdersByUserId(props.id)
@@ -20,6 +19,7 @@ const Shipments = (props) => {
                 setOrders(data)
                 console.log("ID " + props.id)
                 console.log(data)
+              
             })
     },[props.id])
 
