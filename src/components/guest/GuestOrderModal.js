@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from "react"
 import { Modal, Form } from 'react-bootstrap'
 
-import { getAllCountries, getPackageTypes } from "../../api/API"
+import { createNewOrder, getAllCountries, getPackageTypes } from "../../api/API"
 
 const GuestOrderModal = (props) => {
     const [show, setShow] = useState(false)
@@ -11,7 +10,7 @@ const GuestOrderModal = (props) => {
     const [weight, setWeight] = useState(0)
     const [packages, setPackages] = useState([])
     const [order, setOrder] = useState({
-        userEmail: '',
+        email: '',
         receiverName: '',
         orderPackage: { id: 0 },
         color: '',
@@ -75,15 +74,9 @@ const GuestOrderModal = (props) => {
         }
     }, [weight])
 
-    //TODO -- on component render - fetch user shipments
-    //posts order to database
+    //guest order is saved in local storage
     const submitOrder = () => {
-        localStorage.setItem("receiverName", order.receiverName)
-        localStorage.setItem("orderPackage", order.orderPackage.id)
-        localStorage.setItem("color", order.color)
-        localStorage.setItem("totalPrice", order.totalPrice)
-        localStorage.setItem("country", order.country.id)
-        localStorage.setItem("email", order.userEmail)
+        createNewOrder(order)
     }
 
     return (
@@ -96,7 +89,7 @@ const GuestOrderModal = (props) => {
                 <Modal.Body>
                     <Form><Form.Group>
                         <Form.Label></Form.Label>
-                        <Form.Control type="text" placeholder="Email address..." onChange={e => setOrder({ ...order, userEmail: e.target.value })} />
+                        <Form.Control type="text" placeholder="Email address..." onChange={e => setOrder({ ...order, email: e.target.value })} />
                     </Form.Group>
                         <Form.Group>
                             <Form.Label></Form.Label>
@@ -125,7 +118,6 @@ const GuestOrderModal = (props) => {
                         </Form.Group>
                         
                         <Form.Group>
-                            <Form.Label></Form.Label>
                             <Form.Select onChange={e => setOrder({ ...order, country: { id: parseInt(e.target.value) } })}>
                                 <option defaultValue="" disabled selected>Select a country...</option>
                                 {
@@ -136,8 +128,6 @@ const GuestOrderModal = (props) => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <p>Weight: {weight} KG</p>
-                        <p>Color: {order.color}</p>
                         <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">

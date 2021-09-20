@@ -18,14 +18,13 @@ const UserOrderModal = (props) => {
         color: '',
         totalPrice: 0,
         country: 0,
-        user: props.userId,
+        user: {id: props.userId},
         email: keycloak.tokenParsed.email
     })
    
     //modal open/close
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
-
 
     //fetch & sort countries & packages from database
     useEffect(() => {
@@ -85,10 +84,10 @@ const UserOrderModal = (props) => {
 
 
     const submitOrder = () => {
-        try{
-            createNewOrder(order)
-        }
-        catch(err){ console.log(err)}
+            try{
+                createNewOrder(order)
+            }
+            catch(err){ console.log(err)}       
     } 
 
 
@@ -142,7 +141,7 @@ const UserOrderModal = (props) => {
                         <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">
-                            <button className="orderBtn" onClick={submitOrder}>ORDER</button>
+                            <button type="submit" className="orderBtn" onClick={submitOrder}>ORDER</button>
                         </div>
                     </Form>
                 </Modal.Body>
