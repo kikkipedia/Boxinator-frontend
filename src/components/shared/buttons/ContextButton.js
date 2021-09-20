@@ -8,7 +8,7 @@ const ContextButton = ({ keycloak }) => {
         <div>
            
             {keycloak && !keycloak.authenticated &&
-                <Nav.Link style={{"color": "white", "marginLeft": "1000px", "cursor": "pointer"}} onClick={() => keycloak.login()}>LOGIN</Nav.Link>
+                <Nav.Link style={{"color": "white", "marginLeft": "1000px", "cursor": "pointer", "fontSize": "20px"}} onClick={() => keycloak.login()}>LOGIN</Nav.Link>
                
             }
 

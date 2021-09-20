@@ -2,8 +2,9 @@
 import { useState, useEffect } from "react"
 import { Modal, Button, Form } from 'react-bootstrap'
 import { propTypes } from "react-bootstrap/esm/Image"
+import { Link } from "react-router-dom"
 
-import { getAllCountries, getPackageTypes } from "../../api/API"
+import { getAllCountries, getPackageTypes, createNewOrder, sendOrderInformation } from "../../api/API"
 
 const GuestOrderModal = (props) => {
     const authToken = sessionStorage.getItem("authentication")
@@ -12,14 +13,15 @@ const GuestOrderModal = (props) => {
     const [multiplier, setMultiplier] = useState(0)
     const [weight, setWeight] = useState(0)
     const [userEmail, setUserEmail] = useState()
-
+    const [orderPackage, setOrderPackage] = useState({})
+    const [country, setCountry] = useState({})
 
     //to post
     const [packages, setPackages] = useState([])
     const [userInfo, setUserInfo] = useState()
 
     const [order, setOrder] = useState({
-        userEmail: '',
+        userEmail: "",
         receiverName: '',
         orderPackage: { id: 0 },
         color: '',
@@ -52,6 +54,22 @@ const GuestOrderModal = (props) => {
             })
 
     }, [])
+
+    useEffect(() => {
+        for(let p of packages) {
+            if(p.id === order.orderPackage.id) {
+                setOrderPackage(p)
+            }
+        }
+    }, [order.orderPackage.id])
+
+    useEffect(() => {
+        for(let c of countries) {
+            if(c.id === order.country.id) {
+                setCountry(c)
+            }
+        }
+    }, [order.country.id])
 
     const sortData = (a, b) => {
         if (a.name < b.name) {
@@ -105,12 +123,21 @@ const GuestOrderModal = (props) => {
     //TODO -- on component render - fetch user shipments
     //posts order to database
     const submitOrder = () => {
-        localStorage.setItem("receiverName", order.receiverName)
-        localStorage.setItem("orderPackage", order.orderPackage.id)
-        localStorage.setItem("color", order.color)
-        localStorage.setItem("totalPrice", order.totalPrice)
-        localStorage.setItem("country", order.country.id)
-        localStorage.setItem("email", order.userEmail)
+        try {
+            const information = {
+                to: order.userEmail,
+                topic: "Order Information",
+                text: "Thank you for your order, your package will be shipped to you as soon as possible!" + "\n\n" + "Details about your order:" + "\n\n" + "Receiver name: " + order.receiverName + "\n" + "Package: " + orderPackage.name + " - " + orderPackage.weight + "KG" + "\n" + 
+                "Color: " + order.color + "\n" + "Country: " + country.name + "\n\n" + "Total Price: " + order.totalPrice + " SEK" + "\n\n" +
+                "Please register now to be able to follow and handle your order! Follow this link: " + "https://keycloak-boxinator.herokuapp.com/auth/realms/boxinator-app/login-actions/registration?client_id=boxinator-frontend"  
+                + "\n\n" + "Kind regards," + "\n" + "The Boxinator Team"
+            }
+            createNewOrder(order)
+            sendOrderInformation(information)
+        }
+        catch(error) {
+            console.log(error)
+        }
     }
 
     return (

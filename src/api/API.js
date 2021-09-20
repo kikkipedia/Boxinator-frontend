@@ -137,3 +137,14 @@ export const updateUser = (updatedUser) => {
 		body: JSON.stringify(updatedUser)})
 	return response.json()
 } 
+
+export const sendOrderInformation = (orderInformation) => {
+    return fetch(`${BASE_API_URL}sendEmail`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+        body: JSON.stringify(orderInformation)
+	})
+} 
+

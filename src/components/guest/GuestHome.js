@@ -21,17 +21,11 @@ const GuestHome = () => {
     <div className="guestHomeContainer">
       {shouldRedirect ? <Redirect to="/user"></Redirect> : null}
       <div className="guestHomeHeader">BOXINATOR</div>
-      <div className="guestImgContainer">
-        <img className="guestImg" src="../resources/images/blackBox.svg" alt="Black box" />
-      </div>
+      <div className="guestHomeText">GUEST</div>
+      
       <div className="guestBtnContainer">
         <GuestOrderModal />
       </div>
-      <div className="guestBtnContainer">
-        <button className="guestLoginBtn" onClick={() => keycloak.login()}>SIGN IN</button>
-      </div>
-      <p className="guestRegisterText">Don´t have an account yet? <Link className="guestRegisterLink" onClick={keycloak.register}>Register now</Link></p>
-
     </div>
   )
 }

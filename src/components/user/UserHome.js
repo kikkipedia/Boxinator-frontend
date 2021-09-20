@@ -10,12 +10,12 @@ const UserHome = () => {
 
     const {keycloak} = useKeycloak()
     const [newUser, setNewUser] = useState({
+        firstName: keycloak.tokenParsed.given_name,
+        lastName: keycloak.tokenParsed.family_name,
         address: keycloak.tokenParsed.address,
         contactNumber: keycloak.tokenParsed.contactNumber,
         dateOfBirth: keycloak.tokenParsed.dob,
         email: keycloak.tokenParsed.preferred_username,
-        firstName: keycloak.tokenParsed.given_name,
-        lastName: keycloak.tokenParsed.family_name,
         postalCode: keycloak.tokenParsed.postalCode,
         country: keycloak.tokenParsed.countryOfResidence
     })

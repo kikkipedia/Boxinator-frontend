@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useKeycloak } from '@react-keycloak/web'
 import { Modal, Button, Form } from 'react-bootstrap'
-import { createNewOrder, getAllCountries, getPackageTypes } from "../../api/API"
+import { createNewOrder, getAllCountries, getPackageTypes, sendOrderInformation } from "../../api/API"
 import { propTypes } from "react-bootstrap/esm/Image"
 
 const UserOrderModal = (props) => {
@@ -11,15 +11,17 @@ const UserOrderModal = (props) => {
     const [multiplier, setMultiplier] = useState(0)
     const [weight, setWeight] = useState(0)
     const [packages, setPackages] = useState([])
+    const [orderPackage, setOrderPackage] = useState({})
+    const [country, setCountry] = useState({})
 
     //for posting to backend
     const [order, setOrder] = useState({
         receiverName: '',
-        orderPackage: {id: 0},
+        orderPackage: { id: 0 },
         color: '',
         totalPrice: 0,
-        country: 0,
-        user: keycloak.tokenParsed.sid
+        country: { id: 0 },
+        user: { id: props.userId }
     })
    
     //modal open/close
@@ -40,6 +42,22 @@ const UserOrderModal = (props) => {
                 console.log("Error fetching all data ", error)
             })
     }, [])
+
+    useEffect(() => {
+        for(let p of packages) {
+            if(p.id === order.orderPackage.id) {
+                setOrderPackage(p)
+            }
+        }
+    }, [order.orderPackage.id])
+
+    useEffect(() => {
+        for(let c of countries) {
+            if(c.id === order.country.id) {
+                setCountry(c)
+            }
+        }
+    }, [order.country.id])
 
     //calculate total price
     useEffect(() => {
@@ -85,8 +103,20 @@ const UserOrderModal = (props) => {
 
 
     const submitOrder = () => {
-        createNewOrder(order)
-        console.log(order)
+        try {
+            const information = {
+                to: keycloak.tokenParsed.preferred_username,
+                topic: "Order Information",
+                text: "Thank you for your order, your package will be shipped to you as soon as possible!" + "\n\n" + "Details about your order:" + "\n\n" + "Receiver name: " + order.receiverName + "\n" + "Package: " + orderPackage.name + " - " + orderPackage.weight + "KG" + "\n" + 
+                "Color: " + order.color + "\n" + "Country: " + country.name + "\n\n" + "Total Price: " + order.totalPrice + " SEK"
+                + "\n\n" + "Kind regards," + "\n" + "The Boxinator Team"
+            }
+            createNewOrder(order)
+            sendOrderInformation(information)
+        }
+        catch(error) {
+            console.log(error)
+        }
     } 
 
     return (
@@ -141,7 +171,7 @@ const UserOrderModal = (props) => {
                         <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">
-                            <button className="orderBtn" onClick={submitOrder}>ORDER</button>
+                            <button type="submit" className="orderBtn" onClick={submitOrder}>ORDER</button>
                         </div>
                     </Form>
                 </Modal.Body>

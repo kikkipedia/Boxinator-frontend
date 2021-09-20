@@ -1,6 +1,6 @@
 import ContextButton from "../shared/buttons/ContextButton"
 import GuestButton from "../shared/buttons/GuestButton"
-import { Redirect } from "react-router";
+import { Link, Redirect } from "react-router-dom";
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
 import { useHistory } from 'react-router';
@@ -21,21 +21,26 @@ const Start = () => {
         
     },[shouldRedirect])
 
+    const onClickContinueButton = () => {
+        history.push("/guest")
+    }
 
-    return(
-        
-
-        <div className="content">
-            {shouldRedirect ? <Redirect to="/guest"></Redirect> : null}
-            
-            <h4>Welcome to Boxinator!</h4>
-            <FontAwesomeIcon icon={faBoxOpen} size="10x" className="startIcon" style={{color: "black"}}/>
-
-            <p><GuestButton/></p>
-            
-        
+    return (
+        <div className="startContainer">
+          {shouldRedirect ? <Redirect to="/guest"></Redirect> : null}
+          <div className="startHeader">BOXINATOR</div>
+          <div className="startImgContainer">
+            <img className="startImg" src="../resources/images/blackBox.svg" alt="Black box" />
+          </div>
+          <div className="startBtnContainer">
+          <button className="startContinueAsGuestBtn" onClick={onClickContinueButton}>CONTINUE AS GUEST</button>
+          </div>
+          <div className="startBtnContainer">
+            <button className="startLoginBtn" onClick={() => keycloak.login()}>SIGN IN</button>
+          </div>
+          <p className="startRegisterText">Don´t have an account yet? <Link className="startRegisterLink" onClick={keycloak.register}>Register now</Link></p>
+    
         </div>
-
-    )
+      )
 }
 export default Start;
