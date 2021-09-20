@@ -120,7 +120,7 @@ export const updateShipmentStatus = async(id, status) => {
 
 export const updateCountryMultiplier = (updatedCountry) => {
     return fetch(`${BASE_API_URL}countries`, {
-		method: 'PATCH',
+		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
 		},

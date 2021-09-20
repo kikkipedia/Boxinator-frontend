@@ -26,22 +26,17 @@ const CountryModal = (props) => {
 
     }, [props.id])
 
-    //Handles the change to cancelled by user 
+    //Handles the changing data from the input menu
     const handleOnChange = async (e) => {
-        setNewMultiplier(  e.target.value )
+        setNewMultiplier(e.target.value)
         countryIdandName.multiplier = newMultiplier
         
     }
+    //Handles submisson of data on button press
     const handleSubmit = () =>{
-        countryIdandName.multiplier = newMultiplier
+        //countryIdandName.multiplier = newMultiplier
         updateCountryMultiplier(countryIdandName)
     }
-
-    // const countryBuilder = () =>{
-    //     id: parseInt(countryIdandName),
-    //     name: ,
-    //     multiplier:
-    // }
 
     //modal
     const handleClose = () => setShow(false)
@@ -59,7 +54,9 @@ const CountryModal = (props) => {
                         <Form.Label></Form.Label>
                         <Form.Select onChange={e => setCountryIdandName( {id: parseInt(e.target.value), name: countries[e.target.value-1].name , multiplier: countries[e.target.value-1].multiplier} )}>
                             <option defaultValue="" disabled selected>Select a country...</option>
+                            
                             {
+                                countries.sort((a, b) => a.id - b.id),
                                 countries && countries.map(opt => (
                                     <option key={opt.id} value={opt.id}>{opt.name}</option>
                                 ))
@@ -71,7 +68,7 @@ const CountryModal = (props) => {
                         </Form.Group>
                     </Form.Group>
                     <div className="orderBtnContainer">
-                            <button className="orderBtn" onClick={handleSubmit}>ORDER</button>
+                            <button className="orderBtn" onClick={handleSubmit}>Submit</button>
                         </div>
 
                 </Modal.Body>
