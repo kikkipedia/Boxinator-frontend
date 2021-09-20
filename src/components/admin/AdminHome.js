@@ -32,6 +32,7 @@ const AdminHome = () => {
     //Displays the Cards with the relevant information
     const displayCardStatus = () => {
         let cards = [];
+        shipments.sort((a, b) => a.id - b.id)
         {
             shipments && shipments.length > 0 && shipments.map((shipment) => {
                 cards.push(
@@ -47,8 +48,11 @@ const AdminHome = () => {
     }
     const displayCardOrders = () => {
         let cards = [];
-        {
+        
+        {   
+            
             orders && orders.length > 0 && orders.map((order) => {
+                
                 cards.push(
                     <OrderCardAdmin key={order.id}
                         orderName={order.receiverName}
