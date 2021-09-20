@@ -4,6 +4,7 @@ import { getAllOrders, getAllShipments } from "../../api/API";
 import { Container} from 'react-bootstrap'
 import OrderCardAdmin from "./OrderCardAdmin.js" 
 import StatusChanger from "./StatusChanger";
+import CountryModal from "./CountryModal";
 
 
 const AdminHome = () => {
@@ -64,6 +65,7 @@ const AdminHome = () => {
     return (
         <Container>
             <div>
+                <CountryModal/>
                 {/* {displayCardOrders()} */}
                 {displayCardStatus()}
                 

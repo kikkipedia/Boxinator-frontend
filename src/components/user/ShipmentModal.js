@@ -48,7 +48,6 @@ const ShipmentModal = (props) => {
             return 'Created'
         }
 
-
         else {
             let sts = statusString.charAt(statusString.length - 2)
             let statusCode = parseInt(sts);

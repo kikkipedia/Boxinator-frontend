@@ -1,6 +1,5 @@
 import Keycloak from "keycloak-js"
 import { useEffect, useState } from "react"
-import { getAllShipments, getAllUsers, getOrdersByUserId, getShipmentById } from "../../api/API"
 import { useKeycloak } from '@react-keycloak/web'
 import { Table } from 'react-bootstrap'
 import ShipmentModal from "./ShipmentModal"
