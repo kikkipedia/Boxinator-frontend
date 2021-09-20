@@ -8,9 +8,9 @@ const Shipments = (props) => {
     const { keycloak } = useKeycloak();
     const [orders, setOrders] = useState([]);
   
+    //Asynchronously retrieves all orders made by the current user 
     useEffect(() => {
-        //Asynchronously retrieves all orders made by the current user 
-        getOrdersByUserEmail(keycloak.tokenParsed.email)
+            getOrdersByUserEmail(keycloak.tokenParsed.email)
             .then(data => {
                 setOrders(data)
                 console.log("ID " + props.id)
@@ -20,7 +20,6 @@ const Shipments = (props) => {
 
     useEffect(() => {
         if (orders.length) {
-            //after order
         }
     }, [orders])
 

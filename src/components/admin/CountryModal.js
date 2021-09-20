@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react"
-import { Modal, Button, Form } from 'react-bootstrap'
-import { getAllCountries, getShipmentById, updateCountryMultiplier, updateShipmentStatus } from "../../api/API"
+import { Modal,  Form } from 'react-bootstrap'
+import { getAllCountries,  updateCountryMultiplier } from "../../api/API"
 
 const CountryModal = (props) => {
     const [show, setShow] = useState(false)
@@ -9,11 +9,6 @@ const CountryModal = (props) => {
     const [countries, setCountries] = useState([])
     const [countryIdandName, setCountryIdandName] = useState();
     const [newMultiplier, setNewMultiplier] = useState(0)
-    const [newCountryDetails, setNewCountryDetails] = useState({
-        id:0,
-        name:'',
-        multiplier:0
-    })
 
     //Asynchronously retrieves all shipments with matching id to the order id
     useEffect(() => {
@@ -41,7 +36,7 @@ const CountryModal = (props) => {
 
     }
 
-    //modal
+    //Handles the visibility of the modal based upon a boolean
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 

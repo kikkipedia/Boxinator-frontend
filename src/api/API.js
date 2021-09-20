@@ -8,7 +8,6 @@ export const getAllUsers = async() => {
 	return response.json()
 }
 //Posts a new User to the API
-
 export const postNewUser = (post) => {
 	const requestOptions = {
 		method: 'POST',
@@ -22,9 +21,6 @@ export const postNewUser = (post) => {
 }
 //Gets all orders registered to a specific user email
 export const getOrdersByUserEmail = (email) => {
-	// const response = await fetch(`${BASE_API_URL}orders/getByUserEmail/${email}`)
-	// return response.json()
-
 	return fetch(`${BASE_API_URL}orders/getByUserEmail/${email}`)
 	.then(result => result.json())
 } 

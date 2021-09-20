@@ -19,7 +19,7 @@ const ProfileButton = (props) => {
         contactNumber: ''
     })
 
-    //modal open/close
+    //Handles the visibility of the modal based upon a boolean
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
@@ -28,7 +28,7 @@ const ProfileButton = (props) => {
             setUser(props.user)
         }
     }, [props])
-    //Checks if user want sto save daata
+    //Checks if user wants to save data their data to the database
     const onClickSaveButton = () => {
         const confirm = window.confirm("Are you sure you want to save all changes made?")
 
