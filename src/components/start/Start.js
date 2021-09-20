@@ -11,9 +11,9 @@ const Start = () => {
 
     const history = useHistory();
     const {keycloak} = useKeycloak();
-
+    
+//Redirects an authenticated user back to the /user 
     useEffect(()=>{
-        //Redirects an authenticated user back to the /user 
         if (keycloak.authenticated) {
                 history.push("/user")   
       } 
@@ -21,15 +21,11 @@ const Start = () => {
 
 
     return(
-        
-
+    
         <div className="content">          
             <h4>Welcome to Boxinator!</h4>
             <FontAwesomeIcon icon={faBoxOpen} size="10x" className="startIcon" style={{color: "black"}}/>
-
             <p><GuestButton/></p>
-            
-        
         </div>
 
     )

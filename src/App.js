@@ -10,8 +10,7 @@ function App() {
 
   const [authToken, setAuthToken] = useState()
 
-  //sets user info
-  
+  //Sets AuthToken to be the value of the store JWT
   useEffect(() => {
      setAuthToken(sessionStorage.getItem("authentication")) 
   }, [authToken])

@@ -1,16 +1,11 @@
 import { Card, Table } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import {  getShipmentStatusHistoryByShipmentId, updateShipment, getAllOrders, createNewOrder, createNewShipment, getShipmentById } from "../../api/API";
-import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
-
+import {  useEffect } from "react";
 
 
 const OrderCardAdmin = (props) => {
-    const [newShipment, setNewShipment] = useState();
-    
+  
 
     useEffect (()=>{
-        console.log(newShipment)
     },[])
     
     return (
@@ -36,9 +31,6 @@ const OrderCardAdmin = (props) => {
                         <td>{props.orderName}</td>
                         <td>{props.orderColor}</td>
                         <td>{props.orderTotalPrice}</td>
-                        <td>
-                            {/* {displayCardStatus()} */}
-                        </td>
                     </tr>
                     </tbody>
                 </Table>

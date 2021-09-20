@@ -28,10 +28,12 @@ const UserHome = () => {
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [shouldRedirectAdmin, setShouldRedirectAdmin] = useState(false)
 
+    //Saves the users authentication token to the session storage
     useEffect(()=>{
         sessionStorage.setItem('authentication', keycloak.token);
         sessionStorage.setItem('refreshToken', keycloak.refreshToken)
     })
+    //Redirects the user if they lack and authenicatiion token or they are an admin
     useEffect(()=>{
         if ( sessionStorage.getItem("authentication") === undefined ) {
               setShouldRedirect(true)
@@ -42,21 +44,19 @@ const UserHome = () => {
     },[])
 
 
-    //check if user exiits in database
+    //Check if user exists in database
     useEffect(() => {
         checkUser()
     }, [userEmail])
 
-    //fetch all users
+    //Fetch all users from the database and check the new user already exits, and if not posts them to the database
     const checkUser = () => {
         try {
             getAllUsers()
             .then(data => {
             setUsers(data)
-            //check if user exists
             const userFound = data.find(el => el.email === newUser.email)
             if(!userFound) {
-                //if not - post new user to database
                 if (newUser.email !== undefined) {
                     postNewUser(newUser)
                     setUser(newUser)
@@ -73,9 +73,9 @@ const UserHome = () => {
         catch(err) { console.log(err) }
     }
 
+    //If a new user is saved or the array changes then a re-render is triggered
     useEffect(() => {
         if(users.length) {
-            //if new user is saved // array changes => re-render
         }
     },[users])
 

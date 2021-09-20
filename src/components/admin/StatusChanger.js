@@ -1,13 +1,13 @@
 import { Card, Table } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import { getShipmentById,getShipmentStatusHistoryByShipmentId, updateShipment, getAllOrders, createNewOrder, createNewShipment, updateShipmentStatus } from "../../api/API";
-import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
+import { useState} from "react";
+import {  updateShipmentStatus } from "../../api/API";
+
 
 const StatusChanger = (props) => {
     const [status, setStatus] = useState();
     const [newShipment, setNewShipment] = useState();
 
- 
+    //Handles the changing of state caused when the user selects a status , the updates the status state in the database
     const handleOnChange = async (event) => {
         setStatus({ orderStatus: { id: event.target.value } })
         updateShipmentStatus(props.orderId ,{ id: event.target.value })

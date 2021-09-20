@@ -11,7 +11,7 @@ const ShipmentModal = (props) => {
     const [shipmentStatusHistory, setShipmentStatusHistory] = useState()
     const [shipmentId, setShipmentId] = useState()
 
-    //Asynchronously retrieves all shipments with matching id to the order id
+    //Asynchronously retrieves all shipments with matching id to the order id, then assigns several states based upon this data
     useEffect(() => {
         setTimestamp(1)
         getShipmentById(props.id)
@@ -24,13 +24,13 @@ const ShipmentModal = (props) => {
             
     }, [props.id])
 
-    //Handles the change to cancelled by user 
+    //Handles the change when a user cancels their order
     const handleOnChange = async () => {
         setStatus('/api/statuses/5')
         updateShipmentStatus(shipmentId, { id: 5 })
 
     }
-    // Parse time from timestamp
+    // Parse time from timestamp and show in a more readable fashion
     const parseTime = (tStamp) => {
         let time = tStamp
         let date = new Date(time);

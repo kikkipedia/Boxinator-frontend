@@ -9,6 +9,8 @@ const GuestOrderModal = (props) => {
     const [multiplier, setMultiplier] = useState(0)
     const [weight, setWeight] = useState(0)
     const [packages, setPackages] = useState([])
+
+    //Creates a structure for an order object to be submitted to the Database
     const [order, setOrder] = useState({
         email: '',
         receiverName: '',
@@ -18,12 +20,12 @@ const GuestOrderModal = (props) => {
         country: { id: 0 }
     })
 
-    //modal
+  //Handles whether or not the Modal is visible based upon a boolean
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
 
-    //fetch & sort countries from database
+    //Fetch & sort countries & packages from the database
     useEffect(() => {
         getAllCountries()
             .then(data => setCountries(data))
@@ -37,7 +39,7 @@ const GuestOrderModal = (props) => {
             })
     }, [])
 
-    //calculate price
+     //Calculates the total priceof an order based upon the country it will be shipped to and the weight of the package
     useEffect(() => {
         let total = 0;
         for (let item of countries) {
@@ -55,7 +57,7 @@ const GuestOrderModal = (props) => {
         }
         setOrder({ ...order, totalPrice: total })
     }, [order.country.id])
-
+    //Initializes the weight of each package type
     useEffect(() => {
         for (let item of packages) {
             if (item.id === order.orderPackage.id) {
@@ -63,7 +65,7 @@ const GuestOrderModal = (props) => {
             }
         }
     }, [order.orderPackage.id])
-
+    //Initializes the cost of a package based upon its weight and country multiplier
     useEffect(() => {
         if (weight > 0) {
             const total = (200 + (multiplier * weight))
@@ -74,7 +76,7 @@ const GuestOrderModal = (props) => {
         }
     }, [weight])
 
-    //guest order is saved in local storage
+    //Guest order is saved in local storage
     const submitOrder = () => {
         createNewOrder(order)
     }
