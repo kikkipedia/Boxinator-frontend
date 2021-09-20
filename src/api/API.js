@@ -1,11 +1,13 @@
 const BASE_API_URL = "http://localhost:8080/api/"
 //const BASE_API_UR = "https://boxinator-server.herokuapp.com/api/"
 
-//USERS
-export const getAllUsers = async () => {
-    const result = await fetch(`${BASE_API_URL}users`)
-    return result.json()
+
+//Gets all users from API
+export const getAllUsers = async() => {
+	const response = await fetch(`${BASE_API_URL}users`)
+	return response.json()
 }
+//Posts a new User to the API
 
 export const postNewUser = (post) => {
 	const requestOptions = {
@@ -18,17 +20,25 @@ export const postNewUser = (post) => {
 	return fetch(`${BASE_API_URL}users`, requestOptions)
 		.then(response => response.json())
 }
+//Gets all orders registered to a specific user email
+export const getOrdersByUserEmail = (email) => {
+	// const response = await fetch(`${BASE_API_URL}orders/getByUserEmail/${email}`)
+	// return response.json()
 
-//ORDERS
+	return fetch(`${BASE_API_URL}orders/getByUserEmail/${email}`)
+	.then(result => result.json())
+} 
+//Gets all orders registered to a specific user Id 
 export const getOrdersByUserId = (userId) => {
     return fetch(`${BASE_API_URL}orders/getByUserId/${userId}`)
 	.then(response => response.json())
 } 
-
+//Gets all orders stored in the API
 export const getAllOrders = async() => {
 	const response = await fetch(`${BASE_API_URL}orders`)
 	return response.json()
 }
+
 
 export const createNewOrder = (newOrder) => {
 	const response = fetch(`${BASE_API_URL}orders`, {
@@ -40,7 +50,7 @@ export const createNewOrder = (newOrder) => {
 	})
 	return response.json()
 } 
-
+//Gets all shipments from the API
 export const getAllShipments = async() => {
 	const response = await fetch(`${BASE_API_URL}shipments`, {
 		method: 'GET',
@@ -51,17 +61,19 @@ export const getAllShipments = async() => {
 	return response.json()
 }
 
-//SHIPMENTS
+//Gets a specific shipment by it Id
 export const getShipmentById = async (orderId) => {
 	const response = await fetch(`${BASE_API_URL}shipments/${orderId}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
+			
+			
 		},
 	})
 	return response.json()
 } 
-
+//Posts a new shipment to the database
 export const createNewShipment = (newShipment) => {
     return fetch(`${BASE_API_URL}shipments`, {
 		method: 'POST',
@@ -71,7 +83,7 @@ export const createNewShipment = (newShipment) => {
         body: JSON.stringify(newShipment)
 	})
 } 
-
+//Gets a shipments status history, from a specific Id 
 export const getShipmentStatusHistoryByShipmentId = async(shipmentId) => {
 	const response = await fetch(`${BASE_API_URL}shipmentstatushistory?shipment_id=${shipmentId}`, {
 		method: 'GET',
@@ -81,7 +93,7 @@ export const getShipmentStatusHistoryByShipmentId = async(shipmentId) => {
 	})
 	return response.json()
 } 
-
+//Updates a Shipment based upon a new shipment object
 export const updateShipment = async(updatedShipment) => {
 	const response = await fetch(`${BASE_API_URL}shipments`, {
 		method: 'PUT',
@@ -91,7 +103,7 @@ export const updateShipment = async(updatedShipment) => {
 		body: JSON.stringify(updatedShipment)})
 	return response.json()
 } 
-
+//Updates the status of a shipment
 export const updateShipmentStatus = async(id, status) => {
 	const response = await fetch(`${BASE_API_URL}shipments/updateShipmentStatus/${id}`, {
 		method: 'PATCH',
@@ -102,7 +114,10 @@ export const updateShipmentStatus = async(id, status) => {
 	return response.json()
 } 
 
-//COUNTRIES
+
+
+//Updates the multiplier of a specific country
+
 export const updateCountryMultiplier = (updatedCountry) => {
     return fetch(`${BASE_API_URL}countries`, {
 		method: 'PATCH',
@@ -112,12 +127,12 @@ export const updateCountryMultiplier = (updatedCountry) => {
 		body: JSON.stringify(updatedCountry)
 	})
 } 
-
+//Gets all the countries stored in the API
 export const getAllCountries = () => {	
 	return fetch(`${BASE_API_URL}countries`)
 	.then(result => result.json())
 }
-
+//Gets all the package types stored in the API
 export const getPackageTypes = () => {
 	return fetch(`${BASE_API_URL}packages`)
 	.then(result => result.json())

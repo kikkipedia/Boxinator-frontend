@@ -19,7 +19,8 @@ const UserOrderModal = (props) => {
         color: '',
         totalPrice: 0,
         country: 0,
-        user: keycloak.tokenParsed.sid
+        user: 'userId',
+        email: keycloak.tokenParsed.email
     })
    
     //modal open/close

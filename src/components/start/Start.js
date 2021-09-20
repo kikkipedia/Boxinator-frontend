@@ -11,23 +11,19 @@ const Start = () => {
 
     const history = useHistory();
     const {keycloak} = useKeycloak();
-    const [shouldRedirect, setShouldRedirect] = useState(false);
 
     useEffect(()=>{
+        //Redirects an authenticated user back to the /user 
         if (keycloak.authenticated) {
-                history.push("/user")
-              //setShouldRedirect(true);
-      }
-        
-    },[shouldRedirect])
+                history.push("/user")   
+      } 
+    },[])
 
 
     return(
         
 
-        <div className="content">
-            {shouldRedirect ? <Redirect to="/guest"></Redirect> : null}
-            
+        <div className="content">          
             <h4>Welcome to Boxinator!</h4>
             <FontAwesomeIcon icon={faBoxOpen} size="10x" className="startIcon" style={{color: "black"}}/>
 
