@@ -2,13 +2,17 @@
 
 A client application designed for creating orders and calculationg costs for mystery boxes to be shipped around the world, built with React, JavaScript and CSS.
 
+### Team members: [Kristin](https://github.com/kikkipedia), [Adam](https://github.com/Adamjohansson123), [Luis](https://github.com/lfgn84) & [Daniel](https://github.com/Dandandumdum)
+
 ## Project Screen shots
 
 ----
 
 ## Installation and setup
 
-Clone this repository. You will need `node` and `npm` installed globally on your machine. Then in the project directory, you can run `npm install`
+Clone this repository. You will need `node` and `npm` installed globally on your machine. 
+
+Then in the project directory, run `npm install`
 
 ### Start client:
 
@@ -17,7 +21,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## About this project
 
-This was a 4 weeks long project built by candidates at Experis Academy for the Full-stack Programming short course. Project goal was to produce a software solution for a given case called Boxinator - an application designed for calculationg the shipping cost for mystery boxes to specific locations around the world. This repository contains only the front-end application. The project also includes a server application to be found at [GitHub: Boxinator backend](https://github.com/lfgn84/Boxinator-backend) . A full working application is deployed at [https://boxinator-frontend1.herokuapp.com/](https://boxinator-frontend1.herokuapp.com/)
+This was a 4 weeks long project built by candidates at Experis Academy for the Full-stack Programming short course. Project goal was to produce a software solution for a given case called Boxinator - an application designed for calculationg the shipping cost for mystery boxes to specific locations around the world. This repository contains only the front-end application. The project also includes a server application to be found at [GitHub: Boxinator backend](https://github.com/kikkipedia/Boxinator-backend) . A full working application is deployed at [https://boxinator-frontend1.herokuapp.com/](https://boxinator-frontend1.herokuapp.com/)
 
 **General functionality - Users**
 - Users are authenticated via [Keycloak](https://www.keycloak.org/) using JWT tokens and redirected to User page

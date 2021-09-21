@@ -2,6 +2,7 @@ import { Card, Table } from "react-bootstrap";
 import { useState, useEffect} from "react";
 import {  updateShipmentStatus, getShipmentById } from "../../api/API";
 import parseStatus from "../../utilities/ParseStatus";
+import parsePackage from "../../utilities/ParsePackage";
 import { set } from "react-hook-form";
 
 
@@ -19,8 +20,11 @@ const StatusChanger = (props) => {
 
     //Handles the changing of state caused when the user selects a status , the updates the status state in the database
     const handleOnChange = async (event) => {
-        setStatus(  event.target.value  )
-        updateShipmentStatus(props.orderId ,{ id: event.target.value })
+        const confirm = window.confirm("Are you sure you want to update shipment status?")
+        if (confirm) {
+            setStatus(  event.target.value  )
+            updateShipmentStatus(props.orderId ,{ id: event.target.value })
+        }
      
     }
 
@@ -28,6 +32,10 @@ const StatusChanger = (props) => {
         <Card className="card-container">
             <div className="adminCardHeader">
                 <div className="orderIdTxt">ORDER ID: {props.orderId} </div>
+                <div className="receiverName">RECEIVER NAME: {props.receiverName}</div>
+                <div className="email">EMAIL: {props.email}</div>
+                <div className="totalPrice">TOTAL PRICE: {props.totalPrice} kr</div>
+                <div className="totalPrice">PACKAGE TYPE: {parsePackage(props.packageType)}</div>
                 <div className="currentStatusTxt">CURRENT STATUS: {parseStatus(status)}</div>
             </div>
 
