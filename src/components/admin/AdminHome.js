@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
 import { getAllOrders, getAllShipments } from "../../api/API";
-import { Container} from 'react-bootstrap'
-import OrderCardAdmin from "./OrderCardAdmin.js" 
+import { Container } from 'react-bootstrap'
+import OrderCardAdmin from "./OrderCardAdmin.js"
 import StatusChanger from "./StatusChanger";
 import CountryModal from "./CountryModal";
 
@@ -18,7 +18,7 @@ const AdminHome = () => {
         sessionStorage.setItem('refreshToken', keycloak.refreshToken);
         setOrdersNew();
         setShipmentsNew();
-       
+
     }, [])
     //Asynchronously retrieves all orders from the database, then sets their current state to be equivilent
     const setOrdersNew = async () => {
@@ -37,16 +37,14 @@ const AdminHome = () => {
         {
             shipments && shipments.length > 0 && shipments.map((shipment) => {
                 cards.push(
-                    
+
                     <div>
-                        <p> </p>
-                    <StatusChanger key={shipment.id}
-                        orderId={shipment.id}
-                        orderStatus={shipment.status.statusType}
-                    ></StatusChanger>
-                
+                        <StatusChanger key={shipment.id}
+                            orderId={shipment.id}
+                            orderStatus={shipment.status.statusType}
+                        ></StatusChanger>
                     </div>
-                    
+
                 );
             });
         }
@@ -55,11 +53,11 @@ const AdminHome = () => {
     }
     // const displayCardOrders = () => {
     //     let cards = [];
-        
+
     //     {   
-            
+
     //         orders && orders.length > 0 && orders.map((order) => {
-                
+
     //             cards.push(
     //                 <OrderCardAdmin key={order.id}
     //                     orderName={order.receiverName}
@@ -67,7 +65,7 @@ const AdminHome = () => {
     //                     orderColor={order.color}
     //                     orderTotalPrice={order.totalPrice}>
     //                 </OrderCardAdmin>
-                    
+
     //             );
     //         });
     //     }
@@ -79,9 +77,10 @@ const AdminHome = () => {
     return (
         <Container>
             <div>
-                <CountryModal/>
+                <CountryModal />
+                <div className="adminHomeHeader">ALL SHIPMENTS</div>
                 {displayCardStatus()}
-                
+
             </div>
         </Container>
     )

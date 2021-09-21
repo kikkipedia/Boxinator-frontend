@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react"
-import { Modal,  Form } from 'react-bootstrap'
-import { getAllCountries,  updateCountryMultiplier } from "../../api/API"
+import { Modal, Form } from 'react-bootstrap'
+import { getAllCountries, updateCountryMultiplier } from "../../api/API"
 
 const CountryModal = (props) => {
     const [show, setShow] = useState(false)
@@ -25,14 +25,18 @@ const CountryModal = (props) => {
     const handleOnChange = async (e) => {
         setNewMultiplier(e.target.value)
         countryIdandName.multiplier = newMultiplier
-        
+
     }
     //Handles submisson of data on button press
-    const handleSubmit = () =>{
-        try{
-            updateCountryMultiplier(countryIdandName)
+    const handleSubmit = () => {
+        try {
+            const confirm = window.confirm("Are you sure you want to save changes made?")
+
+            if (confirm) {
+                updateCountryMultiplier(countryIdandName)
+            }
         }
-        catch(err){ console.log(err)}       
+        catch (err) { console.log(err) }
 
     }
 
@@ -42,17 +46,17 @@ const CountryModal = (props) => {
 
     return (
         <div>
-            <button className="guestNewOrderBtn" onClick={handleShow}>Update Country Multiplier</button>
-            <Modal show={show} onHide={handleClose}>
+            <button className="adminUpdateCountryBtn" onClick={handleShow}>UPDATE COUNTRY</button>
+            <Modal show={show} onHide={handleClose} className="updateCountryModal">
                 <Modal.Header closeButton>
-                    <Modal.Title style={{ "font-weight": "bold" }}>Update Multiplier</Modal.Title>
+                    <Modal.Title style={{ "font-weight": "bold" }}>UPDATE COUNTRY</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Group>
                         <Form.Label></Form.Label>
-                        <Form.Select onChange={e => setCountryIdandName( {id: parseInt(e.target.value), name: countries[e.target.value-1].name , multiplier: countries[e.target.value-1].multiplier} )}>
+                        <Form.Select onChange={e => setCountryIdandName({ id: parseInt(e.target.value), name: countries[e.target.value - 1].name, multiplier: countries[e.target.value - 1].multiplier })}>
                             <option defaultValue="" disabled selected>Select a country...</option>
-                            
+
                             {
                                 countries.sort((a, b) => a.id - b.id),
                                 countries && countries.map(opt => (
@@ -62,12 +66,12 @@ const CountryModal = (props) => {
                         </Form.Select>
                         <Form.Group>
                             <Form.Label></Form.Label>
-                            <Form.Control type="text" placeholder="Change Multiplier" onChange={handleOnChange} />
+                            <Form.Control type="text" placeholder="Change Multiplier..." onChange={handleOnChange} />
                         </Form.Group>
                     </Form.Group>
-                    <div className="orderBtnContainer">
-                            <button className="orderBtn" onClick={handleSubmit}>Submit</button>
-                        </div>
+                    <div className="saveBtnContainer">
+                        <button className="saveBtn" onClick={handleSubmit}>SAVE</button>
+                    </div>
 
                 </Modal.Body>
 

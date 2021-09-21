@@ -26,10 +26,10 @@ const StatusChanger = (props) => {
 
     return (
         <Card className="card-container">
-            <Card.Header>
-                <p>Order ID: {props.orderId} </p>
-                <p>Current Status: {parseStatus(status)}</p>
-            </Card.Header>
+            <div className="adminCardHeader">
+                <div className="orderIdTxt">ORDER ID: {props.orderId} </div>
+                <div className="currentStatusTxt">CURRENT STATUS: {parseStatus(status)}</div>
+            </div>
 
             <Card.Body>
                 <Table>

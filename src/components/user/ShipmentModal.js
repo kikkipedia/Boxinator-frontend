@@ -45,7 +45,7 @@ import parseStatus from "../../utilities/ParseStatus";
 
     return (
         <div>
-            <button className="guestNewOrderBtn" onClick={handleShow}>{parseStatus(status)}</button>
+            <button className="statusBtn" onClick={handleShow}>{parseStatus(status)}</button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title style={{ "font-weight": "bold" }}>View Status</Modal.Title>
