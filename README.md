@@ -2,7 +2,7 @@
 
 A client application designed for creating orders and calculationg costs for mystery boxes to be shipped around the world, built with React, JavaScript and CSS.
 
-### Team members: [Kristin](https://github.com/kikkipedia), [Adam](https://github.com/Adamjohansson123), [Luis](https://github.com/lfgn84) & [Daniel](https://github.com/Dandandumdum)
+### Team members :computer: [Kristin](https://github.com/kikkipedia), [Adam](https://github.com/Adamjohansson123), [Luis](https://github.com/lfgn84) & [Daniel](https://github.com/Dandandumdum)
 
 ## Project Screen shots
 
@@ -13,8 +13,6 @@ A client application designed for creating orders and calculationg costs for mys
 Clone this repository. You will need `node` and `npm` installed globally on your machine. 
 
 Then in the project directory, run `npm install`
-
-### Start client:
 
 Run `npm start` in the project directory. This will the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
