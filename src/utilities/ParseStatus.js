@@ -14,19 +14,19 @@ const parseStatus = (stausAPILink) => {
         switch (statusCode) {
             case 1:
                 return 'Created'
-                break;
+
             case 2:
                 return 'Intransit'
-                break;
+
             case 3:
                 return 'Received'
-                break;
+
             case 4:
                 return 'Completed'
-                break;
+
             case 5:
                 return 'Cancelled'
-                break;
+
             default:
                 return 'Error'
 
