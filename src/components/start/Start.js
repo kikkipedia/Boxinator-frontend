@@ -31,7 +31,7 @@ const Start = () => {
           <div className="startBtnContainer">
             <button className="startLoginBtn" onClick={() => keycloak.login()}>SIGN IN</button>
           </div>
-          <p className="startRegisterText">Don´t have an account yet? <button className="startRegisterLink" onClick={keycloak.register}>Register now</button></p>
+          <p className="startRegisterText">Don´t have an account yet?<button className="startRegisterLink" onClick={keycloak.register}>Register now</button></p>
     
         </div>
       )

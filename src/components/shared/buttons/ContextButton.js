@@ -13,7 +13,7 @@ const ContextButton = ({ keycloak }) => {
             }
 
             {keycloak && keycloak.authenticated &&
-                <Nav.Link style={{"color": "white", "marginLeft": "850px", "cursor": "pointer", "fontSize": "20px"}}  onClick={() => keycloak.logout()}>LOGOUT</Nav.Link>   
+                <Nav.Link style={{"color": "white", "marginLeft": "1000px", "cursor": "pointer", "fontSize": "20px"}}  onClick={() => keycloak.logout()}>LOGOUT</Nav.Link>   
             }
 
         </div>

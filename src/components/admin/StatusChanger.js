@@ -47,8 +47,6 @@ const StatusChanger = (props) => {
                         </tr>
                     </tbody>
                 </Table>
-
-
             </Card.Body>
         </Card>
     );

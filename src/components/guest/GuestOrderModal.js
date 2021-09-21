@@ -163,7 +163,9 @@ const GuestOrderModal = (props) => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
+                        <p>Weight: {weight} KG</p>
+                        <p>Color: {order.color}</p>
+                        <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0}</p>
                         <br />
                         <div className="orderBtnContainer">
                             <button className="orderBtn" onClick={submitOrder}>ORDER</button>
