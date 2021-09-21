@@ -2,7 +2,6 @@
 const parseStatus = (stausAPILink) => {
     const statusString = JSON.stringify(stausAPILink)
     if (statusString === undefined) {
-        console.log("Link empty")
         return 'EMPTY'
     } else if (statusString.charAt(statusString.length - 2) === 1) {
         return 'Created'

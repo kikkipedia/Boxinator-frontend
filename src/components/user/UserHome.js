@@ -76,7 +76,6 @@ const UserHome = () => {
             else {
                 setUserId(userFound.id)
                 setUser(userFound)
-                console.log(userFound.email, userFound.firstName)
             }
         })
         }

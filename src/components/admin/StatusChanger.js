@@ -2,20 +2,17 @@ import { Card, Table } from "react-bootstrap";
 import { useState, useEffect} from "react";
 import {  updateShipmentStatus, getShipmentById } from "../../api/API";
 import parseStatus from "../../utilities/ParseStatus";
-import parsePackage from "../../utilities/ParsePackage";
-import { set } from "react-hook-form";
-
+import parsePackage from "../../utilities/ParsePackage"
 
 const StatusChanger = (props) => {
     const [status, setStatus] = useState();
-    const [newShipment, setNewShipment] = useState();
 
     useEffect(() => {
         getShipmentById(props.orderId)
         .then(data => {
             setStatus(data.status)
         })
-    }, [props.orderStatus])
+    }, [props.orderStatus, props.orderId])
 
 
     //Handles the changing of state caused when the user selects a status , the updates the status state in the database
@@ -60,4 +57,4 @@ const StatusChanger = (props) => {
     );
 
 }
-export default StatusChanger;
+export default StatusChanger
