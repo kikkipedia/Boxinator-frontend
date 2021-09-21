@@ -54,7 +54,6 @@ const CountryModal = (props) => {
                         <Form.Label></Form.Label>
                         <Form.Select onChange={e => setCountryIdandName({ id: parseInt(e.target.value), name: countries[e.target.value - 1].name, multiplier: countries[e.target.value - 1].multiplier })}>
                             <option className="adminCountryOptions" defaultValue="" disabled selected>Select a country...</option>
-
                             {
                                 countries.sort((a, b) => a.id - b.id),
                                 countries && countries.map(opt => (
