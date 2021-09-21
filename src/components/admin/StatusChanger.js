@@ -34,7 +34,7 @@ const StatusChanger = (props) => {
                 <div className="adminCardOrderId">ORDER ID: {props.orderId} </div>
                 <div className="adminCardOrderInfo">RECEIVER NAME: {props.receiverName}</div>
                 <div className="adminCardOrderInfo">EMAIL: {props.email}</div>
-                <div className="adminCardOrderInfo">TOTAL PRICE: {props.totalPrice} kr</div>
+                <div className="adminCardOrderInfo">TOTAL PRICE: {props.totalPrice} SEK</div>
                 <div className="adminCardOrderInfo">PACKAGE TYPE: {parsePackage(props.packageType)}</div>
                 <div className="adminCardOrderInfo">CURRENT STATUS: {parseStatus(status)}</div>
             </div>

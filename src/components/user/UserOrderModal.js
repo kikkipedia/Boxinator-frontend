@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useKeycloak } from '@react-keycloak/web'
-import { Modal, Button, Form } from 'react-bootstrap'
+import { Modal, Form } from 'react-bootstrap'
 import { createNewOrder, getAllCountries, getPackageTypes, sendOrderInformation } from "../../api/API"
 
 const UserOrderModal = (props) => {

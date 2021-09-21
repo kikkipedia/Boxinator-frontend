@@ -13,16 +13,16 @@ const parsePackage = (APILink) => {
         let packageCode = parseInt(sts);
         switch (packageCode) {
             case 1:
-                return 'Basic'
+                return 'Basic - 1 KG'
 
             case 2:
-                return 'Humble'
+                return 'Humble - 2 KG'
 
             case 3:
-                return 'Deluxe'
+                return 'Deluxe - 5 KG'
 
             case 4:
-                return 'Premium'
+                return 'Premium - 8 KG'
 
             default:
                 return 'Error'
