@@ -99,6 +99,7 @@ export const updateShipment = async(updatedShipment) => {
 		body: JSON.stringify(updatedShipment)})
 	return response.json()
 } 
+
 //Updates the status of a shipment
 export const updateShipmentStatus = async(id, status) => {
 	const response = await fetch(`${BASE_API_URL}shipments/updateShipmentStatus/${id}`, {
@@ -109,8 +110,6 @@ export const updateShipmentStatus = async(id, status) => {
 		body: JSON.stringify(status)})
 	return response.json()
 } 
-
-
 
 //Updates the multiplier of a specific country
 
