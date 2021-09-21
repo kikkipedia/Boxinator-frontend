@@ -19,22 +19,24 @@ export const postNewUser = (post) => {
 	return fetch(`${BASE_API_URL}users`, requestOptions)
 		.then(response => response.json())
 }
+
 //Gets all orders registered to a specific user email
 export const getOrdersByUserEmail = (email) => {
 	return fetch(`${BASE_API_URL}orders/getByUserEmail/${email}`)
 	.then(result => result.json())
 } 
+
 //Gets all orders registered to a specific user Id 
 export const getOrdersByUserId = (userId) => {
     return fetch(`${BASE_API_URL}orders/getByUserId/${userId}`)
 	.then(response => response.json())
 } 
+
 //Gets all orders stored in the API
 export const getAllOrders = async() => {
 	const response = await fetch(`${BASE_API_URL}orders`)
 	return response.json()
 }
-
 
 export const createNewOrder = (newOrder) => {
 	const response = fetch(`${BASE_API_URL}orders`, {
@@ -46,6 +48,7 @@ export const createNewOrder = (newOrder) => {
 	})
 	return response.json()
 } 
+
 //Gets all shipments from the API
 export const getAllShipments = async() => {
 	const response = await fetch(`${BASE_API_URL}shipments`, {
@@ -69,6 +72,7 @@ export const getShipmentById = async (orderId) => {
 	})
 	return response.json()
 } 
+
 //Posts a new shipment to the database
 export const createNewShipment = (newShipment) => {
     return fetch(`${BASE_API_URL}shipments`, {
@@ -79,6 +83,7 @@ export const createNewShipment = (newShipment) => {
         body: JSON.stringify(newShipment)
 	})
 } 
+
 //Gets a shipments status history, from a specific Id 
 export const getShipmentStatusHistoryByShipmentId = async(shipmentId) => {
 	const response = await fetch(`${BASE_API_URL}shipmentstatushistory?shipment_id=${shipmentId}`, {
@@ -89,6 +94,7 @@ export const getShipmentStatusHistoryByShipmentId = async(shipmentId) => {
 	})
 	return response.json()
 } 
+
 //Updates a Shipment based upon a new shipment object
 export const updateShipment = async(updatedShipment) => {
 	const response = await fetch(`${BASE_API_URL}shipments`, {
@@ -112,7 +118,6 @@ export const updateShipmentStatus = async(id, status) => {
 } 
 
 //Updates the multiplier of a specific country
-
 export const updateCountryMultiplier = (updatedCountry) => {
     return fetch(`${BASE_API_URL}countries`, {
 		method: 'PUT',
@@ -127,6 +132,7 @@ export const getAllCountries = () => {
 	return fetch(`${BASE_API_URL}countries`)
 	.then(result => result.json())
 }
+
 //Gets all the package types stored in the API
 export const getPackageTypes = () => {
 	return fetch(`${BASE_API_URL}packages`)

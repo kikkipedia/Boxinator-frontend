@@ -8,7 +8,7 @@ const ProfileButton = (props) => {
 
     const [show, setShow] = useState(false)
     const [user, setUser] = useState({
-        id: '',
+        id: 0,
         firstName: '',
         lastName: '',
         email: '',
@@ -28,6 +28,7 @@ const ProfileButton = (props) => {
             setUser(props.user)
         }
     }, [props])
+
     //Checks if user wants to save data their data to the database
     const onClickSaveButton = () => {
         try {
@@ -65,7 +66,7 @@ const ProfileButton = (props) => {
                             <br />
                             <Form.Group>
                                 <Form.Label className="editLabel">E-mail</Form.Label>
-                                <Form.Control className="inputText" className="inputText" type="text" disabled value={user.email} />
+                                <Form.Control className="inputText" type="text" disabled value={user.email} />
                             </Form.Group>
                             <br />
                             <Form.Group>

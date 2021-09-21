@@ -112,8 +112,8 @@ const UserOrderModal = (props) => {
                 "Color: " + order.color + "\n" + "Country: " + country.name + "\n\n" + "Total Price: " + order.totalPrice + " SEK"
                 + "\n\n" + "Kind regards," + "\n" + "The Boxinator Team"
             }
-            createNewOrder(order)
             sendOrderInformation(information)
+            createNewOrder(order)
         }
         catch(error) {
             console.log(error)
@@ -171,7 +171,7 @@ const UserOrderModal = (props) => {
                         <br />
                         <p className="orderInput">Weight: {weight} KG</p>
                         <p className="orderInput">Color: {order.color}</p>
-                        <p className="orderInput">Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0}</p>
+                        <p className="orderInput">Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">
                             <button type="submit" className="orderBtn" onClick={submitOrder}>ORDER</button>

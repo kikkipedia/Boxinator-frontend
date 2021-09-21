@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
 import { getAllOrders, getAllShipments } from "../../api/API";
-import { Container} from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import StatusChanger from "./StatusChanger";
 import CountryModal from "./CountryModal";
 
@@ -32,24 +32,24 @@ const AdminHome = () => {
     const displayCardStatus = () => {
         let cards = [];
         shipments.sort((a, b) => a.id - b.id)
-            shipments && shipments.length > 0 && shipments.map((shipment) => {
-                cards.push(
+        shipments && shipments.length > 0 && shipments.map((shipment) => {
+            cards.push(
 
-                    <div key={shipment.id}>
-                        
-                        <StatusChanger 
-                            orderId={shipment.id}
-                            receiverName = {orders[shipment.id-1].receiverName}
-                            email = {orders[shipment.id-1].email}
-                            totalPrice = {orders[shipment.id-1].totalPrice}
-                            orderStatus={shipment.status.statusType}
-                            packageType={orders[shipment.id-1].orderPackage}
-                        ></StatusChanger>
-                    </div>
+                <div key={shipment.id}>
 
-                );
-            });
-        
+                    <StatusChanger
+                        orderId={shipment.id}
+                        receiverName={orders[shipment.id - 1].receiverName}
+                        email={orders[shipment.id - 1].email}
+                        totalPrice={orders[shipment.id - 1].totalPrice}
+                        orderStatus={shipment.status.statusType}
+                        packageType={orders[shipment.id - 1].orderPackage}
+                    />
+                </div>
+
+            );
+        });
+
 
         return cards;
     }

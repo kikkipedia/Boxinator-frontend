@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react"
 import { Modal, Form } from 'react-bootstrap'
-
 import { getAllCountries, getPackageTypes, createNewOrder, sendOrderInformation } from "../../api/API"
 
-const GuestOrderModal = (props) => {
+const GuestOrderModal = () => {
     const [show, setShow] = useState(false)
     const [countries, setCountries] = useState([])
     const [multiplier, setMultiplier] = useState(0)
@@ -14,7 +13,7 @@ const GuestOrderModal = (props) => {
     const [packages, setPackages] = useState([])
     //Creates a structure for an order object to be submitted to the Database
     const [order, setOrder] = useState({
-        email: '',
+        email: "",
         receiverName: '',
         orderPackage: { id: 0 },
         color: '',
@@ -94,19 +93,18 @@ const GuestOrderModal = (props) => {
         }
     }, [weight])
 
-    //Guest order is saved in local storage
     const submitOrder = () => {
         try {
             const information = {
-                to: order.userEmail,
+                to: order.email,
                 topic: "Order Information",
                 text: "Thank you for your order, your package will be shipped to you as soon as possible!" + "\n\n" + "Details about your order:" + "\n\n" + "Receiver name: " + order.receiverName + "\n" + "Package: " + orderPackage.name + " - " + orderPackage.weight + "KG" + "\n" + 
                 "Color: " + order.color + "\n" + "Country: " + country.name + "\n\n" + "Total Price: " + order.totalPrice + " SEK" + "\n\n" +
                 "Please register now to be able to follow and handle your order! Follow this link: " + "https://keycloak-boxinator.herokuapp.com/auth/realms/boxinator-app/login-actions/registration?client_id=boxinator-frontend"  
                 + "\n\n" + "Kind regards," + "\n" + "The Boxinator Team"
             }
-            createNewOrder(order)
             sendOrderInformation(information)
+            createNewOrder(order)
         }
         catch(error) {
             console.log(error)
@@ -157,7 +155,7 @@ const GuestOrderModal = (props) => {
                                 {
                                     countries.sort((a, b) => a.id - b.id),
                                     countries && countries.map(opt => (
-                                        <option key={opt.id} value={opt.id}>{opt.name}</option>
+                                        <option className="orderInput" key={opt.id} value={opt.id}>{opt.name}</option>
                                     ))
                                 }
                             </Form.Select>

@@ -238,6 +238,10 @@ body {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.adminCountryOptions {
+  font-weight: lighter;
+}
+
 .adminCardOrderId {
   font-weight: bold;
   margin-bottom: 2px;
