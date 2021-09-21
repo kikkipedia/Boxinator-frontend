@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap'
 
 const GuestButton = () => {
     return(
-        <Link href="/guest">
+        <Link to="/guest">
               <Button>Continue as guest</Button>
         </Link>
                

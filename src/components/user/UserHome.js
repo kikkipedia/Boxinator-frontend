@@ -21,8 +21,6 @@ const UserHome = () => {
         country: keycloak.tokenParsed.countryOfResidence
     })
     const [user, setUser] = useState([])
-    const userEmail = keycloak.tokenParsed.email
-
     const [users, setUsers] = useState([])
     const [userId, setUserId] = useState()
     const [shouldRedirect, setShouldRedirect] = useState(false);

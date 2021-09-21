@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react"
-import { Modal, Button, Form } from 'react-bootstrap'
-import { propTypes } from "react-bootstrap/esm/Image"
-import { Link } from "react-router-dom"
+import { Modal, Form } from 'react-bootstrap'
 
 import { getAllCountries, getPackageTypes, createNewOrder, sendOrderInformation } from "../../api/API"
 
@@ -10,13 +8,10 @@ const GuestOrderModal = (props) => {
     const [countries, setCountries] = useState([])
     const [multiplier, setMultiplier] = useState(0)
     const [weight, setWeight] = useState(0)
-    const [userEmail, setUserEmail] = useState()
     const [orderPackage, setOrderPackage] = useState({})
     const [country, setCountry] = useState({})
-
     //to post
     const [packages, setPackages] = useState([])
-
     //Creates a structure for an order object to be submitted to the Database
     const [order, setOrder] = useState({
         email: '',
