@@ -1,11 +1,9 @@
-
 import { useState, useEffect } from "react"
 import { Modal,  Form } from 'react-bootstrap'
 import { getAllCountries,  updateCountryMultiplier } from "../../api/API"
 
 const CountryModal = (props) => {
     const [show, setShow] = useState(false)
-    const [status, setStatus] = useState(['Created']);
     const [countries, setCountries] = useState([])
     const [countryIdandName, setCountryIdandName] = useState();
     const [newMultiplier, setNewMultiplier] = useState(0)
@@ -54,10 +52,10 @@ const CountryModal = (props) => {
                             <option defaultValue="" disabled selected>Select a country...</option>
                             
                             {
-                                countries.sort((a, b) => a.id - b.id),
+                                countries.sort((a, b) => a.id - b.id).then(
                                 countries && countries.map(opt => (
                                     <option key={opt.id} value={opt.id}>{opt.name}</option>
-                                ))
+                                )))
                             }
                         </Form.Select>
                         <Form.Group>

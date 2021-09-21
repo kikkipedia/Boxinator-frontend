@@ -276,6 +276,8 @@ th {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 17px;
   text-decoration: none;
+  background-color: white;
+  border: none;
 }
 
 .startContainer {

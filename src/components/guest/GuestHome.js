@@ -1,4 +1,4 @@
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useEffect, useState } from "react"
 import { useKeycloak } from '@react-keycloak/web';
 import GuestOrderModal from "./GuestOrderModal";
@@ -16,7 +16,7 @@ const GuestHome = () => {
     if (sessionStorage.getItem("authentication") === keycloak.token) {
       setShouldRedirect(true);
     }
-  })
+  },[keycloak.token, keycloak.refreshToken])
 
   return (
     <div className="guestHomeContainer">
