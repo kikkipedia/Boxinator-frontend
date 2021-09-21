@@ -33,7 +33,7 @@ const Shipments = (props) => {
 
                 <thead>
                     <tr>
-                        <th>Reciever name</th>
+                        <th>Receiver name</th>
                         <th>Box colour</th>
                         <th>Total price</th>
                         <th>Order status</th>

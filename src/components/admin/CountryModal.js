@@ -1,11 +1,9 @@
-
 import { useState, useEffect } from "react"
 import { Modal, Form } from 'react-bootstrap'
 import { getAllCountries, updateCountryMultiplier } from "../../api/API"
 
 const CountryModal = (props) => {
     const [show, setShow] = useState(false)
-    const [status, setStatus] = useState(['Created']);
     const [countries, setCountries] = useState([])
     const [countryIdandName, setCountryIdandName] = useState();
     const [newMultiplier, setNewMultiplier] = useState(0)

@@ -17,7 +17,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## About this project
 
-This was a 4 weeks long project built by candidates at Experis Academy for the Full-stack Programming short course. Project goal was to produce a software solution for a given case called Boxinator - an application designed for calculationg the shipping cost for mystery boxes to specific locations around the world. This repository contains only the front-end application. The project also includes a server application to be found at --------- . A full working application is deployed at --------
+This was a 4 weeks long project built by candidates at Experis Academy for the Full-stack Programming short course. Project goal was to produce a software solution for a given case called Boxinator - an application designed for calculationg the shipping cost for mystery boxes to specific locations around the world. This repository contains only the front-end application. The project also includes a server application to be found at [GitHub: Boxinator backend](https://github.com/lfgn84/Boxinator-backend) . A full working application is deployed at [https://boxinator-frontend1.herokuapp.com/](https://boxinator-frontend1.herokuapp.com/)
 
 **General functionality - Users**
 - Users are authenticated via [Keycloak](https://www.keycloak.org/) using JWT tokens and redirected to User page

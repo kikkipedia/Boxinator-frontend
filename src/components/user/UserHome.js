@@ -21,13 +21,11 @@ const UserHome = () => {
         country: keycloak.tokenParsed.countryOfResidence
     })
     const [user, setUser] = useState([])
-    const userEmail = keycloak.tokenParsed.email
-
     const [users, setUsers] = useState([])
     const [userId, setUserId] = useState()
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [shouldRedirectAdmin, setShouldRedirectAdmin] = useState(false)
-    const [refresh, setRefresh ] = useState(true)
+
     //Saves the users authentication token to the session storage
     useEffect(()=>{
         sessionStorage.setItem('authentication', keycloak.token);
@@ -49,6 +47,7 @@ const UserHome = () => {
     useEffect(() => {
         checkUser()
     }, [])
+
     //Force a reload in order to render data
     const forceReload = ()=> {
         const reloadCount = sessionStorage.getItem('reloadCount');
@@ -56,9 +55,6 @@ const UserHome = () => {
           sessionStorage.setItem('reloadCount', String(reloadCount +1));
           window.location.reload();
          } 
-         //else {
-        //   sessionStorage.removeItem('reloadCount');
-        // }
       }
 
     //Fetch all users from the database and check the new user already exits, and if not posts them to the database
@@ -102,9 +98,6 @@ const UserHome = () => {
             <UserOrderModal userId={userId} />
 
             <Shipments id={userId} /> 
-            <ProfileModal user={user} />
-
-
         </div>
     )
 }
