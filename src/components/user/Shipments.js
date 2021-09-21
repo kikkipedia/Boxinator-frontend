@@ -12,9 +12,7 @@ const Shipments = (props) => {
     useEffect(() => {
             getOrdersByUserEmail(keycloak.tokenParsed.email)
             .then(data => {
-                setOrders(data)
-                console.log("ID " + props.id)
-              
+                setOrders(data)              
             })
     },[props.id])
 

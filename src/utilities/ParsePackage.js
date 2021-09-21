@@ -2,7 +2,6 @@
 const parsePackage = (APILink) => {
     const statusString = JSON.stringify(APILink)
     if (statusString === undefined) {
-        console.log("Link empty")
         return 'EMPTY'
     } else if (statusString.charAt(statusString.length - 2) === 1) {
         return 'Created'
