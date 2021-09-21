@@ -16,10 +16,6 @@
   margin-top: 15px;
 }
 
-.startIcon {
-  color:rgb(19, 209, 209);
-}
-
 body {
   background-color: #c0eb75;
   width: 100%;
@@ -58,11 +54,14 @@ body {
   border: 0px;
 }
 
+.statusBtn:hover {
+   color: rgb(78, 78, 78);
+}
+
 .guestNewOrderBtn {
    padding-top: 10px;
    padding-bottom: 10px;
    width: 60%;
-   font-weight: bold;
    color: white;
    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
    font-size: 20px;
@@ -74,6 +73,10 @@ body {
 
 .guestNewOrderBtn:hover {
    background-color: #5c940d;
+}
+
+.orderInput {
+  font-weight: lighter;
 }
 
 .guestHomeContainer {
@@ -110,11 +113,10 @@ body {
   background-color: #74b816;
   border: 0px;
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 16px;
   padding-top: 10px;
   padding-bottom: 10px;
   color: white;
-  font-weight: bold;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-bottom: 5px;
 }
@@ -128,11 +130,10 @@ body {
   background-color: #74b816;
   border: 0px;
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 16px;
   padding-top: 10px;
   padding-bottom: 10px;
   color: white;
-  font-weight: bold;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -151,10 +152,13 @@ body {
   padding-top: 10px;
   padding-bottom: 10px;
   color: white;
-  font-weight: bold;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.statusText {
+  font-weight: lighter;
 }
 
 .cancelBtn:hover {
@@ -210,7 +214,8 @@ body {
 }
 
 .dateOfBirthField {
-  width: 45%
+  width: 45%;
+  font-weight: lighter;
 }
 
 .profileModalLink {
@@ -227,7 +232,6 @@ body {
 
 .loadingText {
   font-size: 30px;
-  font-weight: bold;
   text-align: center;
   margin-top: 15px;
   color: "#212529";
@@ -278,7 +282,6 @@ body {
    padding-top: 10px;
    padding-bottom: 10px;
    width: 60%;
-   font-weight: bold;
    color: white;
    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
    font-size: 20px;
@@ -300,6 +303,7 @@ body {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 20px;
   border: 0px;
+  font-weight: lighter;
   border-radius: 10px;
   background-color: rgb(223, 223, 223);
   margin-top: 15px;
@@ -316,7 +320,6 @@ body {
   border-radius: 10px;
   background-color: #74b816;
   margin-top: 30px;
-  font-weight: bold;
   color: white;
   margin-bottom: 40px;
   margin-left: 130px;
@@ -349,6 +352,7 @@ body {
   margin-top: 30px;
   margin-bottom: 30px;
   text-align: center;
+  font-weight: lighter;
 }
 
 .adminCardHeader {
@@ -366,12 +370,12 @@ body {
 .orderIdTxt {
   margin-top: 5px;
   font-size: 18px;
-  font-weight: bold;
 }
 
 .currentStatusTxt {
   font-size: 15px;
   margin-bottom: 5px;
+  font-weight: lighter;
 }
 
 .startContainer {
@@ -385,17 +389,25 @@ body {
   margin-right: auto;
 }
 
+.form-select {
+  font-weight: lighter;
+}
+
+.orderStatusText {
+  font-weight: lighter;
+}
+
 .userHomeHeader {
   font-size: 30px;
   margin-top: 50px;
   text-align: center;
+  font-weight: lighter;
 }
 
 .userNewOrderBtn {
   padding-top: 7px;
   padding-bottom: 7px;
   width: 10%;
-  font-weight: bold;
   color: white;
   font-size: 16px;
   border: 0px;
@@ -403,6 +415,10 @@ body {
   background-color: #74b816;
   margin-top: 25px;
   margin-left: 155px;
+}
+
+.inputText {
+  font-weight: lighter;
 }
 
 .userNewOrderBtn:hover {

@@ -42,10 +42,10 @@ const Shipments = (props) => {
 
                     {orders && !!orders.length && orders.map(order => (
                         <tr key={order.id}>
-                            <td style={{"paddingTop": "15px"}}>{order.receiverName}</td>
-                            <td style={{ background: order.color}}><p style={{"backgroundColor": "white", "width": "40%", "fontSize": "15px", "marginTop": "15px","borderRadius": "10px", "marginLeft": "auto", "marginRight": "auto"}}>{order.color}</p></td>
-                            <td style={{"paddingTop": "15px"}}>{order.totalPrice} SEK</td>
-                            <td style={{"paddingTop": "15px"}}><ShipmentModal id={order.id} /></td>
+                            <td style={{"padding": "10px", "fontWeight": "lighter"}}>{order.receiverName}</td>
+                            <td style={{ background: order.color}}></td>
+                            <td style={{"padding": "10px", "fontWeight": "lighter"}}>{order.totalPrice} SEK</td>
+                            <td style={{"padding": "10px", "fontWeight": "lighter"}}><ShipmentModal id={order.id} /></td>
 
                         </tr>
                     ))}

@@ -60,8 +60,8 @@ const ShipmentModal = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div>
-                        <p>CURRENT STATUS: {parseStatus(status)}</p>
-                        <p>UPDATED: {parseTime(timestamp)}</p>
+                        <p className="statusText">CURRENT STATUS: {parseStatus(status)}</p>
+                        <p className="statusText">UPDATED: {parseTime(timestamp)}</p>
 
                     </div>
 
