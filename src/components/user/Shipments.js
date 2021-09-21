@@ -27,27 +27,25 @@ const Shipments = (props) => {
     return (
         <div className="content">
 
-            <br/>
-            <h4>All orders</h4>
             <Table bordered size="sm" className="orderTable">
 
-                <thead>
+                <thead style={{"backgroundColor": "#212529", "color": "white"}}>
                     <tr>
-                        <th>Receiver name</th>
-                        <th>Box colour</th>
-                        <th>Total price</th>
-                        <th>Order status</th>
+                        <th style={{"padding": "10px", "borderTopLeftRadius": "10px"}}>RECEIVER NAME</th>
+                        <th style={{"padding": "10px"}}>COLOR</th>
+                        <th style={{"padding": "10px"}}>TOTAL PRICE</th>
+                        <th style={{"padding": "10px", "borderTopRightRadius": "10px"}}>CURRENT STATUS</th>
 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style={{"fontSize": "18px"}}>
 
                     {orders && !!orders.length && orders.map(order => (
                         <tr key={order.id}>
-                            <td>{order.receiverName}</td>
-                            <td style={{ background: order.color }}></td>
-                            <td>{order.totalPrice}</td>
-                            <td><ShipmentModal id={order.id} /></td>
+                            <td style={{"paddingTop": "15px"}}>{order.receiverName}</td>
+                            <td style={{ background: order.color}}><p style={{"backgroundColor": "white", "width": "40%", "fontSize": "15px", "marginTop": "15px","borderRadius": "10px", "marginLeft": "auto", "marginRight": "auto"}}>{order.color}</p></td>
+                            <td style={{"paddingTop": "15px"}}>{order.totalPrice} SEK</td>
+                            <td style={{"paddingTop": "15px"}}><ShipmentModal id={order.id} /></td>
 
                         </tr>
                     ))}

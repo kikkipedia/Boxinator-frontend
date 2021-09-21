@@ -123,7 +123,7 @@ const UserOrderModal = (props) => {
 
     return (
         <div>
-            <Button onClick={handleShow}>NEW ORDER</Button>
+            <button className="userNewOrderBtn" onClick={handleShow}>NEW ORDER</button>
             <Modal show={show} onHide={handleClose} className="userOrderModal">
                 <Modal.Header closeButton>
                     <Modal.Title style={{"fontWeight": "bold"}}>NEW ORDER</Modal.Title>

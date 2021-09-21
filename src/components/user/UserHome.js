@@ -92,11 +92,11 @@ const UserHome = () => {
 
     return (        
 
-        <div className="content">
+        <div className="userHomeContent">
             {shouldRedirectAdmin ? <Redirect to="/admin"></Redirect> : null}
-
+            <div className="userHomeHeader">YOUR ORDERS</div>
             <UserOrderModal userId={userId} />
-
+            {/* <ProfileModal user={user}/> */}
             <Shipments id={userId} /> 
         </div>
     )

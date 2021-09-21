@@ -25,10 +25,9 @@ import parseStatus from "../../utilities/ParseStatus";
     }, [props.id])
 
     //Handles the change when a user cancels their order
-    const handleOnChange = async () => {
+    const onClickCancelBtn = async () => {
         setStatus('/api/statuses/5')
         updateShipmentStatus(shipmentId, { id: 5 })
-
     }
     // Parse time from timestamp and show in a more readable fashion
     const parseTime = (tStamp) => {
@@ -46,19 +45,19 @@ import parseStatus from "../../utilities/ParseStatus";
     return (
         <div>
             <button className="statusBtn" onClick={handleShow}>{parseStatus(status)}</button>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} className="statusHistoryModal">
                 <Modal.Header closeButton>
-                    <Modal.Title style={{ "font-weight": "bold" }}>View Status</Modal.Title>
+                    <Modal.Title style={{ "font-weight": "bold" }}>STATUS HISTORY</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div>
                         <p>Current Status: {parseStatus(status)}</p>
-                        <p>Creation time: {parseTime(timestamp)}</p>
+                        <p>Updated: {parseTime(timestamp)}</p>
                         
                     </div>
 
-                    <div className="orderBtnContainer">
-                        <button className="orderBtn" onClick={handleOnChange} >Cancel Order?</button>
+                    <div className="cancelBtnContainer">
+                        <button className="cancelBtn" onClick={onClickCancelBtn} >CANCEL ORDER</button>
                     </div>
 
 
