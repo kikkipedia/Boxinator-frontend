@@ -31,7 +31,7 @@ const AdminHome = () => {
     //Displays the Cards with the relevant information
     const displayCardStatus = () => {
         let cards = [];
-        
+        shipments.sort((a, b) => a.id - b.id)
             shipments && shipments.length > 0 && shipments.map((shipment) => {
                 cards.push(
                     
