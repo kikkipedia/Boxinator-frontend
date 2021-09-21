@@ -8,7 +8,9 @@ A client application designed for creating orders and calculationg costs for mys
 
 ## Installation and setup
 
-Clone this repository. You will need `node` and `npm` installed globally on your machine. Then in the project directory, you can run `npm install`
+Clone this repository. You will need `node` and `npm` installed globally on your machine. 
+
+Then in the project directory, run `npm install`
 
 ### Start client:
 
