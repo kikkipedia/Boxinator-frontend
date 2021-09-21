@@ -34,10 +34,16 @@ const AdminHome = () => {
         
             shipments && shipments.length > 0 && shipments.map((shipment) => {
                 cards.push(
+                    
+                    <div>
+                        <p> </p>
                     <StatusChanger key={shipment.id}
                         orderId={shipment.id}
                         orderStatus={shipment.status.statusType}
                     ></StatusChanger>
+                
+                    </div>
+                    
                 );
             });
         

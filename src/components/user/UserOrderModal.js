@@ -106,7 +106,7 @@ const UserOrderModal = (props) => {
     const submitOrder = () => {
         try {
             const information = {
-                to: keycloak.tokenParsed.preferred_username,
+                to: order.email,
                 topic: "Order Information",
                 text: "Thank you for your order, your package will be shipped to you as soon as possible!" + "\n\n" + "Details about your order:" + "\n\n" + "Receiver name: " + order.receiverName + "\n" + "Package: " + orderPackage.name + " - " + orderPackage.weight + "KG" + "\n" + 
                 "Color: " + order.color + "\n" + "Country: " + country.name + "\n\n" + "Total Price: " + order.totalPrice + " SEK"
@@ -155,7 +155,7 @@ const UserOrderModal = (props) => {
                                 onChange={e => setOrder({ ...order, color: e.target.value })}
                             />
                         </Form.Group>
-                       
+                        
                         <Form.Group>
                             <Form.Label></Form.Label>
                             <Form.Select onChange={e => setOrder({ ...order, country: {id: parseInt(e.target.value)} })}>
@@ -169,7 +169,9 @@ const UserOrderModal = (props) => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
+                        <p>Weight: {weight} KG</p>
+                        <p>Color: {order.color}</p>
+                        <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0}</p>
                         <br />
                         <div className="orderBtnContainer">
                             <button type="submit" className="orderBtn" onClick={submitOrder}>ORDER</button>
