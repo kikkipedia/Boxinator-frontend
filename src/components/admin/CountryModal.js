@@ -56,10 +56,10 @@ const CountryModal = (props) => {
                             <option defaultValue="" disabled selected>Select a country...</option>
 
                             {
-                                countries.sort((a, b) => a.id - b.id),
+                                countries.sort((a, b) => a.id - b.id).then(
                                 countries && countries.map(opt => (
                                     <option key={opt.id} value={opt.id}>{opt.name}</option>
-                                ))
+                                )))
                             }
                         </Form.Select>
                         <Form.Group>
