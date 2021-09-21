@@ -238,6 +238,15 @@ body {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.adminCardOrderId {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.adminCardOrderInfo {
+  font-weight: lighter;
+}
+
 @keyframes rotate-s-loader {
   from {
     transform: rotate(0);
@@ -353,6 +362,7 @@ body {
   margin-bottom: 30px;
   text-align: center;
   font-weight: lighter;
+  letter-spacing: 1px;
 }
 
 .adminCardHeader {
@@ -362,8 +372,8 @@ body {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   width: 100.05%;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 10px;
 }
 

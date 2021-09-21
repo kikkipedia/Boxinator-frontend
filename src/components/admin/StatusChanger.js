@@ -31,12 +31,12 @@ const StatusChanger = (props) => {
     return (
         <Card className="card-container">
             <div className="adminCardHeader">
-                <div className="orderIdTxt">ORDER ID: {props.orderId} </div>
-                <div className="receiverName">RECEIVER NAME: {props.receiverName}</div>
-                <div className="email">EMAIL: {props.email}</div>
-                <div className="totalPrice">TOTAL PRICE: {props.totalPrice} kr</div>
-                <div className="totalPrice">PACKAGE TYPE: {parsePackage(props.packageType)}</div>
-                <div className="currentStatusTxt">CURRENT STATUS: {parseStatus(status)}</div>
+                <div className="adminCardOrderId">ORDER ID: {props.orderId} </div>
+                <div className="adminCardOrderInfo">RECEIVER NAME: {props.receiverName}</div>
+                <div className="adminCardOrderInfo">EMAIL: {props.email}</div>
+                <div className="adminCardOrderInfo">TOTAL PRICE: {props.totalPrice} kr</div>
+                <div className="adminCardOrderInfo">PACKAGE TYPE: {parsePackage(props.packageType)}</div>
+                <div className="adminCardOrderInfo">CURRENT STATUS: {parseStatus(status)}</div>
             </div>
 
             <Card.Body>
