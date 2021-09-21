@@ -27,7 +27,7 @@ const StatusChanger = (props) => {
     return (
         <Card className="card-container">
             <Card.Header>
-                <p>Order ID: {props.orderId} </p>
+                <p>Shipment ID: {props.orderId} </p>
                 <p>Current Status: {parseStatus(status)}</p>
             </Card.Header>
 
