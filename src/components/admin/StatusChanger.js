@@ -47,11 +47,11 @@ const StatusChanger = (props) => {
                         <tr>
                             <td>
                                 <select onChange={handleOnChange} className="form-select" aria-label="Default select example">
-                                    <option value="0">Created</option>
-                                    <option value="1">Intransit</option>
-                                    <option value="2">Received</option>
-                                    <option value="3">Completed</option>
-                                    <option value="4">Cancelled</option>
+                                    <option value="1">Created</option>
+                                    <option value="2">Intransit</option>
+                                    <option value="3">Received</option>
+                                    <option value="4">Completed</option>
+                                    <option value="5">Cancelled</option>
                                 </select>
                             </td>
                         </tr>

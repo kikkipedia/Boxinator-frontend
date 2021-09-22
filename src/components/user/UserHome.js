@@ -1,6 +1,6 @@
 import { useState, useEffect, Component, useCallback } from "react"
 import { Redirect } from "react-router";
-import { getAllUsers, postNewUser } from "../../api/API"
+import { getAllUsers, postNewUser, updateOrderByEmail } from "../../api/API"
 import { useKeycloak } from '@react-keycloak/web'
 import UserOrderModal from "./UserOrderModal";
 import ProfileModal from "./ProfileModal";
@@ -52,6 +52,7 @@ const UserHome = () => {
     const forceReload = ()=> {
         const reloadCount = sessionStorage.getItem('reloadCount');
         if(reloadCount < 1) {
+           // updateOrderByEmail(keycloak.tokenParsed.email)
           sessionStorage.setItem('reloadCount', String(reloadCount +1));
           window.location.reload();
          } 
@@ -76,7 +77,6 @@ const UserHome = () => {
             else {
                 setUserId(userFound.id)
                 setUser(userFound)
-                console.log(userFound.email, userFound.firstName)
             }
         })
         }

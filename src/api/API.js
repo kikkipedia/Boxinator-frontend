@@ -81,13 +81,15 @@ export const createNewShipment = (newShipment) => {
 } 
 //Posts a new shipment to the database
 export const postNewShipmentStatusHistory = (statusId, shipmentId) => {
+	const date = Number(new Date);
+	console.log("Timestamp from APi post " + date)
     return fetch(`${BASE_API_URL}shipmentstatushistory`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
         body: JSON.stringify({
-			"timeStamp":   Date.now().getTime(),
+			"timeStamp":  {"id": date},
 			"shipment": {"id": shipmentId},
 			"status":{"id": statusId}
 		})
@@ -126,7 +128,6 @@ export const updateShipmentStatus = async(id, status) => {
 } 
 
 //Updates the multiplier of a specific country
-
 export const updateCountryMultiplier = (updatedCountry) => {
     return fetch(`${BASE_API_URL}countries`, {
 		method: 'PUT',
