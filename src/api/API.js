@@ -37,6 +37,16 @@ export const getAllOrders = async() => {
 	const response = await fetch(`${BASE_API_URL}orders`)
 	return response.json()
 }
+//Updates an order with matching email
+export const updateOrderByEmail = async(email) => {
+	const response = await fetch(`${BASE_API_URL}orders/updateUserOnOrder/${email}`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(email)})
+	return response.json()
+}
 
 export const createNewOrder = (newOrder) => {
 	const response = fetch(`${BASE_API_URL}orders`, {
