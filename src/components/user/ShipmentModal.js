@@ -3,12 +3,14 @@ import { useState, useEffect } from "react"
 import { Modal } from 'react-bootstrap'
 import { getShipmentById, updateShipmentStatus } from "../../api/API"
 import parseStatus from "../../utilities/ParseStatus";
+import { getShipmentStatusHistoryByShipmentId } from "../../api/API";
 
 const ShipmentModal = (props) => {
     const [show, setShow] = useState(false)
     const [status, setStatus] = useState(['Created']);
     const [timestamp, setTimestamp] = useState(1)
-    const [shipmentStatusHistory, setShipmentStatusHistory] = useState()
+    const [shipmentStatusHistory, setShipmentStatusHistory] = useState([])
+    //const [mostRecentTimestamp, ]
     const [shipmentId, setShipmentId] = useState()
 
     //Asynchronously retrieves all shipments with matching id to the order id, then assigns several states based upon this data
@@ -18,8 +20,12 @@ const ShipmentModal = (props) => {
             .then(data => {
                 setShipmentId(props.id)
                 setStatus(data.status)
-                setShipmentStatusHistory(data.shipmentStatusHistory[0])
-                setTimestamp(data.shipmentStatusHistory[0].timestamp)
+                 setTimestamp(data.shipmentStatusHistory[0].timestamp)
+            })
+        getShipmentStatusHistoryByShipmentId(props.id)
+            .then(data => {
+                setShipmentStatusHistory([data])
+                console.log(shipmentStatusHistory)
             })
 
     }, [props.id])
@@ -46,6 +52,16 @@ const ShipmentModal = (props) => {
         return dateTimeString;
     }
 
+    const displayStatusHistory = () => {
+
+
+    }
+
+    const setShipmentHistoryNew = async (id) => {
+        let arr = await getShipmentStatusHistoryByShipmentId(id)
+        return arr;
+    }
+
 
     //Shows the modal based upon a boolean value
     const handleClose = () => setShow(false)
@@ -62,6 +78,19 @@ const ShipmentModal = (props) => {
                     <div>
                         <p>CURRENT STATUS: {parseStatus(status)}</p>
                         <p>UPDATED: {parseTime(timestamp)}</p>
+                        {/* <div>HISTORY: {shipmentStatusHistory.length}
+                            {
+                                shipmentStatusHistory && shipmentStatusHistory.length > 0 && shipmentStatusHistory.map((shipment) => {
+                                    <div key={shipment.id}>
+                                        orderStatus={shipment.status}
+                                        timestamp={shipment.timestamp}
+                                    </div>
+                                    console.log(shipment.status)
+                                })
+                            }
+                        </div> */}
+
+
 
                     </div>
 

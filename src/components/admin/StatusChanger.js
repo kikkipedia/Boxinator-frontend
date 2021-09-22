@@ -1,6 +1,6 @@
 import { Card, Table } from "react-bootstrap";
 import { useState, useEffect} from "react";
-import {  updateShipmentStatus, getShipmentById } from "../../api/API";
+import {  updateShipmentStatus, getShipmentById, postNewShipmentStatusHistory } from "../../api/API";
 import parseStatus from "../../utilities/ParseStatus";
 import parsePackage from "../../utilities/ParsePackage";
 import { set } from "react-hook-form";
@@ -24,6 +24,8 @@ const StatusChanger = (props) => {
         if (confirm) {
             setStatus(  event.target.value  )
             updateShipmentStatus(props.orderId ,{ id: event.target.value })
+            postNewShipmentStatusHistory(event.target.value, props.orderId  )
+
         }
      
     }
@@ -45,11 +47,11 @@ const StatusChanger = (props) => {
                         <tr>
                             <td>
                                 <select onChange={handleOnChange} className="form-select" aria-label="Default select example">
-                                    <option value="1">Created</option>
-                                    <option value="2">Intransit</option>
-                                    <option value="3">Received</option>
-                                    <option value="4">Completed</option>
-                                    <option value="5">Cancelled</option>
+                                    <option value="0">Created</option>
+                                    <option value="1">Intransit</option>
+                                    <option value="2">Received</option>
+                                    <option value="3">Completed</option>
+                                    <option value="4">Cancelled</option>
                                 </select>
                             </td>
                         </tr>
