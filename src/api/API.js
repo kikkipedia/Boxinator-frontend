@@ -1,6 +1,7 @@
 const BASE_API_URL = "http://localhost:8080/api/"
-//const BASE_API_UR = "https://boxinator-server.herokuapp.com/api/"
+//const BASE_API_URL = "https://boxinator-server.herokuapp.com/api/"
 
+//USER
 
 //Gets all users from API
 export const getAllUsers = async() => {
@@ -20,6 +21,23 @@ export const postNewUser = (post) => {
 		.then(response => response.json())
 }
 
+export const getUserByEmail = (email) => {
+	return fetch(`${BASE_API_URL}users/getByEmail/${email}`)
+	.then(result => result.json())
+}
+
+export const updateUser = (updatedUser) => {
+	const response = fetch(`${BASE_API_URL}users`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(updatedUser)})
+	return response.json()
+} 
+
+//ORDER
+
 //Gets all orders registered to a specific user email
 export const getOrdersByUserEmail = (email) => {
 	return fetch(`${BASE_API_URL}orders/getByUserEmail/${email}`)
@@ -38,6 +56,7 @@ export const getAllOrders = async() => {
 	return response.json()
 }
 
+//Posts new order
 export const createNewOrder = (newOrder) => {
 	const response = fetch(`${BASE_API_URL}orders`, {
 		method: 'POST',
@@ -48,6 +67,19 @@ export const createNewOrder = (newOrder) => {
 	})
 	return response.json()
 } 
+
+//Email Service
+export const sendOrderInformation = (orderInformation) => {
+    return fetch(`${BASE_API_URL}sendEmail`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+        body: JSON.stringify(orderInformation)
+	})
+} 
+
+//SHIPMENT
 
 //Gets all shipments from the API
 export const getAllShipments = async() => {
@@ -117,6 +149,8 @@ export const updateShipmentStatus = async(id, status) => {
 	return response.json()
 } 
 
+//COUNTRY
+
 //Updates the multiplier of a specific country
 export const updateCountryMultiplier = (updatedCountry) => {
     return fetch(`${BASE_API_URL}countries`, {
@@ -133,34 +167,11 @@ export const getAllCountries = () => {
 	.then(result => result.json())
 }
 
+//PACKAGE
+
 //Gets all the package types stored in the API
 export const getPackageTypes = () => {
 	return fetch(`${BASE_API_URL}packages`)
 	.then(result => result.json())
 }
-
-export const getUserByEmail = (email) => {
-	return fetch(`${BASE_API_URL}users/getByEmail/${email}`)
-	.then(result => result.json())
-}
-
-export const updateUser = (updatedUser) => {
-	const response = fetch(`${BASE_API_URL}users`, {
-		method: 'PUT',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(updatedUser)})
-	return response.json()
-} 
-
-export const sendOrderInformation = (orderInformation) => {
-    return fetch(`${BASE_API_URL}sendEmail`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-        body: JSON.stringify(orderInformation)
-	})
-} 
 
