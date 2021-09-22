@@ -5,7 +5,11 @@ const BASE_API_URL = "http://localhost:8080/api/"
 
 //Gets all users from API
 export const getAllUsers = async() => {
-	const response = await fetch(`${BASE_API_URL}users`)
+	const response = await fetch(`${BASE_API_URL}users`,{
+		headers: {
+			//'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+		}
+	})
 	return response.json()
 }
 //Posts a new User to the API
@@ -22,7 +26,11 @@ export const postNewUser = (post) => {
 }
 //Get a user by their email
 export const getUserByEmail = (email) => {
-	return fetch(`${BASE_API_URL}users/getByEmail/${email}`)
+	return fetch(`${BASE_API_URL}users/getByEmail/${email}`,{
+		headers: {
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+		}
+	})
 	.then(result => result.json())
 }
 //Update a user with a new user object
