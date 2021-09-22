@@ -99,7 +99,7 @@ const ShipmentModal = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div>
-                        <p>CURRENT STATUS: {parseStatus(status)}</p>
+                        {/* <p>CURRENT STATUS: {parseStatus(status)}</p> */}
                         {displayStatusHistory()}
                     </div>
 

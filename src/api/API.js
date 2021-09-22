@@ -81,7 +81,7 @@ export const createNewShipment = (newShipment) => {
 } 
 //Posts a new shipment to the database
 export const postNewShipmentStatusHistory = (statusId, shipmentId) => {
-	const date = Number(new Date);
+	const date = Number(new Date).valueOf();
 	console.log("Timestamp from APi post " + date)
     return fetch(`${BASE_API_URL}shipmentstatushistory`, {
 		method: 'POST',
@@ -89,7 +89,7 @@ export const postNewShipmentStatusHistory = (statusId, shipmentId) => {
 			'Content-Type': 'application/json',
 		},
         body: JSON.stringify({
-			"timeStamp":  {"id": date},
+			"timeStamp":  "value",
 			"shipment": {"id": shipmentId},
 			"status":{"id": statusId}
 		})
