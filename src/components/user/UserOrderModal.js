@@ -145,7 +145,7 @@ const UserOrderModal = (props) => {
                         </Form.Select>
                         <br />
                         <Form.Group>
-                            <Form.Label htmlFor="colorInput">Box color</Form.Label>
+                            <Form.Label htmlFor="colorInput">Package color</Form.Label>
                             <Form.Control
                                 className="colorPicker"
                                 type="color"
