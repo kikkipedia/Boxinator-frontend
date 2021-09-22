@@ -6,7 +6,7 @@ A client application designed for creating orders and calculationg costs for mys
 
 ## Project Screen shots
 
-----
+![image](/resources/Start.png)
 
 ## Installation and setup
 
