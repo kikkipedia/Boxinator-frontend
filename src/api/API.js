@@ -1,6 +1,7 @@
 const BASE_API_URL = "http://localhost:8080/api/"
-//const BASE_API_UR = "https://boxinator-server.herokuapp.com/api/"
+//const BASE_API_URL = "https://boxinator-server.herokuapp.com/api/"
 
+//USER
 
 //Gets all users from API
 export const getAllUsers = async() => {
@@ -19,6 +20,23 @@ export const postNewUser = (post) => {
 	return fetch(`${BASE_API_URL}users`, requestOptions)
 		.then(response => response.json())
 }
+//Get a user by their email
+export const getUserByEmail = (email) => {
+	return fetch(`${BASE_API_URL}users/getByEmail/${email}`)
+	.then(result => result.json())
+}
+//Update a user with a new user object
+export const updateUser = (updatedUser) => {
+	const response = fetch(`${BASE_API_URL}users`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(updatedUser)})
+	return response.json()
+} 
+
+//ORDER
 
 //Gets all orders registered to a specific user email
 export const getOrdersByUserEmail = (email) => {
@@ -37,7 +55,18 @@ export const getAllOrders = async() => {
 	const response = await fetch(`${BASE_API_URL}orders`)
 	return response.json()
 }
+//Updates an order with matching email
+export const updateOrderByEmail = async(email) => {
+	const response = await fetch(`${BASE_API_URL}orders/updateUserOnOrder/${email}`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(email)})
+	return response.json()
+}
 
+//Posts new order
 export const createNewOrder = (newOrder) => {
 	const response = fetch(`${BASE_API_URL}orders`, {
 		method: 'POST',
@@ -48,6 +77,19 @@ export const createNewOrder = (newOrder) => {
 	})
 	return response.json()
 } 
+
+//Email Service
+export const sendOrderInformation = (orderInformation) => {
+    return fetch(`${BASE_API_URL}sendEmail`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+        body: JSON.stringify(orderInformation)
+	})
+} 
+
+//SHIPMENT
 
 //Gets all shipments from the API
 export const getAllShipments = async() => {
@@ -84,9 +126,26 @@ export const createNewShipment = (newShipment) => {
 	})
 } 
 
+//Posts a new shipmentStatus to the database
+export const postNewShipmentStatusHistory = (statusId, shipmentId) => {
+	const date = Number(new Date).valueOf();
+	console.log("Timestamp from APi post " + date)
+    return fetch(`${BASE_API_URL}shipmentstatushistory`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+        body: JSON.stringify({
+			"timeStamp":  "value",
+			"shipment": {"id": shipmentId},
+			"status":{"id": statusId}
+		})
+	})
+} 
+
 //Gets a shipments status history, from a specific Id 
-export const getShipmentStatusHistoryByShipmentId = async(shipmentId) => {
-	const response = await fetch(`${BASE_API_URL}shipmentstatushistory?shipment_id=${shipmentId}`, {
+export const getShipmentStatusHistoryByShipmentId = async(id) => {
+	const response = await fetch(`${BASE_API_URL}shipmentstatushistory/getShipmentStatusHistoryByShipmentId/${id}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -117,6 +176,10 @@ export const updateShipmentStatus = async(id, status) => {
 	return response.json()
 } 
 
+
+//COUNTRY
+
+
 //Updates the multiplier of a specific country
 export const updateCountryMultiplier = (updatedCountry) => {
     return fetch(`${BASE_API_URL}countries`, {
@@ -133,34 +196,11 @@ export const getAllCountries = () => {
 	.then(result => result.json())
 }
 
+//PACKAGE
+
 //Gets all the package types stored in the API
 export const getPackageTypes = () => {
 	return fetch(`${BASE_API_URL}packages`)
 	.then(result => result.json())
 }
-
-export const getUserByEmail = (email) => {
-	return fetch(`${BASE_API_URL}users/getByEmail/${email}`)
-	.then(result => result.json())
-}
-
-export const updateUser = (updatedUser) => {
-	const response = fetch(`${BASE_API_URL}users`, {
-		method: 'PUT',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(updatedUser)})
-	return response.json()
-} 
-
-export const sendOrderInformation = (orderInformation) => {
-    return fetch(`${BASE_API_URL}sendEmail`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-        body: JSON.stringify(orderInformation)
-	})
-} 
 

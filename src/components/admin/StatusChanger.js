@@ -1,12 +1,12 @@
 import { Card, Table } from "react-bootstrap";
 import { useState, useEffect} from "react";
-import {  updateShipmentStatus, getShipmentById } from "../../api/API";
+import {  updateShipmentStatus, getShipmentById, postNewShipmentStatusHistory } from "../../api/API";
 import parseStatus from "../../utilities/ParseStatus";
 import parsePackage from "../../utilities/ParsePackage"
 
 const StatusChanger = (props) => {
     const [status, setStatus] = useState();
-
+    //Gets the shipment by it's id then sets the status to that shipments status value
     useEffect(() => {
         getShipmentById(props.orderId)
         .then(data => {
@@ -17,10 +17,13 @@ const StatusChanger = (props) => {
 
     //Handles the changing of state caused when the user selects a status , the updates the status state in the database
     const handleOnChange = async (event) => {
+       
         const confirm = window.confirm("Are you sure you want to update shipment status?")
         if (confirm) {
             setStatus(  event.target.value  )
             updateShipmentStatus(props.orderId ,{ id: event.target.value })
+            postNewShipmentStatusHistory(event.target.value, props.orderId)
+
         }
      
     }
