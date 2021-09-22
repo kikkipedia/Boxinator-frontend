@@ -37,7 +37,6 @@ const Shipments = (props) => {
                     </tr>
                 </thead>
                 <tbody style={{"fontSize": "18px"}}>
-
                     {orders && !!orders.length && orders.map(order => (
                         <tr key={order.id}>
                             <td style={{"padding": "10px", "fontWeight": "lighter"}}>{order.receiverName}</td>

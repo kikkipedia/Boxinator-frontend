@@ -57,12 +57,12 @@ const ShipmentModal = (props) => {
         shipmentStatusHistory.forEach(element => {
             arr.push(
                 <div className="content">
-                    <Table bordered size="sm" className="orderTable">
+                    <Table bordered size="sm" className="statusTable">
 
                         <thead style={{ "backgroundColor": "#212529", "color": "white" }}>
                             <tr>
                                 <th style={{ "padding": "10px", "borderTopLeftRadius": "10px" }}>STATUS</th>
-                                <th style={{ "padding": "10px", "borderTopRightRadius": "10px" }}>TIME</th>
+                                <th style={{ "padding": "10px", "borderTopRightRadius": "10px" }}>UPDATED</th>
                             </tr>
                         </thead>
                         <tbody style={{ "fontSize": "18px" }}>
