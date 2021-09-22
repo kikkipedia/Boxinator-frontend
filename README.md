@@ -1,8 +1,8 @@
-# :package: Boxinator :package:
+# :package: Boxinator :postbox:
 
 A client application designed for creating orders and calculationg costs for mystery boxes to be shipped around the world, built with React, JavaScript and CSS.
 
-### :woman_technologist: Team members :computer: 
+### :woman_technologist: Team members
 
 [Kristin](https://github.com/kikkipedia), [Adam](https://github.com/Adamjohansson123), [Luis](https://github.com/lfgn84) & [Daniel](https://github.com/Dandandumdum)
 
