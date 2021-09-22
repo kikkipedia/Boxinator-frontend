@@ -52,7 +52,8 @@ const UserHome = () => {
     const forceReload = ()=> {
         const reloadCount = sessionStorage.getItem('reloadCount');
         if(reloadCount < 1) {
-           // updateOrderByEmail(keycloak.tokenParsed.email)
+
+           updateOrderByEmail(keycloak.tokenParsed.email)
           sessionStorage.setItem('reloadCount', String(reloadCount +1));
           window.location.reload();
          } 

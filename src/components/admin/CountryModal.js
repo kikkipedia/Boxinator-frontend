@@ -53,18 +53,17 @@ const CountryModal = (props) => {
                     <Form.Group>
                         <Form.Label></Form.Label>
                         <Form.Select onChange={e => setCountryIdandName({ id: parseInt(e.target.value), name: countries[e.target.value - 1].name, multiplier: countries[e.target.value - 1].multiplier })}>
-                            <option defaultValue="" disabled selected>Select a country...</option>
-
+                            <option className="adminCountryOptions" defaultValue="" disabled selected>Select a country...</option>
                             {
                                 countries.sort((a, b) => a.id - b.id),
                                 countries && countries.map(opt => (
-                                    <option key={opt.id} value={opt.id}>{opt.name}</option>
+                                    <option className="adminCountryOptions" key={opt.id} value={opt.id}>{opt.name}</option>
                                 ))
                             }
                         </Form.Select>
                         <Form.Group>
                             <Form.Label></Form.Label>
-                            <Form.Control type="text" placeholder="Change Multiplier..." onChange={handleOnChange} />
+                            <Form.Control className="adminCountryOptions" type="text" placeholder="Change Multiplier..." onChange={handleOnChange} />
                         </Form.Group>
                     </Form.Group>
                     <div className="saveBtnContainer">

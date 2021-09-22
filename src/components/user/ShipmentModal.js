@@ -99,8 +99,9 @@ const ShipmentModal = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div>
-                        {/* <p>CURRENT STATUS: {parseStatus(status)}</p> */}
+                    
                         {displayStatusHistory()}
+
                     </div>
 
                     <div className="cancelBtnContainer">

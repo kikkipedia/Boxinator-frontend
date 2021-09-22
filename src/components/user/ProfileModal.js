@@ -8,7 +8,7 @@ const ProfileButton = (props) => {
 
     const [show, setShow] = useState(false)
     const [user, setUser] = useState({
-        id: '',
+        id: 0,
         firstName: '',
         lastName: '',
         email: '',
@@ -28,6 +28,7 @@ const ProfileButton = (props) => {
             setUser(props.user)
         }
     }, [props])
+
     //Checks if user wants to save data their data to the database
     const onClickSaveButton = () => {
         try {
@@ -55,17 +56,17 @@ const ProfileButton = (props) => {
                         <Form>
                             <Form.Group>
                                 <Form.Label className="editLabel">First name</Form.Label>
-                                <Form.Control type="text" value={user.firstName} placeholder="Enter your first name..." onChange={e => setUser({ ...user, firstName: e.target.value })} />
+                                <Form.Control className="inputText" type="text" value={user.firstName} placeholder="Enter your first name..." onChange={e => setUser({ ...user, firstName: e.target.value })} />
                             </Form.Group>
                             <br />
                             <Form.Group>
                                 <Form.Label className="editLabel">Last name</Form.Label>
-                                <Form.Control type="text" value={user.lastName} placeholder="Enter your last name..." onChange={e => setUser({ ...user, lastName: e.target.value })} />
+                                <Form.Control className="inputText" type="text" value={user.lastName} placeholder="Enter your last name..." onChange={e => setUser({ ...user, lastName: e.target.value })} />
                             </Form.Group>
                             <br />
                             <Form.Group>
                                 <Form.Label className="editLabel">E-mail</Form.Label>
-                                <Form.Control type="text" disabled value={user.email} />
+                                <Form.Control className="inputText" type="text" disabled value={user.email} />
                             </Form.Group>
                             <br />
                             <Form.Group>
@@ -75,22 +76,22 @@ const ProfileButton = (props) => {
                             <br />
                             <Form.Group>
                                 <Form.Label className="editLabel">Contact Number</Form.Label>
-                                <Form.Control type="text" value={user.contactNumber} placeholder="Enter a contact number..." onChange={e => setUser({ ...user, contactNumber: e.target.value })} />
+                                <Form.Control className="inputText" type="text" value={user.contactNumber} placeholder="Enter a contact number..." onChange={e => setUser({ ...user, contactNumber: e.target.value })} />
                             </Form.Group>
                             <br />
                             <Form.Group>
                                 <Form.Label className="editLabel">Country</Form.Label>
-                                <Form.Control type="text" value={user.country} placeholder="Enter a country..." onChange={e => setUser({ ...user, country: e.target.value })} />
+                                <Form.Control className="inputText" type="text" value={user.country} placeholder="Enter a country..." onChange={e => setUser({ ...user, country: e.target.value })} />
                             </Form.Group>
                             <br />
                             <Form.Group>
                                 <Form.Label className="editLabel">Address</Form.Label>
-                                <Form.Control type="text" value={user.address} placeholder="Enter your address..." onChange={e => setUser({ ...user, address: e.target.value })} />
+                                <Form.Control className="inputText" type="text" value={user.address} placeholder="Enter your address..." onChange={e => setUser({ ...user, address: e.target.value })} />
                             </Form.Group>
                             <br />
                             <Form.Group>
                                 <Form.Label className="editLabel">Postal Code</Form.Label>
-                                <Form.Control type="text" value={user.postalCode} placeholder="Enter your postal code..." onChange={e => setUser({ ...user, postalCode: e.target.value })} />
+                                <Form.Control className="inputText" type="text" value={user.postalCode} placeholder="Enter your postal code..." onChange={e => setUser({ ...user, postalCode: e.target.value })} />
                             </Form.Group>
 
                             <div className="saveBtnContainer">

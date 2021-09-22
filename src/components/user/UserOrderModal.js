@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useKeycloak } from '@react-keycloak/web'
-import { Modal, Button, Form } from 'react-bootstrap'
+import { Modal, Form } from 'react-bootstrap'
 import { createNewOrder, getAllCountries, getPackageTypes, sendOrderInformation } from "../../api/API"
 
 const UserOrderModal = (props) => {
@@ -112,8 +112,8 @@ const UserOrderModal = (props) => {
                 "Color: " + order.color + "\n" + "Country: " + country.name + "\n\n" + "Total Price: " + order.totalPrice + " SEK"
                 + "\n\n" + "Kind regards," + "\n" + "The Boxinator Team"
             }
-            createNewOrder(order)
             sendOrderInformation(information)
+            createNewOrder(order)
         }
         catch(error) {
             console.log(error)
@@ -132,14 +132,14 @@ const UserOrderModal = (props) => {
                     <Form>
                         <Form.Group>
                             <Form.Label></Form.Label>
-                            <Form.Control type="text" placeholder="Name of receiver" onChange={e => setOrder({ ...order, receiverName: e.target.value })} />
+                            <Form.Control className="orderInput" type="text" placeholder="Name of receiver" onChange={e => setOrder({ ...order, receiverName: e.target.value })} />
                         </Form.Group>
                         <br />
-                        <Form.Select aria-label="Select package..." onChange={e => setOrder({ ...order, orderPackage: {id: parseInt(e.target.value)} })}>
+                        <Form.Select className="orderInput" aria-label="Select package..." onChange={e => setOrder({ ...order, orderPackage: {id: parseInt(e.target.value)} })}>
                             <option defaultValue="" disabled selected>Select a package...</option>
                             {
                                 packages && packages.map(pack => (
-                                    <option key={pack.id} value={pack.id}>{pack.name} - {pack.weight} KG</option>
+                                    <option className="orderInput" key={pack.id} value={pack.id}>{pack.name} - {pack.weight} KG</option>
                                 ))
                             }
                         </Form.Select>
@@ -158,20 +158,20 @@ const UserOrderModal = (props) => {
                         
                         <Form.Group>
                             <Form.Label></Form.Label>
-                            <Form.Select onChange={e => setOrder({ ...order, country: {id: parseInt(e.target.value)} })}>
+                            <Form.Select className="orderInput" onChange={e => setOrder({ ...order, country: {id: parseInt(e.target.value)} })}>
                                 <option  defaultValue="" disabled selected>Select a country...</option>
                                 {
                                     countries.sort((a, b) => a.id - b.id),
                                     countries && countries.map(opt => (
-                                        <option key={opt.id} value={opt.id}>{opt.name}</option>
+                                        <option className="orderInput" key={opt.id} value={opt.id}>{opt.name}</option>
                                     ))
                                 }
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <p>Weight: {weight} KG</p>
-                        <p>Color: {order.color}</p>
-                        <p>Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0}</p>
+                        <p className="orderInput">Weight: {weight} KG</p>
+                        <p className="orderInput">Color: {order.color}</p>
+                        <p className="orderInput">Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">
                             <button type="submit" className="orderBtn" onClick={submitOrder}>ORDER</button>
