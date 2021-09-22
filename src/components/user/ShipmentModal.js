@@ -51,12 +51,12 @@ const ShipmentModal = (props) => {
         let dateTimeString = date.toLocaleDateString() + " " + date.toLocaleTimeString();
         return dateTimeString;
     }
-
+    //Retrievs the status history information from the shipment, then displays its status and time of that staus in a table
     const displayStatusHistory = () => {
         let arr = []
         shipmentStatusHistory.forEach(element => {
             arr.push(
-                <div>
+                <div className="content">
                     <Table bordered size="sm" className="orderTable">
 
                         <thead style={{ "backgroundColor": "#212529", "color": "white" }}>
@@ -66,10 +66,10 @@ const ShipmentModal = (props) => {
                             </tr>
                         </thead>
                         <tbody style={{ "fontSize": "18px" }}>
-                            {element.map(object => (
+                            {element && !!element.length && element.map(object => (
                                 <tr key={object.id}>
-                                    <td>{parseStatus(object.status)}</td>
-                                    <td>{parseTime(object.timestamp)}</td>
+                                    <td style={{"padding": "10px", "fontWeight": "lighter"}}>{parseStatus(object.status)}</td>
+                                    <td style={{"padding": "10px", "fontWeight": "lighter"}}>{parseTime(object.timestamp)}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -79,12 +79,6 @@ const ShipmentModal = (props) => {
         })
         return arr
     }
-
-    const setShipmentHistoryNew = async (id) => {
-        let arr = await getShipmentStatusHistoryByShipmentId(id)
-        return arr;
-    }
-
 
     //Shows the modal based upon a boolean value
     const handleClose = () => setShow(false)
