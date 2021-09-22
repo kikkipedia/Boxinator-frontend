@@ -6,13 +6,13 @@ A client application designed for creating orders and calculationg costs for mys
 
 ## Project Screen shots
 
-###Landing component
+### Landing component
 ![image](/resources/Start.png)
 
-###User component with orders and shipment status
+### User component with orders and shipment status
 ![image](/resources/UserHome.png)
 
-###Modal for ordering a mystery box
+### Modal for ordering a mystery box
 ![image](/resources/UserOrderModal.png)
 
 ## Installation and setup
