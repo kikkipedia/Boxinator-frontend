@@ -6,7 +6,7 @@ import parsePackage from "../../utilities/ParsePackage"
 
 const StatusChanger = (props) => {
     const [status, setStatus] = useState();
-
+    //Gets the shipment by it's id then sets the status to that shipments status value
     useEffect(() => {
         getShipmentById(props.orderId)
         .then(data => {

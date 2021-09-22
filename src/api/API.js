@@ -20,12 +20,12 @@ export const postNewUser = (post) => {
 	return fetch(`${BASE_API_URL}users`, requestOptions)
 		.then(response => response.json())
 }
-
+//Get a user by their email
 export const getUserByEmail = (email) => {
 	return fetch(`${BASE_API_URL}users/getByEmail/${email}`)
 	.then(result => result.json())
 }
-
+//Update a user with a new user object
 export const updateUser = (updatedUser) => {
 	const response = fetch(`${BASE_API_URL}users`, {
 		method: 'PUT',
