@@ -16,7 +16,7 @@ This was a 4 weeks long project built by candidates at Experis Academy for the F
 ![image](/githubResources/Start.png)
 
 ### User component with orders and shipment status
-![image](/githubResourcess/UserHome.png)
+![image](/githubResources/UserHome.png)
 
 ### Modal for ordering a mystery box
 ![image](/githubResources/UserOrderModal.png)
