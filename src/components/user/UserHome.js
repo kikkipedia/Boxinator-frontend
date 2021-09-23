@@ -32,8 +32,11 @@ const UserHome = () => {
         sessionStorage.setItem('authentication', keycloak.token);
         sessionStorage.setItem('refreshToken', keycloak.refreshToken);
         sessionStorage.setItem('idToken', keycloak.idToken);
-        forceReload()
+        //forceReload()
     },[])
+    useEffect(()=>{
+        updateOrderByEmail(keycloak.tokenParsed.email)
+    })
     //Redirects the user if they lack and authenicatiion token or they are an admin
     useEffect(()=>{
         if ( sessionStorage.getItem("authentication") === undefined ) {
