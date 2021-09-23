@@ -24,7 +24,6 @@ const ShipmentModal = (props) => {
         getShipmentStatusHistoryByShipmentId(props.id)
             .then(data => {
                 setShipmentStatusHistory([data])
-                //console.log(shipmentStatusHistory)
             })
 
     }, [props.id])

@@ -6,9 +6,11 @@ const BASE_API_URL = "http://localhost:8080/api/"
 //Gets all users from API
 export const getAllUsers = async() => {
 	const response = await fetch(`${BASE_API_URL}users`,{
+		method: 'GET',
 		headers: {
-			//'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
-		}
+			'Accept':'*/*',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+		},
 	})
 	return response.json()
 }
@@ -18,6 +20,7 @@ export const postNewUser = (post) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
         body: JSON.stringify(post)
 	}
@@ -27,9 +30,12 @@ export const postNewUser = (post) => {
 //Get a user by their email
 export const getUserByEmail = (email) => {
 	return fetch(`${BASE_API_URL}users/getByEmail/${email}`,{
+		method: 'GET',
 		headers: {
+			'Accept':'*/*',
 			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		}
+	
 	})
 	.then(result => result.json())
 }
@@ -39,6 +45,7 @@ export const updateUser = (updatedUser) => {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
 		body: JSON.stringify(updatedUser)})
 	return response.json()
@@ -48,19 +55,40 @@ export const updateUser = (updatedUser) => {
 
 //Gets all orders registered to a specific user email
 export const getOrdersByUserEmail = (email) => {
-	return fetch(`${BASE_API_URL}orders/getByUserEmail/${email}`)
+	return fetch(`${BASE_API_URL}orders/getByUserEmail/${email}`,{
+		method: 'GET',
+		headers: {
+			'Accept':'*/*',
+			 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+		},
+	
+	})
 	.then(result => result.json())
 } 
 
 //Gets all orders registered to a specific user Id 
 export const getOrdersByUserId = (userId) => {
-    return fetch(`${BASE_API_URL}orders/getByUserId/${userId}`)
+    return fetch(`${BASE_API_URL}orders/getByUserId/${userId}`
+	,{
+		method: 'GET',
+		headers: {
+			'Accept':'*/*',
+			// 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+		},
+	})
 	.then(response => response.json())
 } 
 
 //Gets all orders stored in the API
 export const getAllOrders = async() => {
-	const response = await fetch(`${BASE_API_URL}orders`)
+	const response = await fetch(`${BASE_API_URL}orders`
+	,{
+		method: 'GET',
+		headers: {
+			'Accept':'*/*',
+			// 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+		},
+	})
 	return response.json()
 }
 //Updates an order with matching email
@@ -69,6 +97,7 @@ export const updateOrderByEmail = async(email) => {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
+			 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
 		body: JSON.stringify(email)})
 	return response.json()
@@ -80,6 +109,7 @@ export const createNewOrder = (newOrder) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			// 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
         body: JSON.stringify(newOrder)
 	})
@@ -92,6 +122,7 @@ export const sendOrderInformation = (orderInformation) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
         body: JSON.stringify(orderInformation)
 	})
@@ -105,6 +136,7 @@ export const getAllShipments = async() => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
 	})
 	return response.json()
@@ -116,6 +148,7 @@ export const getShipmentById = async (orderId) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 			
 			
 		},
@@ -129,6 +162,7 @@ export const createNewShipment = (newShipment) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
         body: JSON.stringify(newShipment)
 	})
@@ -142,6 +176,7 @@ export const postNewShipmentStatusHistory = (statusId, shipmentId) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
         body: JSON.stringify({
 			"timeStamp":  "value",
@@ -157,6 +192,7 @@ export const getShipmentStatusHistoryByShipmentId = async(id) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
 	})
 	return response.json()
@@ -168,6 +204,7 @@ export const updateShipment = async(updatedShipment) => {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
 		body: JSON.stringify(updatedShipment)})
 	return response.json()
@@ -179,6 +216,7 @@ export const updateShipmentStatus = async(id, status) => {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
 		body: JSON.stringify(status)})
 	return response.json()
@@ -194,6 +232,7 @@ export const updateCountryMultiplier = (updatedCountry) => {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
 		},
 		body: JSON.stringify(updatedCountry)
 	})
