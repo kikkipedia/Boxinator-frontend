@@ -17,23 +17,44 @@ const AdminHome = () => {
         sessionStorage.setItem('refreshToken', keycloak.refreshToken);
         sessionStorage.setItem('idToken', keycloak.idToken);
         setOrdersNew();
+
+        // getAllOrders()
+        // .then(data => {
+        //     setOrders(data)
+        // })
+        // console.log(orders)
+        // getAllShipments()
+        // .then(data => {
+        //     setShipments(data)
+        // })
         setShipmentsNew();
+        if (orders.length === 0) {
+            setOrdersNew();
+        }
+        if (shipments.length === 0) {
+            setShipmentsNew();
+        }
+        console.log(orders)
+        console.log(shipments)
+
     }, [])
     //Asynchronously retrieves all orders from the database, then sets their current state to be equivilent
     const setOrdersNew = async () => {
         const data = await getAllOrders();
+
         setOrders(data);
     }
     //Asynchronously retrieves all shipments from the database, then sets their current state to be equivilent
     const setShipmentsNew = async () => {
         const data = await getAllShipments();
+
         setShipments(data);
     }
     //Displays the Cards with the relevant information
     const displayCardStatus = () => {
         let cards = [];
-        shipments.sort((a, b) => a.id - b.id)
-        shipments && shipments.length > 0 && shipments.map((shipment) => {
+        // shipments.sort((a, b) => a.id - b.id)
+        (shipments && orders) && (shipments.length > 0 && orders.length > 0) && shipments.map((shipment) => {
             cards.push(
 
                 <div key={shipment.id}>
