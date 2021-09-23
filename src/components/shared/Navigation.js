@@ -1,7 +1,6 @@
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import ContextButton from './buttons/ContextButton'
 import HomeButton from './buttons/HomeButton'
-import ProfileButton from '../user/ProfileModal'
 
 const Navigation = () => {
 
@@ -12,7 +11,7 @@ const Navigation = () => {
                     <HomeButton/>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="m-auto">
+                        <Nav className="mr-auto">
                             <ContextButton/>
                         </Nav>                      
                     </Navbar.Collapse>
