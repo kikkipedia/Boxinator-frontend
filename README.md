@@ -13,13 +13,13 @@ This was a 4 weeks long project built by candidates at Experis Academy for the F
 ## Project Screen shots
 
 ### Landing component
-![image](/resources/Start.png)
+![image](/githubResources/Start.png)
 
 ### User component with orders and shipment status
-![image](/resources/UserHome.png)
+![image](/githubResourcess/UserHome.png)
 
 ### Modal for ordering a mystery box
-![image](/resources/UserOrderModal.png)
+![image](/githubResources/UserOrderModal.png)
 
 ## Installation and setup
 
