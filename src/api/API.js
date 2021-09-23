@@ -1,5 +1,5 @@
-// const BASE_API_URL = "http://localhost:8080/api/"
-const BASE_API_URL = "https://boxinator-server.herokuapp.com/api/"
+ //const BASE_API_URL = "http://localhost:8080/api/"
+ const BASE_API_URL = "https://boxinator-springboot-backend.herokuapp.com/api/"
 
 //USER
 
@@ -9,7 +9,8 @@ export const getAllUsers = async() => {
 		method: 'GET',
 		headers: {
 			'Accept':'*/*',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
 	})
 	return response.json()
@@ -20,7 +21,8 @@ export const postNewUser = (post) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
         body: JSON.stringify(post)
 	}
@@ -33,7 +35,8 @@ export const getUserByEmail = (email) => {
 		method: 'GET',
 		headers: {
 			'Accept':'*/*',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		}
 	
 	})
@@ -45,7 +48,8 @@ export const updateUser = (updatedUser) => {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
 		body: JSON.stringify(updatedUser)})
 	return response.json()
@@ -59,7 +63,8 @@ export const getOrdersByUserEmail = (email) => {
 		method: 'GET',
 		headers: {
 			'Accept':'*/*',
-			 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			 'mode':'cors'
 		},
 	
 	})
@@ -74,6 +79,7 @@ export const getOrdersByUserId = (userId) => {
 		headers: {
 			'Accept':'*/*',
 			// 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'mode':'cors'
 		},
 	})
 	.then(response => response.json())
@@ -87,6 +93,7 @@ export const getAllOrders = async() => {
 		headers: {
 			'Accept':'*/*',
 			// 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'mode':'cors'
 		},
 	})
 	return response.json()
@@ -97,7 +104,8 @@ export const updateOrderByEmail = async(email) => {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
-			 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			 'mode':'cors'
 		},
 		body: JSON.stringify(email)})
 	return response.json()
@@ -109,7 +117,8 @@ export const createNewOrder = (newOrder) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			// 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			// 'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
         body: JSON.stringify(newOrder)
 	})
@@ -122,7 +131,8 @@ export const sendOrderInformation = (orderInformation) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
         body: JSON.stringify(orderInformation)
 	})
@@ -136,7 +146,8 @@ export const getAllShipments = async() => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
 	})
 	return response.json()
@@ -148,7 +159,8 @@ export const getShipmentById = async (orderId) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 			
 			
 		},
@@ -162,7 +174,8 @@ export const createNewShipment = (newShipment) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
         body: JSON.stringify(newShipment)
 	})
@@ -176,7 +189,8 @@ export const postNewShipmentStatusHistory = (statusId, shipmentId) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
         body: JSON.stringify({
 			"timeStamp":  "value",
@@ -192,7 +206,8 @@ export const getShipmentStatusHistoryByShipmentId = async(id) => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
 	})
 	return response.json()
@@ -204,7 +219,8 @@ export const updateShipment = async(updatedShipment) => {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
 		body: JSON.stringify(updatedShipment)})
 	return response.json()
@@ -216,7 +232,8 @@ export const updateShipmentStatus = async(id, status) => {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
 		body: JSON.stringify(status)})
 	return response.json()
@@ -232,14 +249,23 @@ export const updateCountryMultiplier = (updatedCountry) => {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`
+			'Authorization': `Bearer ${sessionStorage.getItem('authentication')}`,
+			'mode':'cors'
 		},
 		body: JSON.stringify(updatedCountry)
 	})
 } 
 //Gets all the countries stored in the API
 export const getAllCountries = () => {	
-	return fetch(`${BASE_API_URL}countries`)
+	return fetch(`${BASE_API_URL}countries`,{
+		method: 'GET',
+		headers: {
+			'Accept':'*/*',
+			'mode':'cors',
+			'Access-Control-Allow-Origin' :'*'
+			
+		},
+	})
 	.then(result => result.json())
 }
 
@@ -247,7 +273,15 @@ export const getAllCountries = () => {
 
 //Gets all the package types stored in the API
 export const getPackageTypes = () => {
-	return fetch(`${BASE_API_URL}packages`)
+	return fetch(`${BASE_API_URL}packages`,{
+		method: 'GET',
+		headers: {
+			// 'Accept':'*/*',
+			'mode':'no-cors',
+			'Access-Control-Allow-Origin' :'Accept'
+			
+		},
+	})
 	.then(result => result.json())
 }
 
