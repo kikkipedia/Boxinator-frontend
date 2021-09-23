@@ -56,7 +56,7 @@ const AdminHome = () => {
 
     return (
         <Container>
-            <div>
+            <div className="adminHomeContainer">
                 <CountryModal />
                 <div className="adminHomeHeader">ALL SHIPMENTS</div>
                 {displayCardStatus()}

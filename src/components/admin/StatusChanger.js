@@ -16,7 +16,7 @@ const StatusChanger = (props) => {
 
 
     //Handles the changing of state caused when the user selects a status , the updates the status state in the database
-    const handleOnChange = async (event) => {
+    const handleOnChange = async(event) => {
 
         const confirm = window.confirm("Are you sure you want to update shipment status?")
         
