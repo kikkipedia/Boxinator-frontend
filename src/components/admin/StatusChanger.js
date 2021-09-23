@@ -36,13 +36,13 @@ const StatusChanger = (props) => {
 
             <Card.Body>
                 <div>
-                    <div className="adminCardOrderInfo">RECEIVER NAME: {props.receiverName}</div>
-                    <div className="adminCardOrderInfo">EMAIL: {props.email}</div>
-                    <div className="adminCardOrderInfo">TOTAL PRICE: {props.totalPrice} SEK</div>
-                    <div className="adminCardOrderInfo">PACKAGE TYPE: {parsePackage(props.packageType)}</div>
-                    <div className="adminCardOrderInfo">CURRENT STATUS: {parseStatus(status)}</div>
+                    <div className="adminCardOrderInfo"><span className="labelWord">RECEIVER NAME: </span>{props.receiverName}</div>
+                    <div className="adminCardOrderInfo"><span className="labelWord">EMAIL: </span>{props.email}</div>
+                    <div className="adminCardOrderInfo"><span className="labelWord">TOTAL PRICE: </span>{props.totalPrice} SEK</div>
+                    <div className="adminCardOrderInfo"><span className="labelWord">PACKAGE TYPE: </span>{parsePackage(props.packageType)}</div>
+                    <div className="adminCardOrderInfo"><span className="labelWord">CURRENT STATUS: </span>{parseStatus(status)}</div>
                     <div className="changeStatusContainer">
-                        <div>CHANGE STATUS</div>
+                        <div className="labelWord">CHANGE STATUS</div>
                         <select onChange={handleOnChange} className="changeStatusSelect" aria-label="Default select example">
                             <option className="orderStatusText" value="1">Created</option>
                             <option className="orderStatusText" value="2">Intransit</option>

@@ -17,7 +17,7 @@ const UserOrderModal = (props) => {
     const [order, setOrder] = useState({
         receiverName: '',
         orderPackage: { id: 0 },
-        color: '',
+        color: '#',
         totalPrice: 0,
         country: 0,
         user: {id: props.userId},
@@ -169,9 +169,9 @@ const UserOrderModal = (props) => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <p className="orderInput">Weight: {weight} KG</p>
-                        <p className="orderInput">Color: {order.color}</p>
-                        <p className="orderInput">Total price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
+                        <p className="orderInput"><span className="labelWord">Weight: </span>{weight} KG</p>
+                        <p className="orderInput"><span className="labelWord">Color: </span>{order.color}</p>
+                        <p className="orderInput"><span className="labelWord">Total price: </span>{!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">
                             <button type="submit" className="orderBtn" onClick={submitOrder}>ORDER</button>

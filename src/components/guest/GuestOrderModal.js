@@ -16,7 +16,7 @@ const GuestOrderModal = () => {
         email: "",
         receiverName: '',
         orderPackage: { id: 0 },
-        color: '',
+        color: '#',
         totalPrice: 0,
         country: { id: 0 }
     })
@@ -161,9 +161,9 @@ const GuestOrderModal = () => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <p className="orderInput">Weight: {weight} KG</p>
-                        <p className="orderInput">Color: {order.color}</p>
-                        <p className="orderInput">Total Price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
+                        <p className="orderInput"><span className="labelWord">Weight: </span>{weight} KG</p>
+                        <p className="orderInput"><span className="labelWord">Color: </span>{order.color}</p>
+                        <p className="orderInput"><span className="labelWord">Total Price: </span>{!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">
                             <button className="orderBtn" onClick={submitOrder}>ORDER</button>

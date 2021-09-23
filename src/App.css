@@ -383,9 +383,14 @@ body {
   border: none;
 }
 
+.labelWord {
+  font-weight: normal;
+  font-size: 15px;
+}
+
 .adminHomeHeader {
   font-size: 25px;
-  margin-top: 30px;
+  margin-top: 10px;
   margin-bottom: 30px;
   text-align: center;
   font-weight: lighter;
