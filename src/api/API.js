@@ -128,7 +128,7 @@ export const createNewShipment = (newShipment) => {
 
 //Posts a new shipmentStatus to the database
 export const postNewShipmentStatusHistory = (statusId, shipmentId) => {
-	const date = Number(new Date).valueOf();
+	const date = Number(new Date()).valueOf();
 	console.log("Timestamp from APi post " + date)
     return fetch(`${BASE_API_URL}shipmentstatushistory`, {
 		method: 'POST',

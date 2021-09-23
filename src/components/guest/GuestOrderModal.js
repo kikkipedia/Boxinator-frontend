@@ -54,7 +54,7 @@ const GuestOrderModal = () => {
                 setCountry(c)
             }
         }
-    }, [order.country.id])
+    }, [order.country.id, countries])
 
     //calculate price
     useEffect(() => {
@@ -74,6 +74,7 @@ const GuestOrderModal = () => {
         }
         setOrder({ ...order, totalPrice: total })
     }, [order.country.id])
+
     //Initializes the weight of each package type
     useEffect(() => {
         for (let item of packages) {
@@ -81,7 +82,8 @@ const GuestOrderModal = () => {
                 setWeight(item.weight);
             }
         }
-    }, [order.orderPackage.id])
+    }, [order.orderPackage.id, packages])
+    
     //Initializes the cost of a package based upon its weight and country multiplier
     useEffect(() => {
         if (weight > 0) {
@@ -128,8 +130,8 @@ const GuestOrderModal = () => {
                             <Form.Control className="orderInput" type="text" placeholder="Name of receiver..." onChange={e => setOrder({ ...order, receiverName: e.target.value })} />
                         </Form.Group>
                         <br />
-                        <Form.Select className="orderInput" aria-label="Select package..." onChange={e => setOrder({ ...order, orderPackage: { id: parseInt(e.target.value) } })}>
-                            <option defaultValue="" disabled selected>Select a package...</option>
+                        <Form.Select defaultValue="Select a package.." className="orderInput" aria-label="Select package..." onChange={e => setOrder({ ...order, orderPackage: { id: parseInt(e.target.value) } })}>
+                            
                             {
                                 packages && packages.map(pack => (
                                     <option className="orderInput" key={pack.id} value={pack.id}>{pack.name} - {pack.weight} KG</option>
@@ -150,8 +152,7 @@ const GuestOrderModal = () => {
                         </Form.Group>
                         <br />
                         <Form.Group>
-                            <Form.Select className="orderInput" onChange={e => setOrder({ ...order, country: { id: parseInt(e.target.value) } })}>
-                                <option defaultValue="" disabled selected>Select a country...</option>
+                            <Form.Select defaultValue="Select a country" className="orderInput" onChange={e => setOrder({ ...order, country: { id: parseInt(e.target.value) } })}>
                                 {
                                     countries.sort((a, b) => a.id - b.id),
                                     countries && countries.map(opt => (
@@ -161,8 +162,6 @@ const GuestOrderModal = () => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-                        <p className="orderInput">Weight: {weight} KG</p>
-                        <p className="orderInput">Color: {order.color}</p>
                         <p className="orderInput">Total Price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">
