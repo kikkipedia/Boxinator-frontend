@@ -1,5 +1,5 @@
-const BASE_API_URL = "http://localhost:8080/api/"
-//const BASE_API_URL = "https://boxinator-server.herokuapp.com/api/"
+// const BASE_API_URL = "http://localhost:8080/api/"
+const BASE_API_URL = "https://boxinator-server.herokuapp.com/api/"
 
 //USER
 
