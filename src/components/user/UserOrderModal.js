@@ -105,15 +105,19 @@ const UserOrderModal = (props) => {
     //Submits the new order to the database using a POST request
     const submitOrder = () => {
         try {
-            const information = {
-                to: order.email,
-                topic: "Order Information",
-                text: "Thank you for your order, your package will be shipped to you as soon as possible!" + "\n\n" + "Details about your order:" + "\n\n" + "Receiver name: " + order.receiverName + "\n" + "Package: " + orderPackage.name + " - " + orderPackage.weight + "KG" + "\n" + 
-                "Color: " + order.color + "\n" + "Country: " + country.name + "\n\n" + "Total Price: " + order.totalPrice + " SEK"
-                + "\n\n" + "Kind regards," + "\n" + "The Boxinator Team"
+            const confirm = window.confirm("Please, confirm your order!")
+
+            if (confirm) {
+                const information = {
+                    to: order.email,
+                    topic: "Order Information",
+                    text: "Thank you for your order, your package will be shipped to you as soon as possible!" + "\n\n" + "Details about your order:" + "\n\n" + "Receiver name: " + order.receiverName + "\n" + "Package: " + orderPackage.name + " - " + orderPackage.weight + "KG" + "\n" + 
+                    "Color: " + order.color + "\n" + "Country: " + country.name + "\n\n" + "Total Price: " + order.totalPrice + " SEK"
+                    + "\n\n" + "Kind regards," + "\n" + "The Boxinator Team"
+                }
+                sendOrderInformation(information)
+                createNewOrder(order)
             }
-            sendOrderInformation(information)
-            createNewOrder(order)
         }
         catch(error) {
             console.log(error)

@@ -21,7 +21,7 @@ const GuestOrderModal = () => {
         country: { id: 0 }
     })
 
-  //Handles whether or not the Modal is visible based upon a boolean
+    //Handles whether or not the Modal is visible based upon a boolean
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
@@ -41,16 +41,16 @@ const GuestOrderModal = () => {
     }, [])
 
     useEffect(() => {
-        for(let p of packages) {
-            if(p.id === order.orderPackage.id) {
+        for (let p of packages) {
+            if (p.id === order.orderPackage.id) {
                 setOrderPackage(p)
             }
         }
     }, [order.orderPackage.id])
 
     useEffect(() => {
-        for(let c of countries) {
-            if(c.id === order.country.id) {
+        for (let c of countries) {
+            if (c.id === order.country.id) {
                 setCountry(c)
             }
         }
@@ -83,7 +83,7 @@ const GuestOrderModal = () => {
             }
         }
     }, [order.orderPackage.id, packages])
-    
+
     //Initializes the cost of a package based upon its weight and country multiplier
     useEffect(() => {
         if (weight > 0) {
@@ -97,18 +97,23 @@ const GuestOrderModal = () => {
 
     const submitOrder = () => {
         try {
-            const information = {
-                to: order.email,
-                topic: "Order Information",
-                text: "Thank you for your order, your package will be shipped to you as soon as possible!" + "\n\n" + "Details about your order:" + "\n\n" + "Receiver name: " + order.receiverName + "\n" + "Package: " + orderPackage.name + " - " + orderPackage.weight + "KG" + "\n" + 
-                "Color: " + order.color + "\n" + "Country: " + country.name + "\n\n" + "Total Price: " + order.totalPrice + " SEK" + "\n\n" +
-                "Please register now to be able to follow and handle your order! Follow this link: " + "https://keycloak-boxinator.herokuapp.com/auth/realms/boxinator-app/protocol/openid-connect/auth?client_id=boxinator-frontend&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fguest&state=789d0b74-c840-43a6-8632-3f8aad95c44d&response_mode=fragment&response_type=code&scope=openid&nonce=7e41e3c7-955e-4eda-81d2-bea57da18e6b"  
-                + "\n\n" + "Kind regards," + "\n" + "The Boxinator Team"
+            const confirm = window.confirm("Please, confirm your order!")
+
+            if (confirm) {
+                const information = {
+                    to: order.email,
+                    topic: "Order Information",
+                    text: "Thank you for your order, your package will be shipped to you as soon as possible!" + "\n\n" + "Details about your order:" + "\n\n" + "Receiver name: " + order.receiverName + "\n" + "Package: " + orderPackage.name + " - " + orderPackage.weight + "KG" + "\n" +
+                        "Color: " + order.color + "\n" + "Country: " + country.name + "\n\n" + "Total Price: " + order.totalPrice + " SEK" + "\n\n" +
+                        "Please register now to be able to follow and handle your order! Follow this link: " + "https://keycloak-boxinator.herokuapp.com/auth/realms/boxinator-app/protocol/openid-connect/auth?client_id=boxinator-frontend&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fguest&state=789d0b74-c840-43a6-8632-3f8aad95c44d&response_mode=fragment&response_type=code&scope=openid&nonce=7e41e3c7-955e-4eda-81d2-bea57da18e6b"
+                        + "\n\n" + "Kind regards," + "\n" + "The Boxinator Team"
+                }
+                sendOrderInformation(information)
+                createNewOrder(order)
             }
-            sendOrderInformation(information)
-            createNewOrder(order)
+
         }
-        catch(error) {
+        catch (error) {
             console.log(error)
         }
     }
@@ -118,7 +123,7 @@ const GuestOrderModal = () => {
             <button className="guestNewOrderBtn" onClick={handleShow}>NEW ORDER</button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title style={{"fontWeight": "bold"}}>NEW ORDER</Modal.Title>
+                    <Modal.Title style={{ "fontWeight": "bold" }}>NEW ORDER</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form><Form.Group>
@@ -173,7 +178,7 @@ const GuestOrderModal = () => {
 
                     </Form>
                 </Modal.Body>
-                
+
             </Modal>
         </div>
     )

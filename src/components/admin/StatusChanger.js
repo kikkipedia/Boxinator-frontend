@@ -19,6 +19,7 @@ const StatusChanger = (props) => {
     const handleOnChange = async (event) => {
 
         const confirm = window.confirm("Are you sure you want to update shipment status?")
+        
         if (confirm) {
             setStatus(event.target.value)
             updateShipmentStatus(props.orderId, { id: event.target.value })
