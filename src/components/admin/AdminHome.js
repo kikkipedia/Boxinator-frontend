@@ -18,7 +18,7 @@ const AdminHome = () => {
         sessionStorage.setItem('idToken', keycloak.idToken);
         setOrdersNew();
         setShipmentsNew();
-    }, [keycloak.token, keycloak.refreshToken])
+    }, [])
     //Asynchronously retrieves all orders from the database, then sets their current state to be equivilent
     const setOrdersNew = async () => {
         const data = await getAllOrders();

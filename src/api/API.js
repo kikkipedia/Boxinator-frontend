@@ -242,6 +242,7 @@ export const updateShipmentStatus = async(id, status) => {
 
 //COUNTRY
 
+
 //Updates the multiplier of a specific country
 export const updateCountryMultiplier = (updatedCountry) => {
     return fetch(`${BASE_API_URL}countries`, {
@@ -277,7 +278,7 @@ export const getPackageTypes = () => {
 		headers: {
 			// 'Accept':'*/*',
 			'mode':'no-cors',
-			'Access-Control-Allow-Origin' :'Accept'
+			// 'Access-Control-Allow-Origin' :'Accept'
 			
 		},
 	})
