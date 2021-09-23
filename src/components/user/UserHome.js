@@ -13,23 +13,25 @@ const UserHome = () => {
     const [newUser, setNewUser] = useState({
         firstName: keycloak.tokenParsed.given_name,
         lastName: keycloak.tokenParsed.family_name,
-        address: keycloak.tokenParsed.address,
-        contactNumber: keycloak.tokenParsed.contactNumber,
-        dateOfBirth: keycloak.tokenParsed.dob,
-        email: keycloak.tokenParsed.preferred_username,
-        postalCode: keycloak.tokenParsed.postalCode,
-        country: keycloak.tokenParsed.countryOfResidence
+        address: keycloak.idTokenParsed.address,
+        contactNumber: keycloak.idTokenParsed.contactNumber,
+        dateOfBirth: keycloak.idTokenParsed.dob,
+        email: keycloak.tokenParsed.email,
+        postalCode: keycloak.idTokenParsed.postalCode,
+        country: keycloak.idTokenParsed.countryOfResidence
     })
     const [user, setUser] = useState([])
     const [users, setUsers] = useState([])
     const [userId, setUserId] = useState()
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const [shouldRedirectAdmin, setShouldRedirectAdmin] = useState(false)
+    //const [reloadCount, setReloadCount] = useState(0)
 
     //Saves the users authentication token to the session storage
     useEffect(()=>{
         sessionStorage.setItem('authentication', keycloak.token);
-        sessionStorage.setItem('refreshToken', keycloak.refreshToken)
+        sessionStorage.setItem('refreshToken', keycloak.refreshToken);
+        sessionStorage.setItem('idToken', keycloak.idToken);
         forceReload()
     },[])
     //Redirects the user if they lack and authenicatiion token or they are an admin
@@ -50,13 +52,15 @@ const UserHome = () => {
 
     //Force a reload in order to render data
     const forceReload = ()=> {
-        const reloadCount = sessionStorage.getItem('reloadCount');
+       const reloadCount = sessionStorage.getItem('reloadCount');
         if(reloadCount < 1) {
-
+           //setReloadCount(reloadCount + 1)
+           sessionStorage.setItem('reloadCount', String(reloadCount +1));
            updateOrderByEmail(keycloak.tokenParsed.email)
-          sessionStorage.setItem('reloadCount', String(reloadCount +1));
           window.location.reload();
-         } 
+         } else{
+            sessionStorage.removeItem('reloadCount')
+         }
       }
 
     //Fetch all users from the database and check the new user already exits, and if not posts them to the database

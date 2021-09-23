@@ -13,6 +13,7 @@ const GuestHome = () => {
   useEffect(() => {
     sessionStorage.setItem('authentication', keycloak.token);
     sessionStorage.setItem('refreshToken', keycloak.refreshToken);
+    sessionStorage.setItem('idToken', keycloak.idToken);
     if (sessionStorage.getItem("authentication") === keycloak.token) {
       setShouldRedirect(true);
     }
