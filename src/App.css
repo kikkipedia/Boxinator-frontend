@@ -232,10 +232,10 @@ body {
   top: 30%;
 }
 
-.profileModalLink {
+.profileModalContainer {
   position: absolute; 
   right: 23%;
-  top: 0.5%;
+  top: 1.5%;
 }
 
 .loadingImg {

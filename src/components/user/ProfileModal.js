@@ -47,7 +47,7 @@ const ProfileButton = (props) => {
     return (
         <div>
             <AuthorizedElement roles={['user']} >
-                <Nav.Link onClick={handleShow} className="profileModalLink" ><img className="profileImg" src="../resources/images/user.svg" alt="userIcon" /></Nav.Link>
+                <div onClick={handleShow} className="profileModalContainer"><img onClick={handleShow} className="profileImg" src="../resources/images/user.svg" alt="userIcon" /></div>
                 <Modal show={show} onHide={handleClose} className="userEditModal">
                     <Modal.Header closeButton>
                         <Modal.Title style={{ "fontWeight": "bold" }}>EDIT YOUR ACCOUNT</Modal.Title>
