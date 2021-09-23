@@ -15,8 +15,6 @@ const CountryModal = (props) => {
             .catch(error => {
                 console.log("Error fetching all data ", error)
             })
-
-
     }, [props.id])
 
     //Handles the changing data from the input menu
