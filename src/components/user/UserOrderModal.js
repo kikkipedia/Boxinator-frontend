@@ -135,8 +135,8 @@ const UserOrderModal = (props) => {
                             <Form.Control className="orderInput" type="text" placeholder="Name of receiver" onChange={e => setOrder({ ...order, receiverName: e.target.value })} />
                         </Form.Group>
                         <br />
-                        <Form.Select className="orderInput" aria-label="Select package..." onChange={e => setOrder({ ...order, orderPackage: {id: parseInt(e.target.value)} })}>
-                            <option defaultValue="" disabled selected>Select a package...</option>
+                        <Form.Select defaultValue="Select a package.." className="orderInput" aria-label="Select package..." onChange={e => setOrder({ ...order, orderPackage: {id: parseInt(e.target.value)} })}>
+                            
                             {
                                 packages && packages.map(pack => (
                                     <option className="orderInput" key={pack.id} value={pack.id}>{pack.name} - {pack.weight} KG</option>
@@ -158,8 +158,7 @@ const UserOrderModal = (props) => {
                         
                         <Form.Group>
                             <Form.Label></Form.Label>
-                            <Form.Select className="orderInput" onChange={e => setOrder({ ...order, country: {id: parseInt(e.target.value)} })}>
-                                <option  defaultValue="" disabled selected>Select a country...</option>
+                            <Form.Select defaultValue="Select a country..." className="orderInput" onChange={e => setOrder({ ...order, country: {id: parseInt(e.target.value)} })}>
                                 {
                                     countries.sort((a, b) => a.id - b.id),
                                     countries && countries.map(opt => (
