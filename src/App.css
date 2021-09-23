@@ -256,6 +256,10 @@ body {
   font-weight: lighter;
 }
 
+.adminHomeContainer {
+  padding-bottom: 60px;
+}
+
 .adminCardOrderId {
   font-weight: bold;
   margin-left: 6px;

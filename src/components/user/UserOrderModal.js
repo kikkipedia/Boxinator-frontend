@@ -163,7 +163,7 @@ const UserOrderModal = (props) => {
                         <Form.Group>
                             <Form.Label></Form.Label>
                             <Form.Select onChange={e => setOrder({ ...order, country: {id: parseInt(e.target.value)} })}>
-                                <option className="orderInput" disabled selected>Select a package...</option>
+                                <option className="orderInput" disabled selected>Select a country...</option>
                                 {
                                     countries.sort((a, b) => a.id - b.id),
                                     countries && countries.map(opt => (
