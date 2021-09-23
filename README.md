@@ -30,19 +30,20 @@ Then in the project directory, run `npm install`
 Run `npm start` in the project directory. This will the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+## General functionality
 
-**General functionality - Users**
+**User**
 - Users are authenticated via [Keycloak](https://www.keycloak.org/) using JWT tokens and redirected to User page
 - A new user is saved in database at first login after registration
 - Create a new order and see all orders with current shipment status
 - Cancel an order in transit
 - Edit profile
 
-**General functionality - Guest**
+**Guest**
 - Visitors that are not logged in can create an order aved to the database with an email address
 - Need to register for order to be shipped
 
-**General functionality - Admin**
+**Admin**
 - Administrators are authenticated via [Keycloak](https://www.keycloak.org/) using JWT tokens and redirected to Admin page
 - See all orders
 - Change shipment status
