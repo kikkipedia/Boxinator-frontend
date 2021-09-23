@@ -130,8 +130,8 @@ const GuestOrderModal = () => {
                             <Form.Control className="orderInput" type="text" placeholder="Name of receiver..." onChange={e => setOrder({ ...order, receiverName: e.target.value })} />
                         </Form.Group>
                         <br />
-                        <Form.Select defaultValue="Select a package.." className="orderInput" aria-label="Select package..." onChange={e => setOrder({ ...order, orderPackage: { id: parseInt(e.target.value) } })}>
-                            
+                        <Form.Select aria-label="Select package..." onChange={e => setOrder({ ...order, orderPackage: { id: parseInt(e.target.value) } })}>
+                            <option className="orderInput" disabled selected>Select a package...</option>
                             {
                                 packages && packages.map(pack => (
                                     <option className="orderInput" key={pack.id} value={pack.id}>{pack.name} - {pack.weight} KG</option>
@@ -152,7 +152,8 @@ const GuestOrderModal = () => {
                         </Form.Group>
                         <br />
                         <Form.Group>
-                            <Form.Select defaultValue="Select a country" className="orderInput" onChange={e => setOrder({ ...order, country: { id: parseInt(e.target.value) } })}>
+                            <Form.Select onChange={e => setOrder({ ...order, country: { id: parseInt(e.target.value) } })}>
+                                <option className="orderInput" disabled selected>Select a country...</option>
                                 {
                                     countries.sort((a, b) => a.id - b.id),
                                     countries && countries.map(opt => (
@@ -162,9 +163,9 @@ const GuestOrderModal = () => {
                             </Form.Select>
                         </Form.Group>
                         <br />
-
-                        <p className="orderInput">Total Price: {!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
-
+                        <p className="orderInput"><span className="labelWord">Weight: </span>{weight} KG</p>
+                        <p className="orderInput"><span className="labelWord">Color: </span>{order.color}</p>
+                        <p className="orderInput"><span className="labelWord">Total Price: </span>{!Number.isNaN(order.totalPrice) ? order.totalPrice : 0} SEK</p>
                         <br />
                         <div className="orderBtnContainer">
                             <button className="orderBtn" onClick={submitOrder}>ORDER</button>

@@ -8,12 +8,12 @@ const ContextButton = ({ keycloak }) => {
         <div>
            
             {keycloak && !keycloak.authenticated &&
-                <Nav.Link style={{"color": "white",  "cursor": "pointer", "fontSize": "18px", "fontWeight": "lighter"}} onClick={() => keycloak.login()}>SIGN IN</Nav.Link>
+                <Nav.Link style={{"color": "white", "position": "absolute", "top": "10%" ,"right": "7%" ,"cursor": "pointer", "fontSize": "20px", "fontWeight": "lighter"}} onClick={() => keycloak.login()}>SIGN IN</Nav.Link>
                
             }
 
             {keycloak && keycloak.authenticated &&
-                <Nav.Link style={{"color": "white", "cursor": "pointer", "fontSize": "18px", "fontWeight": "lighter"}}  onClick={() => keycloak.logout()}>LOG OUT</Nav.Link>   
+                <Nav.Link style={{"color": "white", "position": "absolute", "top": "10%" ,"right": "7%", "cursor": "pointer", "fontSize": "20px", "fontWeight": "lighter"}}  onClick={() => keycloak.logout()}>LOG OUT</Nav.Link>   
             }
 
         </div>
