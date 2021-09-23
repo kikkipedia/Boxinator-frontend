@@ -1,6 +1,6 @@
 //Parse the shipments status code from the API link received, then returns the string equivalent to that code
-const parseStatus = (stausAPILink) => {
-    const statusString = JSON.stringify(stausAPILink)
+const parseStatus = (statusAPILink) => {
+    const statusString = JSON.stringify(statusAPILink)
     if (statusString === undefined) {
         return 'EMPTY'
     } else if (statusString.charAt(statusString.length - 2) === 1) {
