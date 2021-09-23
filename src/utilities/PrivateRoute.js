@@ -24,7 +24,7 @@ export function PrivateRoute({ component: Component, roles, ...rest }) {
         render={props => {
             return isAutherized(roles)
                 ? <Component {...props} />
-                : <Redirect to={{ pathname: '/guest', }} />
+                : <Redirect to={{ pathname: '/', }} />
         }}
       />
     )
