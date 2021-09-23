@@ -32,19 +32,19 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## General functionality
 
-**User**
+**User login**
 - Users are authenticated via [Keycloak](https://www.keycloak.org/) using JWT tokens and redirected to User page
 - A new user is saved in database at first login after registration
 - Create a new order and see all orders with current shipment status
 - Cancel an order in transit
 - Edit profile
 
-**Guest**
-- Visitors that are not logged in can create an order aved to the database with an email address
-- Need to register for order to be shipped
-
-**Admin**
+**Admin login**
 - Administrators are authenticated via [Keycloak](https://www.keycloak.org/) using JWT tokens and redirected to Admin page
 - See all orders
 - Change shipment status
 - Change shipment price (aka price manipulator)
+
+**Guest visitor**
+- Visitors that are not logged in can create an order aved to the database with an email address
+- Need to register for order to be shipped
